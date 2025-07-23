@@ -260,7 +260,12 @@ Table of Contents
 5.2.  Short-Uri-Path registry
 
    IANA is requested to establish a new registry in the CoRE parameters
-   group.
+   group: Values of the first Short-Uri-Path option in a CoAP request
+   correspond to a URI path according to this registry.
+
+   The policy for adding any value is IETF Review (as described in
+   [RFC8126]).  Change control for the registry follows this document's
+   publication stream.
 
    Entry fields are:
 
@@ -332,6 +337,11 @@ Table of Contents
               ietf-core-href-23, 7 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               href-23>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/rfc/rfc8126>.
 
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments

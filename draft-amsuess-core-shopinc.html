@@ -1429,42 +1429,45 @@ the application protected by the checker may provide the checker with an allow-l
         <h3 id="name-short-uri-path-registry">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-short-uri-path-registry" class="section-name selfRef">Short-Uri-Path registry</a>
         </h3>
-<p id="section-5.2-1">IANA is requested to establish a new registry in the CoRE parameters group.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Entry fields are:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">IANA is requested to establish a new registry in the CoRE parameters group:
+Values of the first Short-Uri-Path option in a CoAP request correspond to a URI path according to this registry.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">The policy for adding any value is IETF Review (as described in <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).
+Change control for the registry follows this document's publication stream.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Entry fields are:<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-3.1">
-            <p id="section-5.2-3.1.1">First option value.<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
-<p id="section-5.2-3.1.2">
+<li class="normal" id="section-5.2-4.1">
+            <p id="section-5.2-4.1.1">First option value.<a href="#section-5.2-4.1.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-4.1.2">
 An arbitrary length byte sequence given in hexadecimal format;
-this value needs to be unique within this registry.<a href="#section-5.2-3.1.2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3.1.3">
-The most significant bit of the first byte can not be 1.<a href="#section-5.2-3.1.3" class="pilcrow">¶</a></p>
+this value needs to be unique within this registry.<a href="#section-5.2-4.1.2" class="pilcrow">¶</a></p>
+<p id="section-5.2-4.1.3">
+The most significant bit of the first byte can not be 1.<a href="#section-5.2-4.1.3" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-3.2">
-            <p id="section-5.2-3.2.1">Simple expanded path.<a href="#section-5.2-3.2.1" class="pilcrow">¶</a></p>
-<p id="section-5.2-3.2.2">
+          <li class="normal" id="section-5.2-4.2">
+            <p id="section-5.2-4.2.1">Simple expanded path.<a href="#section-5.2-4.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-4.2.2">
 This text is the URI path (starting with <code>/</code>) that the option,
 when present only once in a request,
-is expanded to.<a href="#section-5.2-3.2.2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3.2.3">
-This field may be empty if the document describes that the option needs to be repeated when using this first value.<a href="#section-5.2-3.2.3" class="pilcrow">¶</a></p>
+is expanded to.<a href="#section-5.2-4.2.2" class="pilcrow">¶</a></p>
+<p id="section-5.2-4.2.3">
+This field may be empty if the document describes that the option needs to be repeated when using this first value.<a href="#section-5.2-4.2.3" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-3.3">
-            <p id="section-5.2-3.3.1">Reference.<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
-<p id="section-5.2-3.3.2">
+          <li class="normal" id="section-5.2-4.3">
+            <p id="section-5.2-4.3.1">Reference.<a href="#section-5.2-4.3.1" class="pilcrow">¶</a></p>
+<p id="section-5.2-4.3.2">
 A document that requested the allocation,
 and describes whether the option may be repeated after this first value,
-and how later values are expanded<a href="#section-5.2-3.3.2" class="pilcrow">¶</a></p>
+and how later values are expanded<a href="#section-5.2-4.3.2" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-4">Reviewer instructions:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">The reviewer is instructed to be frugal with the 128 single-byte values,
-focusing on applications that are expected to be useful in different constrained ecossystems.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<p id="section-5.2-6">The expanded path (or paths) are expected to be well-known paths at the time of writing,
-but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2-7">If the registration foresees updates,
+<p id="section-5.2-5">Reviewer instructions:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">The reviewer is instructed to be frugal with the 128 single-byte values,
+focusing on applications that are expected to be useful in different constrained ecossystems.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">The expanded path (or paths) are expected to be well-known paths at the time of writing,
+but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.2-8">If the registration foresees updates,
 those should always just allow previously unacceptable values into new path segments,
-and not alter the semantics of previously valid expansions.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+and not alter the semantics of previously valid expansions.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
 <div id="initial-values">
 <section id="section-5.2.1">
           <h4 id="name-initial-values">
@@ -1520,6 +1523,10 @@ and not alter the semantics of previously valid expansions.<a href="#section-5.2
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-23</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8126">[RFC8126]</dt>
+        <dd>
+<span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8613">[RFC8613]</dt>
         <dd>
