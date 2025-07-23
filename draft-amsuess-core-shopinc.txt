@@ -70,20 +70,21 @@ Table of Contents
    1.  Introduction
      1.1.  Conventions and Definitions
    2.  The Short-Uri-Path option
-     2.1.  Repeated use
-     2.2.  Choice of the option number
-   3.  Initial options
-   4.  Further development
-   5.  Security Considerations
-   6.  Open questions
-   7.  IANA Considerations
-     7.1.  CoAP option: Short-Uri-Path
-     7.2.  Short-Uri-Path registry
-       7.2.1.  Initial values
-     7.3.  First option value | Simple expanded path | Reference
-   8.  References
-     8.1.  Normative References
-     8.2.  Informative References
+     2.1.  Interaction with other options
+     2.2.  Repeated use
+     2.3.  Choice of the option number
+   3.  Initial Short-Uri-Path values
+   4.  Security Considerations
+   5.  IANA Considerations
+     5.1.  CoAP option: Short-Uri-Path
+     5.2.  Short-Uri-Path registry
+       5.2.1.  Initial values
+     5.3.  First option value | Simple expanded path | Reference
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
+   Appendix A.  Further development
+   Appendix B.  Open questions
    Acknowledgments
    Author's Address
 
@@ -99,43 +100,111 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
+   This document assumes basic familiarity with CoAP ([RFC7252]), in
+   particular its Uri-* options.
+
 2.  The Short-Uri-Path option
 
    The Short-Uri-Path option expresses a request's URI path in a more
    compact form.
 
-   The Short-Uri-Path option is a critical and safe-to-forward option
-   for use in CoAP requests.  It uses an opaque value.  Its OSCORE
-   treatment is as Class E ([RFC8613]).  These properties deviate from
-   the Uri-Path for which it stands in in that this option is safe to
-   forward.  This has unfortunate consequences for the interactions with
-   the Proxy-URI option, but in the (wide-spread) absence of that
-   option, it is desirable for this option to traverse proxies
-   unhindered.
+   The Short-Uri-Path option represents a particular path, and is thus
+   equivalent to any number of Uri-Path options.  Those paths are
+   typically in a "/.well-known" location as described in [RFC8615].
+   The option values are coordinated by IANA in the Short-Uri-Path
+   registry established in this document.
 
-   The option is mutually exclusive with the Uri-Path option. receiving
-   both in a single request is to be treated like the presence of a
+   A client may use the option instead of the Uri-Host option if there
+   is a suitable value that can express the requested path.  Unless the
+   client can be assured that the server supports it (e.g. because the
+   specification describing the interaction mandates support for the
+   option in the server) it SHOULD fall back to sending the path
+   explicitly if it receives an error indicating that the option was not
+   understood (otherwise, it would have limited interoperability).
+
+   A server receiving the option with an unknown value MUST treat it as
+   an unprocessable critical option, returning 4.02 Bad Option and MUST
+   NOT return a 4.04 Not Found response, because the equivalent path may
+   be present on the server.  A server that supports a Short-Uri-Path
+   value MUST also support the equivalent request composed of Uri-Path
+   components.
+
+   +--------+---+---+---+---+----------------+--------+------+---------+
+   | No.    | C | U | N | R | Name           | Format | Len. | Default |
+   +--------+---+---+---+---+----------------+--------+------+---------+
+   | CPA13  | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
+   +--------+---+---+---+---+----------------+--------+------+---------+
+
+         C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable
+
+                  Figure 1: Short-Uri-Path Option Summary
+
+
+   // RFC-Editor: This document uses the CPA (code point allocation)
+   // convention described in [I-D.bormann-cbor-draft-numbers].  For
+   // each usage of the term "CPA", please remove the prefix "CPA" from
+   // the indicated value and replace the residue with the value
+   // assigned by IANA; perform an analogous substitution for all other
+   // occurrences of the prefix "CPA" in the document.  Finally, please
+   // remove this note.
+
+   The Short-Uri-Path option has an opaque value.  It is a critical and
+   safe-to-forward option that is part of the cache key, used in CoAP
+   requests.  Figure 1 summarizes these, extending Table 4 of
+   [RFC7252]).  Its OSCORE treatment is as Class E ([RFC8613]).
+
+   These properties only deviate from the Uri-Path (for which it stands
+   in) in that this option is safe to forward.  This has unfortunate
+   consequences for the interactions with the Proxy-URI option, but is
+   generally desirable: It allows the option to be used with proxies
+   that do not implement the option.
+
+   A proxy MAY expand or introduce a Short-Uri-Path when forwarding a
+   request, in particular for serving cached responses, as long as this
+   introduces no new errors to the client.
+
+2.1.  Interaction with other options
+
+   The option is mutually exclusive with the Uri-Path option.  Receiving
+   both options in a single request MUST treated like the presence of a
    critical request option that could not be processed (that option
    being either the Short-Uri-Path option or the conflicting option).
 
-   The Short-Uri-Path option SHOULD NOT be used in combination with the
-   the Proxy-Uri option or the Proxy-CRI option (of
-   [I-D.ietf-core-href]), but since a proxy unaware of this option might
-   compose other Uri-* options into or decompose them out of the Proxy-
-   CIR-like options, it is can occur together with them, provided those
-   options' path is empty.  In this case, the Short-Uri-Path splices
-   into the URI expressed in the other option.
+   The Short-Uri-Path option MUST NOT be used in combination with the
+   the Proxy-Uri option (or the similar Proxy-CRI option (of
+   [I-D.ietf-core-href])) by clients, and proxies that convert Uri-*
+   options into Proxy-Path MUST expand any Short-Uri-Path if they know
+   the value.  By the (de)composition rules of Proxy-Uri and Short-Uri-
+   Path being safe-to-forward, a proxy is allowed to combine the option
+   with Proxy-Uri (or Proxy-CRI) when it combines the Uri-* options.  In
+   such a combined message, the Uri-Path segments to which the Short-
+   Uri-Path corresponds are appended to the path as if all components
+   were present as individual options in the request without
+   conflicting.  Servers that support both Short-Uri-Path and Proxy-
+   URI/-CRI SHOULD process requests accordingly.  (This is not a strict
+   requirement, as there are no known implementations of proxies that
+   actually ).
 
-   Any value of the Short-Uri-Path option represents a particular path,
-   typically in the /.well-known/ hierarchy.  The values are managed in
-   the Short-Uri-Path registry established in this document.
+2.2.  Repeated use
 
-2.1.  Repeated use
+   If the document defining the registered value of the first Short-Uri-
+   Path option allows it, further Short-Uri-Path options may be added
+   after that.  Their value is not expanded through the Short-Uri-Path
+   IANA registry, but according to rules set up in that particular
+   registration.  To be implementable on a wide variety of platforms,
+   those rules should allow expansion into Uri-Path options in an
+   iterative way (i.e., any added Short-Uri-Path option corresponds only
+   to appended Uri-Path options, or cause a 4.02 Bad Option error).
 
-   TBD: Later values expand as specified in the concrete registered
-   item.
+   Expamples of rules are:
 
-2.2.  Choice of the option number
+   *  Options after the first are treated exactly like Uri-Path options.
+
+   *  There can be only one added Short-Uri-Path option, and its opaque
+      value is looked up in a table shaped like the Short-Uri-Path IANA
+      registry.
+
+2.3.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
    document who can thus learn how the option number namespaced is
@@ -149,7 +218,7 @@ Table of Contents
       property (expecially given that this option on its own has an
       extensible value range).
 
-3.  Initial options
+3.  Initial Short-Uri-Path values
 
    This document registers values for the following well-known URIs:
 
@@ -162,82 +231,33 @@ Table of Contents
    For none of these, the repeated use of the option is specified; note
    that both are commonly used with Uri-Query options.
 
-4.  Further development
+4.  Security Considerations
 
-   Several possible further directions are anticipated in this document,
-   but not specified at this point in time; they are left for further
-   documents:
+   Having alternative expressions for information that is input to
+   policy decisions can be problematic when the mechanism performing the
+   check has a different interpretation of the presented data than the
+   mechanism at time of use.  That concern is not new to this document:
+   Both the Proxy-Uri of [RFC7252] and the Proxy-Cri option of
+   [I-D.ietf-core-href] have the same properties in that regard.  The
+   appropriate behavior is for policy checkers to reject any request
+   that contains critical options that is not understood; the
+   application protected by the checker may provide the checker with an
+   allow-list of options that it will treat as unchecked input.
 
-   *  The mechanism of expanding one option into another option might be
-      expressed using the terminology of SCHC.
+5.  IANA Considerations
 
-      Such a generalization is not aimed for in this document; authors
-      of any future document providing such a framework are encouraged
-      to provide an equivalent but machine-readable explanation of the
-      mechanism specified here.
-
-   *  The registry for Short-Uri-Path values is set up such that first
-      values can not have the most significant bit of the first byte
-      set.
-
-      This allows future documents to reuse the option for any CBOR
-      expressions, e.g. the path component of a CRI
-      [I-D.ietf-core-href].  Note that those CBOR strucutres can only
-      use the major types 4 to 7 for the top-level item, but that
-      includes all containers (arrays, maps and tags).
-
-      Senders and recipients of this option do not need to concern
-      themselves with that extension mechanism unless they implement it:
-      As the first value is an opaque value compared to known registry
-      entries, any CBOR item contained in it will simply not match any
-      known value.  Should the working group decide not to use that
-      exension point, the registry's policy can be relaxed to also allow
-      values with that leading bit set.
-
-5.  Security Considerations
-
-   TODO Security
-
-6.  Open questions
-
-   *  Do we want to enable the use of Uri-Query with this option?
-
-      If so, we need option number 13, or put what the author regards as
-      unreasonable requirements on recipients.
-
-      In particular, the .well-known/core resource that is attractive
-      for compression is commonly used with Uri-Query options, and it
-      also works well for /.well-known/rd.
-
-      The alternative is to use a higher number (still 1+1 but less
-      precious), eg. 267.
-
-   *  This document might incentivise users to send more traffic through
-      /.well-known/ paths, rather than go through discovery.  It is up
-      to WG discussion to decide whether this is desirable; to not make
-      this document depend on that outcome, the registration policy is
-      currently "IETF Review", which is extremely strict and can be
-      relaxed in a later document if the WG decides so.
-
-   *  Do we want to add /.well-known/edhoc here, or rather fix it by
-      updating the EDHOC option to also work without an OSCOORE option?
-
-      (The author prefers the latter).
-
-7.  IANA Considerations
-
-7.1.  CoAP option: Short-Uri-Path
+5.1.  CoAP option: Short-Uri-Path
 
    IANA is requested to enter an one option into the CoAP Option Numbers
    registry in the CoRE Parameters group:
 
-   *  Number: TBD13
+   *  Number: CPA13
 
    *  Name: Short-Uri-Path
 
    *  Reference: this document
 
-7.2.  Short-Uri-Path registry
+5.2.  Short-Uri-Path registry
 
    IANA is requested to establish a new registry in the CoRE parameters
    group.
@@ -275,27 +295,36 @@ Table of Contents
    the time of writing, but it is up to the reviewers to exceptionally
    also admit paths that are not well-known.
 
-7.2.1.  Initial values
+   If the registration foresees updates, those should always just allow
+   previously unacceptable values into new path segments, and not alter
+   the semantics of previously valid expansions.
 
-7.3.  First option value | Simple expanded path | Reference
+5.2.1.  Initial values
 
-   (empty) | /.well-known/core | this document 00 | /.well-known/rd |
-   this document, [RFC9176]
+5.3.  First option value | Simple expanded path | Reference
 
-8.  References
+   (empty) | /.well-known/core | Section 3 of this document 00 | /.well-
+   known/rd | Section 3 of this document, and [RFC9176]
 
-8.1.  Normative References
+6.  References
+
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
+   [RFC7252]  Shelby, Z., Hartke, K., and C. Bormann, "The Constrained
+              Application Protocol (CoAP)", RFC 7252,
+              DOI 10.17487/RFC7252, June 2014,
+              <https://www.rfc-editor.org/rfc/rfc7252>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-8.2.  Informative References
+6.2.  Informative References
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
@@ -309,6 +338,15 @@ Table of Contents
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
               <https://www.rfc-editor.org/rfc/rfc8613>.
 
+   [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
+              (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
+              <https://www.rfc-editor.org/rfc/rfc8615>.
+
+   [RFC8790]  Keränen, A. and M. Mohajer, "FETCH and PATCH with Sensor
+              Measurement Lists (SenML)", RFC 8790,
+              DOI 10.17487/RFC8790, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8790>.
+
    [RFC9175]  Amsüss, C., Preuß Mattsson, J., and G. Selander,
               "Constrained Application Protocol (CoAP): Echo, Request-
               Tag, and Token Processing", RFC 9175,
@@ -319,6 +357,85 @@ Table of Contents
               P. van der Stok, "Constrained RESTful Environments (CoRE)
               Resource Directory", RFC 9176, DOI 10.17487/RFC9176, April
               2022, <https://www.rfc-editor.org/rfc/rfc9176>.
+
+Appendix A.  Further development
+
+   Several possible further directions are anticipated in this document,
+   but not specified at this point in time; they are left for further
+   documents:
+
+   *  The mechanism of expanding one option into another option might be
+      expressed using the terminology of SCHC.
+
+      Such a generalization is not aimed for in this document; authors
+      of any future document providing such a framework are encouraged
+      to provide an equivalent but machine-readable explanation of the
+      mechanism specified here.
+
+   *  The registry for Short-Uri-Path values is set up such that first
+      values can not have the most significant bit of the first byte
+      set.
+
+      This allows future documents to reuse the option for any CBOR
+      expressions, e.g. the path component of a CRI
+      [I-D.ietf-core-href].  Note that those CBOR strucutres can only
+      use the major types 4 to 7 for the top-level item, but that
+      includes all containers (arrays, maps and tags).
+
+      Senders and recipients of this option do not need to concern
+      themselves with that extension mechanism unless they implement it:
+      As the first value is an opaque value compared to known registry
+      entries, any CBOR item contained in it will simply not match any
+      known value.  Should the working group decide not to use that
+      exension point, the registry's policy can be relaxed to also allow
+      values with that leading bit set.
+
+   *  A future document may update this document to allow registering
+      values that are allowed to use together with Uri-Path values (but
+      at the time of writing, no examples are known by which such a
+      design could be properly vetted).  In particular, that update
+      weakens the "MUST" in Section 2.1.
+
+   *  This option is designed to stand in for the Uri-Path option alone,
+      not for any other option; this simplifies its interaction rules.
+
+      In particular, application authors who seek to express Uri-Query
+      options in a more concise or easier to process way are advised to
+      avail themselves of the FETCH method introduced in [RFC8790].
+
+Appendix B.  Open questions
+
+   This section will be gone by the time this document is published.
+
+   *  Do we want to enable the use of Uri-Query with this option?
+
+      If so, we need option number 13, or put what the author regards as
+      unreasonable requirements on recipients.
+
+      In particular, the .well-known/core resource that is attractive
+      for compression is commonly used with Uri-Query options, and it
+      also works well for /.well-known/rd.
+
+      The alternative is to use a higher number (still 1+1 but less
+      precious), eg. 267.
+
+   *  Is the transformation of separate options to Proxy-URI even
+      _legal_ for proxies?
+
+      If not, we can simplify the handling (and Uri-Path would _reall_
+      not have needed to be proxy-unsafe).
+
+   *  This document might incentivise users to send more traffic through
+      /.well-known/ paths, rather than go through discovery.  It is up
+      to WG discussion to decide whether this is desirable; to not make
+      this document depend on that outcome, the registration policy is
+      currently "IETF Review", which is extremely strict and can be
+      relaxed in a later document if the WG decides so.
+
+   *  Do we want to add /.well-known/edhoc here, or rather fix it by
+      updating the EDHOC option to also work without an OSCOORE option?
+
+      (The author prefers the latter).
 
 Acknowledgments
 
