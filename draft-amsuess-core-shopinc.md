@@ -35,7 +35,7 @@ informative:
 Applications built on CoAP face a conflict between the technical need for short message sizes
 and the interoperability requirement of following BCP190
 and thus registering (relatively verbose) well-known URI paths.
-This document intrduces an option that allows expressing well-known paths in as little as two bytes.
+This document introduces an option that allows expressing well-known paths in as little as two bytes.
 
 --- middle
 
@@ -117,7 +117,7 @@ The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request MUST treated like the presence of a critical request option that could not be processed
 (that option being either the Short-Uri-Path option or the conflicting option).
 
-The Short-Uri-Path option MUST NOT be used in combination with the the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients,
+The Short-Uri-Path option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients,
 and proxies that convert Uri-\* options into Proxy-Path MUST expand any Short-Uri-Path if they know the value.
 By the (de)composition rules of Proxy-Uri and Short-Uri-Path being safe-to-forward,
 a proxy is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
@@ -136,7 +136,7 @@ those rules should allow expansion into Uri-Path options in an iterative way
 (i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
 or cause a 4.02 Bad Option error).
 
-Expamples of rules are:
+Examples of rules are:
 
 * Options after the first are treated exactly like Uri-Path options.
 
@@ -146,7 +146,7 @@ Expamples of rules are:
 ## Choice of the option number
 
 TBD: Rephrase this to either be useful for readers of the final document
-who can thus learn how the option number namespaced is managed,
+who can thus learn how the option number namespace is managed,
 or remove before publication.
 
 > It's already 1+1 -- we generally do try to keep even the 1+1 high so
@@ -154,7 +154,7 @@ or remove before publication.
 > paired with OSCORE) can use the small delta. In this case, there's a
 > good reason (being ordered before Uri-Query) though, and I don't
 > expect that any other option would need this particular property
-> (expecially given that this option on its own has an extensible value
+> (especially given that this option on its own has an extensible value
 > range).
 
 # Initial Short-Uri-Path values {#initial}
@@ -223,7 +223,7 @@ Entry fields are:
 Reviewer instructions:
 
 The reviewer is instructed to be frugal with the 128 single-byte values,
-focusing on applications that are expected to be useful in different constrained ecossystems.
+focusing on applications that are expected to be useful in different constrained ecosystems.
 
 The expanded path (or paths) are expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
@@ -308,7 +308,7 @@ This section will be gone by the time this document is published.
   the registration policy is currently "IETF Review",
   which is extremely strict and can be relaxed in a later document if the WG decides so.
 
-* Do we want to add /.well-known/edhoc here, or rather fix it by updating the EDHOC option to also work without an OSCOORE option?
+* Do we want to add /.well-known/edhoc here, or rather fix it by updating the EDHOC option to also work without an OSCORE option?
 
   (The author prefers the latter).
 
