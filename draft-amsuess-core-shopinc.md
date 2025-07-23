@@ -117,7 +117,21 @@ Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process reque
 
 ## Repeated use
 
-TBD: Later values expand as specified in the concrete registered item.
+If the document defining the registered value of the first Short-Uri-Path option allows it,
+further Short-Uri-Path options may be added after that.
+Their value is not expanded through the Short-Uri-Path IANA registry,
+but according to rules set up in that particular registration.
+To be implementable on a wide variety of platforms,
+those rules should allow expansion into Uri-Path options in an iterative way
+(i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
+or cause a 4.02 Bad Option error).
+
+Expamples of rules are:
+
+* Options after the first are treated exactly like Uri-Path options.
+
+* There can be only one added Short-Uri-Path option,
+  and its opaque value is looked up in a table shaped like the Short-Uri-Path IANA registry.
 
 ## Choice of the option number
 
@@ -261,6 +275,10 @@ focusing on applications that are expected to be useful in different constrained
 
 The expanded path (or paths) are expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
+
+If the registration foresees updates,
+those should always just allow previously unacceptable values into new path segments,
+and not alter the semantics of previously valid expansions.
 
 ### Initial values
 
