@@ -1603,14 +1603,14 @@ are encouraged to provide an equivalent but machine-readable explanation of the 
 <p id="appendix-A-2.2.2">
 This allows future documents to reuse the option for any CBOR expressions,
 e.g. the path component of a CRI <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>.
-Note that those CBOR strucutres can only use the major types 4 to 7 for the top-level item,
+Note that those CBOR structures can only use the major types 4 to 7 for the top-level item,
 but that includes all containers (arrays, maps and tags).<a href="#appendix-A-2.2.2" class="pilcrow">¶</a></p>
 <p id="appendix-A-2.2.3">
 Senders and recipients of this option do not need to concern themselves with that extension mechanism
 unless they implement it:
 As the first value is an opaque value compared to known registry entries,
 any CBOR item contained in it will simply not match any known value.
-Should the working group decide not to use that exension point,
+Should the working group decide not to use that extension point,
 the registry's policy can be relaxed to also allow values with that leading bit set.<a href="#appendix-A-2.2.3" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-A-2.3">
@@ -1652,7 +1652,7 @@ The alternative is to use a higher number (still 1+1 but less precious), eg. 267
         <li class="normal" id="appendix-B-2.2">
           <p id="appendix-B-2.2.1">Is the transformation of separate options to Proxy-URI even <em>legal</em> for proxies?<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2.2.2">
-If not, we can simplify the handling (and Uri-Path would <em>reall</em> not have needed to be proxy-unsafe).<a href="#appendix-B-2.2.2" class="pilcrow">¶</a></p>
+If not, we can simplify the handling (and Uri-Path would <em>really</em> not have needed to be proxy-unsafe).<a href="#appendix-B-2.2.2" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.3">
           <p id="appendix-B-2.3.1">This document might incentivise users to send more traffic through /.well-known/ paths,
