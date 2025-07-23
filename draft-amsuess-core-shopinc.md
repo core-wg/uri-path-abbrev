@@ -254,14 +254,14 @@ they are left for further documents:
 
   This allows future documents to reuse the option for any CBOR expressions,
   e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
-  Note that those CBOR strucutres can only use the major types 4 to 7 for the top-level item,
+  Note that those CBOR structures can only use the major types 4 to 7 for the top-level item,
   but that includes all containers (arrays, maps and tags).
 
   Senders and recipients of this option do not need to concern themselves with that extension mechanism
   unless they implement it:
   As the first value is an opaque value compared to known registry entries,
   any CBOR item contained in it will simply not match any known value.
-  Should the working group decide not to use that exension point,
+  Should the working group decide not to use that extension point,
   the registry's policy can be relaxed to also allow values with that leading bit set.
 
 * A future document may update this document
@@ -293,7 +293,7 @@ This section will be gone by the time this document is published.
 
 * Is the transformation of separate options to Proxy-URI even *legal* for proxies?
 
-  If not, we can simplify the handling (and Uri-Path would *reall* not have needed to be proxy-unsafe).
+  If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
 
 * This document might incentivise users to send more traffic through /.well-known/ paths,
   rather than go through discovery.
