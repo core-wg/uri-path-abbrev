@@ -65,7 +65,7 @@ The option is mutually exclusive with the Uri-Path option.
 receiving both in a single request is to be treated like the presence of a critical request option that could not be processed
 (that option being either the Short-Uri-Path option or the conflicting option).
 
-The Short-Uri-Path option SHOULD NOT be used in combination with the the Proxy-Uri option or the Proxy-CRI option (of {{?ietf-core-href}}),
+The Short-Uri-Path option SHOULD NOT be used in combination with the the Proxy-Uri option or the Proxy-CRI option (of {{?I-D.ietf-core-href}}),
 but since a proxy unaware of this option might compose other Uri-\* options into or decompose them out of the Proxy-CIR-like options,
 it is can occur together with them, provided those options' path is empty.
 In this case, the Short-Uri-Path splices into the URI expressed in the other option.
@@ -120,7 +120,7 @@ they are left for further documents:
 * The registry for Short-Uri-Path values is set up such that first values can not have the most significant bit of the first byte set.
 
   This allows future documents to reuse the option for any CBOR expressions,
-  e.g. the path component of a CRI {{?ietf-core-href}}.
+  e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
   Note that those CBOR strucutres can only use the major types 4 to 7 for the top-level item,
   but that includes all containers (arrays, maps and tags).
 
