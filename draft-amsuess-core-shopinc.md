@@ -47,32 +47,73 @@ This document intrduces an option that allows expressing well-known paths in as 
 
 {::boilerplate bcp14-tagged}
 
+This document assumes basic familiarity with CoAP ({{!RFC7252}}),
+in particular its Uri-\* options.
+
 # The Short-Uri-Path option
 
 The Short-Uri-Path option expresses a request's URI path in a more compact form.
 
-The Short-Uri-Path option is a critical and safe-to-forward option
-for use in CoAP requests.
-It uses an opaque value.
+The Short-Uri-Path option represents a particular path,
+and is thus equivalent to any number of Uri-Path options.
+Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
+The option values are coordinated by IANA in the Short-Uri-Path registry established in this document.
+
+A client may use the option instead of the Uri-Host option if there is a suitable value that can express the requested path.
+Unless the client can be assured that the server supports it
+(e.g. because the specification describing the interaction mandates support for the option in the server)
+it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
+(otherwise, it would have limited interoperability).
+
+A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
+returning 4.02 Bad Option
+and MUST NOT return a 4.04 Not Found response,
+because the equivalent path may be present on the server.
+A server that supports a Short-Uri-Path value
+MUST also support the equivalent request composed of Uri-Path components.
+
+
+~~~~~~~~~~
++--------+---+---+---+---+----------------+--------+------+---------+
+| No.    | C | U | N | R | Name           | Format | Len. | Default |
++--------+---+---+---+---+----------------+--------+------+---------+
+| CPA13  | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
++--------+---+---+---+---+----------------+--------+------+---------+
+
+      C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable
+~~~~~~~~~~
+{: #option-table title="Short-Uri-Path Option Summary" artwork-align="center"}
+
+The Short-Uri-Path option
+has an opaque value.
+It is a critical and safe-to-forward option that is part of the cache key,
+used in CoAP requests.
+{{option-table}} summarizes these, extending Table 4 of {{RFC7252}}).
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
-These properties deviate from the Uri-Path for which it stands in
+
+These properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
-but in the (wide-spread) absence of that option,
-it is desirable for this option to traverse proxies unhindered.
+but is generally desirable:
+It allows the option to be used with proxies that do not implement the option.
+
+A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
+in particular for serving cached responses,
+as long as this introduces no new errors to the client.
+
+## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
-receiving both in a single request is to be treated like the presence of a critical request option that could not be processed
+Receiving both options in a single request MUST treated like the presence of a critical request option that could not be processed
 (that option being either the Short-Uri-Path option or the conflicting option).
 
-The Short-Uri-Path option SHOULD NOT be used in combination with the the Proxy-Uri option or the Proxy-CRI option (of {{?I-D.ietf-core-href}}),
-but since a proxy unaware of this option might compose other Uri-\* options into or decompose them out of the Proxy-CIR-like options,
-it is can occur together with them, provided those options' path is empty.
-In this case, the Short-Uri-Path splices into the URI expressed in the other option.
-
-Any value of the Short-Uri-Path option represents a particular path,
-typically in the /.well-known/ hierarchy.
-The values are managed in the Short-Uri-Path registry established in this document.
+The Short-Uri-Path option MUST NOT be used in combination with the the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients,
+and proxies that convert Uri-\* options into Proxy-Path MUST expand any Short-Uri-Path if they know the value.
+By the (de)composition rules of Proxy-Uri and Short-Uri-Path being safe-to-forward,
+a proxy is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
+In such a combined message, the Uri-Path segments to which the Short-Uri-Path corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
+Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process requests accordingly.
+(This is not a strict requirement, as there are no known implementations of proxies that actually ).
 
 ## Repeated use
 
@@ -92,7 +133,7 @@ or remove before publication.
 > (expecially given that this option on its own has an extensible value
 > range).
 
-# Initial options
+# Initial Short-Uri-Path values {#initial}
 
 This document registers values for the following well-known URIs:
 
@@ -131,6 +172,19 @@ they are left for further documents:
   Should the working group decide not to use that exension point,
   the registry's policy can be relaxed to also allow values with that leading bit set.
 
+* A future document may update this document
+  to allow registering values that are allowed to use together with Uri-Path values
+  (but at the time of writing, no examples are known by which such a design could be properly vetted).
+  In particular, that update weakens the "MUST" in {{interactions}}.
+
+* This option is designed to stand in for the Uri-Path option alone,
+  not for any other option;
+  this simplifies its interaction rules.
+
+  In particular,
+  application authors who seek to express Uri-Query options in a more concise or easier to process way
+  are advised to avail themselves of the FETCH method introduced in {{?RFC8790}}.
+
 # Security Considerations
 
 TODO Security
@@ -146,6 +200,10 @@ TODO Security
   and it also works well for /.well-known/rd.
 
   The alternative is to use a higher number (still 1+1 but less precious), eg. 267.
+
+* Is the transformation of separate options to Proxy-URI even *legal* for proxies?
+
+  If not, we can simplify the handling (and Uri-Path would *reall* not have needed to be proxy-unsafe).
 
 * This document might incentivise users to send more traffic through /.well-known/ paths,
   rather than go through discovery.
@@ -208,8 +266,10 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 First option value | Simple expanded path | Reference
 -----------------------------------------------------
-(empty)            | /.well-known/core    | this document
-00                 | /.well-known/rd      | this document, {{?RFC9176}}
+(empty)            | /.well-known/core    | {{initial}} of this document
+00                 | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}
+
+<!-- We could also say in prose to take them from there and have the bytes there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
 --- back
 
