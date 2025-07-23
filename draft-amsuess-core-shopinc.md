@@ -73,16 +73,10 @@ A server that supports a Short-Uri-Path value
 MUST also support the equivalent request composed of Uri-Path components.
 
 
-~~~~~~~~~~
-+--------+---+---+---+---+----------------+--------+------+---------+
 | No.    | C | U | N | R | Name           | Format | Len. | Default |
-+--------+---+---+---+---+----------------+--------+------+---------+
+|--------+---+---+---+---+----------------+--------+------+---------|
 | CPA13  | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
-+--------+---+---+---+---+----------------+--------+------+---------+
-
-      C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable
-~~~~~~~~~~
-{: #option-table title="Short-Uri-Path Option Summary" artwork-align="center"}
+{:#option-table title="Short-Uri-Path Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)"}
 
 [^cpa]
 
@@ -195,6 +189,7 @@ Values of the first Short-Uri-Path option in a CoAP request correspond to a URI 
 
 The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
 Change control for the registry follows this document's publication stream.
+Initial values are given in {{initial-table}}.
 
 Entry fields are:
 
@@ -232,12 +227,11 @@ If the registration foresees updates,
 those should always just allow previously unacceptable values into new path segments,
 and not alter the semantics of previously valid expansions.
 
-### Initial values
-
-First option value | Simple expanded path | Reference
------------------------------------------------------
-(empty)            | /.well-known/core    | {{initial}} of this document
-00                 | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}
+| First option value | Simple expanded path | Reference |
+|--------------------+----------------------+-----------|
+| (empty)            | /.well-known/core    | {{initial}} of this document                         |
+| 00                 | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
+{:#initial-table title="Initial values for the Short-Uri-Path registry"}
 
 <!-- We could also say in prose to take them from there and have the bytes there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
