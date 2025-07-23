@@ -190,7 +190,11 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 
 ## Short-Uri-Path registry
 
-IANA is requested to establish a new registry in the CoRE parameters group.
+IANA is requested to establish a new registry in the CoRE parameters group:
+Values of the first Short-Uri-Path option in a CoAP request correspond to a URI path according to this registry.
+
+The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
+Change control for the registry follows this document's publication stream.
 
 Entry fields are:
 
