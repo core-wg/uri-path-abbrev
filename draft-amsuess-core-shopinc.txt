@@ -16,7 +16,7 @@ Abstract
    Applications built on CoAP face a conflict between the technical need
    for short message sizes and the interoperability requirement of
    following BCP190 and thus registering (relatively verbose) well-known
-   URI paths.  This document intrduces an option that allows expressing
+   URI paths.  This document introduces an option that allows expressing
    well-known paths in as little as two bytes.
 
 About This Document
@@ -171,7 +171,7 @@ Table of Contents
    being either the Short-Uri-Path option or the conflicting option).
 
    The Short-Uri-Path option MUST NOT be used in combination with the
-   the Proxy-Uri option (or the similar Proxy-CRI option (of
+   Proxy-Uri option (or the similar Proxy-CRI option (of
    [I-D.ietf-core-href])) by clients, and proxies that convert Uri-*
    options into Proxy-Path MUST expand any Short-Uri-Path if they know
    the value.  By the (de)composition rules of Proxy-Uri and Short-Uri-
@@ -196,7 +196,7 @@ Table of Contents
    iterative way (i.e., any added Short-Uri-Path option corresponds only
    to appended Uri-Path options, or cause a 4.02 Bad Option error).
 
-   Expamples of rules are:
+   Examples of rules are:
 
    *  Options after the first are treated exactly like Uri-Path options.
 
@@ -207,7 +207,7 @@ Table of Contents
 2.3.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
-   document who can thus learn how the option number namespaced is
+   document who can thus learn how the option number namespace is
    managed, or remove before publication.
 
       It's already 1+1 -- we generally do try to keep even the 1+1 high
@@ -215,7 +215,7 @@ Table of Contents
       EDHOC paired with OSCORE) can use the small delta.  In this case,
       there's a good reason (being ordered before Uri-Query) though, and
       I don't expect that any other option would need this particular
-      property (expecially given that this option on its own has an
+      property (especially given that this option on its own has an
       extensible value range).
 
 3.  Initial Short-Uri-Path values
@@ -294,7 +294,7 @@ Table of Contents
 
    The reviewer is instructed to be frugal with the 128 single-byte
    values, focusing on applications that are expected to be useful in
-   different constrained ecossystems.
+   different constrained ecosystems.
 
    The expanded path (or paths) are expected to be well-known paths at
    the time of writing, but it is up to the reviewers to exceptionally
@@ -443,7 +443,7 @@ Appendix B.  Open questions
       relaxed in a later document if the WG decides so.
 
    *  Do we want to add /.well-known/edhoc here, or rather fix it by
-      updating the EDHOC option to also work without an OSCOORE option?
+      updating the EDHOC option to also work without an OSCORE option?
 
       (The author prefers the latter).
 
