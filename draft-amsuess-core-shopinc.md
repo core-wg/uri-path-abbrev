@@ -161,7 +161,12 @@ note that both are commonly used with Uri-Query options.
 
 # Security Considerations
 
-TODO Security
+Having alternative expressions for information that is input to policy decisions
+can be problematic when the mechanism performing the check has a different interpretation of the presented data than the mechanism at time of use.
+That concern is not new to this document:
+Both the Proxy-Uri of {{RFC7252}} and the Proxy-Cri option of {{I-D.ietf-core-href}} have the same properties in that regard.
+The appropriate behavior is for policy checkers to reject any request that contains critical options that is not understood;
+the application protected by the checker may provide the checker with an allow-list of options that it will treat as unchecked input.
 
 # IANA Considerations
 
