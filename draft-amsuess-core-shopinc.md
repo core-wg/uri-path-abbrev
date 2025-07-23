@@ -87,7 +87,7 @@ MUST also support the equivalent request composed of Uri-Path components.
 [^cpa]
 
 [^cpa]: RFC-Editor: This document uses the CPA (code point allocation)
-      convention described in [I-D.bormann-cbor-draft-numbers].  For
+      convention described in {{?I-D.bormann-cbor-draft-numbers}}.  For
       each usage of the term "CPA", please remove the prefix "CPA"
       from the indicated value and replace the residue with the value
       assigned by IANA; perform an analogous substitution for all other
