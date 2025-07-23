@@ -78,8 +78,6 @@ Table of Contents
    5.  IANA Considerations
      5.1.  CoAP option: Short-Uri-Path
      5.2.  Short-Uri-Path registry
-       5.2.1.  Initial values
-     5.3.  First option value | Simple expanded path | Reference
    6.  References
      6.1.  Normative References
      6.2.  Informative References
@@ -129,15 +127,14 @@ Table of Contents
    value MUST also support the equivalent request composed of Uri-Path
    components.
 
-   +--------+---+---+---+---+----------------+--------+------+---------+
-   | No.    | C | U | N | R | Name           | Format | Len. | Default |
-   +--------+---+---+---+---+----------------+--------+------+---------+
-   | CPA13  | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
-   +--------+---+---+---+---+----------------+--------+------+---------+
+   +=======+===+===+===+===+================+========+======+=========+
+   | No.   | C | U | N | R | Name           | Format | Len. | Default |
+   +=======+===+===+===+===+================+========+======+=========+
+   | CPA13 | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
+   +-------+---+---+---+---+----------------+--------+------+---------+
 
-         C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable
-
-                  Figure 1: Short-Uri-Path Option Summary
+        Table 1: Short-Uri-Path Option Summary (C = Critical, U =
+                 Unsafe, N = NoCacheKey, R = Repeatable)
 
 
    // RFC-Editor: This document uses the CPA (code point allocation)
@@ -150,8 +147,8 @@ Table of Contents
 
    The Short-Uri-Path option has an opaque value.  It is a critical and
    safe-to-forward option that is part of the cache key, used in CoAP
-   requests.  Figure 1 summarizes these, extending Table 4 of
-   [RFC7252]).  Its OSCORE treatment is as Class E ([RFC8613]).
+   requests.  Table 1 summarizes these, extending Table 4 of [RFC7252]).
+   Its OSCORE treatment is as Class E ([RFC8613]).
 
    These properties only deviate from the Uri-Path (for which it stands
    in) in that this option is safe to forward.  This has unfortunate
@@ -265,7 +262,7 @@ Table of Contents
 
    The policy for adding any value is IETF Review (as described in
    [RFC8126]).  Change control for the registry follows this document's
-   publication stream.
+   publication stream.  Initial values are given in Table 2.
 
    Entry fields are:
 
@@ -304,12 +301,18 @@ Table of Contents
    previously unacceptable values into new path segments, and not alter
    the semantics of previously valid expansions.
 
-5.2.1.  Initial values
+     +====================+===============+=========================+
+     | First option value | Simple        | Reference               |
+     |                    | expanded path |                         |
+     +====================+===============+=========================+
+     | (empty)            | /.well-known/ | Section 3 of this       |
+     |                    | core          | document                |
+     +--------------------+---------------+-------------------------+
+     | 00                 | /.well-known/ | Section 3 of this       |
+     |                    | rd            | document, and [RFC9176] |
+     +--------------------+---------------+-------------------------+
 
-5.3.  First option value | Simple expanded path | Reference
-
-   (empty) | /.well-known/core | Section 3 of this document 00 | /.well-
-   known/rd | Section 3 of this document, and [RFC9176]
+         Table 2: Initial values for the Short-Uri-Path registry
 
 6.  References
 
@@ -330,6 +333,13 @@ Table of Contents
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 6.2.  Informative References
+
+   [I-D.bormann-cbor-draft-numbers]
+              Bormann, C., "Managing CBOR codepoints in Internet-
+              Drafts", Work in Progress, Internet-Draft, draft-bormann-
+              cbor-draft-numbers-06, 7 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-bormann-cbor-
+              draft-numbers-06>.
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
