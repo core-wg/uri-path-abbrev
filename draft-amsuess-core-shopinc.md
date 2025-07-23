@@ -84,6 +84,16 @@ MUST also support the equivalent request composed of Uri-Path components.
 ~~~~~~~~~~
 {: #option-table title="Short-Uri-Path Option Summary" artwork-align="center"}
 
+[^cpa]
+
+[^cpa]: RFC-Editor: This document uses the CPA (code point allocation)
+      convention described in [I-D.bormann-cbor-draft-numbers].  For
+      each usage of the term "CPA", please remove the prefix "CPA"
+      from the indicated value and replace the residue with the value
+      assigned by IANA; perform an analogous substitution for all other
+      occurrences of the prefix "CPA" in the document.  Finally,
+      please remove this note.
+
 The Short-Uri-Path option
 has an opaque value.
 It is a critical and safe-to-forward option that is part of the cache key,
@@ -174,7 +184,7 @@ the application protected by the checker may provide the checker with an allow-l
 
 IANA is requested to enter an one option into the CoAP Option Numbers registry in the CoRE Parameters group:
 
-* Number: TBD13
+* Number: CPA13
 * Name: Short-Uri-Path
 * Reference: this document
 
