@@ -159,76 +159,9 @@ TBD: Ask BRSKI for a description
 For none of these, the repeated use of the option is specified;
 note that both are commonly used with Uri-Query options.
 
-# Further development
-
-Several possible further directions are anticipated in this document,
-but not specified at this point in time;
-they are left for further documents:
-
-* The mechanism of expanding one option into another option
-  might be expressed using the terminology of SCHC.
-
-  Such a generalization is not aimed for in this document;
-  authors of any future document providing such a framework
-  are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.
-
-* The registry for Short-Uri-Path values is set up such that first values can not have the most significant bit of the first byte set.
-
-  This allows future documents to reuse the option for any CBOR expressions,
-  e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
-  Note that those CBOR strucutres can only use the major types 4 to 7 for the top-level item,
-  but that includes all containers (arrays, maps and tags).
-
-  Senders and recipients of this option do not need to concern themselves with that extension mechanism
-  unless they implement it:
-  As the first value is an opaque value compared to known registry entries,
-  any CBOR item contained in it will simply not match any known value.
-  Should the working group decide not to use that exension point,
-  the registry's policy can be relaxed to also allow values with that leading bit set.
-
-* A future document may update this document
-  to allow registering values that are allowed to use together with Uri-Path values
-  (but at the time of writing, no examples are known by which such a design could be properly vetted).
-  In particular, that update weakens the "MUST" in {{interactions}}.
-
-* This option is designed to stand in for the Uri-Path option alone,
-  not for any other option;
-  this simplifies its interaction rules.
-
-  In particular,
-  application authors who seek to express Uri-Query options in a more concise or easier to process way
-  are advised to avail themselves of the FETCH method introduced in {{?RFC8790}}.
-
 # Security Considerations
 
 TODO Security
-
-# Open questions
-
-* Do we want to enable the use of Uri-Query with this option?
-
-  If so, we need option number 13,
-  or put what the author regards as unreasonable requirements on recipients.
-
-  In particular, the .well-known/core resource that is attractive for compression is commonly used with Uri-Query options,
-  and it also works well for /.well-known/rd.
-
-  The alternative is to use a higher number (still 1+1 but less precious), eg. 267.
-
-* Is the transformation of separate options to Proxy-URI even *legal* for proxies?
-
-  If not, we can simplify the handling (and Uri-Path would *reall* not have needed to be proxy-unsafe).
-
-* This document might incentivise users to send more traffic through /.well-known/ paths,
-  rather than go through discovery.
-  It is up to WG discussion to decide whether this is desirable;
-  to not make this document depend on that outcome,
-  the registration policy is currently "IETF Review",
-  which is extremely strict and can be relaxed in a later document if the WG decides so.
-
-* Do we want to add /.well-known/edhoc here, or rather fix it by updating the EDHOC option to also work without an OSCOORE option?
-
-  (The author prefers the latter).
 
 # IANA Considerations
 
@@ -290,6 +223,75 @@ First option value | Simple expanded path | Reference
 <!-- We could also say in prose to take them from there and have the bytes there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
 --- back
+
+# Further development
+
+Several possible further directions are anticipated in this document,
+but not specified at this point in time;
+they are left for further documents:
+
+* The mechanism of expanding one option into another option
+  might be expressed using the terminology of SCHC.
+
+  Such a generalization is not aimed for in this document;
+  authors of any future document providing such a framework
+  are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.
+
+* The registry for Short-Uri-Path values is set up such that first values can not have the most significant bit of the first byte set.
+
+  This allows future documents to reuse the option for any CBOR expressions,
+  e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
+  Note that those CBOR strucutres can only use the major types 4 to 7 for the top-level item,
+  but that includes all containers (arrays, maps and tags).
+
+  Senders and recipients of this option do not need to concern themselves with that extension mechanism
+  unless they implement it:
+  As the first value is an opaque value compared to known registry entries,
+  any CBOR item contained in it will simply not match any known value.
+  Should the working group decide not to use that exension point,
+  the registry's policy can be relaxed to also allow values with that leading bit set.
+
+* A future document may update this document
+  to allow registering values that are allowed to use together with Uri-Path values
+  (but at the time of writing, no examples are known by which such a design could be properly vetted).
+  In particular, that update weakens the "MUST" in {{interactions}}.
+
+* This option is designed to stand in for the Uri-Path option alone,
+  not for any other option;
+  this simplifies its interaction rules.
+
+  In particular,
+  application authors who seek to express Uri-Query options in a more concise or easier to process way
+  are advised to avail themselves of the FETCH method introduced in {{?RFC8790}}.
+
+# Open questions
+
+This section will be gone by the time this document is published.
+
+* Do we want to enable the use of Uri-Query with this option?
+
+  If so, we need option number 13,
+  or put what the author regards as unreasonable requirements on recipients.
+
+  In particular, the .well-known/core resource that is attractive for compression is commonly used with Uri-Query options,
+  and it also works well for /.well-known/rd.
+
+  The alternative is to use a higher number (still 1+1 but less precious), eg. 267.
+
+* Is the transformation of separate options to Proxy-URI even *legal* for proxies?
+
+  If not, we can simplify the handling (and Uri-Path would *reall* not have needed to be proxy-unsafe).
+
+* This document might incentivise users to send more traffic through /.well-known/ paths,
+  rather than go through discovery.
+  It is up to WG discussion to decide whether this is desirable;
+  to not make this document depend on that outcome,
+  the registration policy is currently "IETF Review",
+  which is extremely strict and can be relaxed in a later document if the WG decides so.
+
+* Do we want to add /.well-known/edhoc here, or rather fix it by updating the EDHOC option to also work without an OSCOORE option?
+
+  (The author prefers the latter).
 
 # Acknowledgments
 {:numbered="false"}
