@@ -3,9 +3,9 @@
 
 
 CoRE                                                           C. Amsüss
-Internet-Draft                                              23 July 2025
+Internet-Draft                                              24 July 2025
 Intended status: Informational                                          
-Expires: 24 January 2026
+Expires: 25 January 2026
 
 
                           Short Paths in CoAP
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 January 2026.
+   This Internet-Draft will expire on 25 January 2026.
 
 Copyright Notice
 
@@ -112,7 +112,7 @@ Table of Contents
    The option values are coordinated by IANA in the Short-Uri-Path
    registry established in this document.
 
-   A client may use the option instead of the Uri-Host option if there
+   A client may use the option instead of the Uri-Path option if there
    is a suitable value that can express the requested path.  Unless the
    client can be assured that the server supports it (e.g. because the
    specification describing the interaction mandates support for the
