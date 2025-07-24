@@ -59,7 +59,7 @@ and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
 The option values are coordinated by IANA in the Short-Uri-Path registry established in this document.
 
-A client may use the option instead of the Uri-Host option if there is a suitable value that can express the requested path.
+A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
 (e.g. because the specification describing the interaction mandates support for the option in the server)
 it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
