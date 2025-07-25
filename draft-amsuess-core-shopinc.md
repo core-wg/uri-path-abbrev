@@ -73,9 +73,9 @@ A server that supports a Short-Uri-Path value
 MUST also support the equivalent request composed of Uri-Path components.
 
 
-| No.    | C | U | N | R | Name           | Format | Len. | Default |
-|--------+---+---+---+---+----------------+--------+------+---------|
-| CPA13  | x |   |   | x | Short-Uri-Path | opaque | any  | (none)  |
+| No.    | C | U | N | R | Name           | Format        | Len. | Default |
+|--------+---+---+---+---+----------------+---------------+------+---------|
+| CPA13  | x |   |   | x | Short-Uri-Path | uint / opaque | any  | (none)  |
 {:#option-table title="Short-Uri-Path Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)"}
 
 [^cpa]
@@ -89,13 +89,15 @@ MUST also support the equivalent request composed of Uri-Path components.
       please remove this note.
 
 The Short-Uri-Path option
-has an opaque value.
+has an integer value in its first occurrence;
+the type of later occurrences differs depending on the first.
 It is a critical and safe-to-forward option that is part of the cache key,
 used in CoAP requests.
 {{option-table}} summarizes these, extending Table 4 of {{RFC7252}}).
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
-These properties only deviate from the Uri-Path (for which it stands in)
+Apart from the format,
+these properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
@@ -196,11 +198,15 @@ Entry fields are:
 
 * First option value.
 
-  An arbitrary length byte sequence given in hexadecimal format;
-  this value needs to be unique within this registry.
+  An non-negative integer that can be expressed in 32 bits,
+  unique within this registry.
 
-  The most significant bit of the first byte can not be 1.
-  <!-- And the sequence may be empty, but that is a value we already register, do we really have to spell that out? -->
+  All positive values whose most significant bit of the most significant byte is 1
+  are reserved.
+
+  The Python invocation
+  `python3 -c 'print("reserved" if (250).bit_length() % 8 == 0 else "unreserved")'`
+  can be used to quickly test this property for any positive number (250 in this example).
 
 * Simple expanded path.
 
@@ -218,7 +224,7 @@ Entry fields are:
 
 Reviewer instructions:
 
-The reviewer is instructed to be frugal with the 128 single-byte values,
+The reviewer is instructed to be frugal with the 128 values that correspond to a single-vbyte value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
 The expanded path (or paths) are expected to be well-known paths at the time of writing,
@@ -230,11 +236,11 @@ and not alter the semantics of previously valid expansions.
 
 | First option value | Simple expanded path | Reference |
 |--------------------+----------------------+-----------|
-| (empty)            | /.well-known/core    | {{initial}} of this document                         |
-| 00                 | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
+| 0                  | /.well-known/core    | {{initial}} of this document                         |
+| 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
 {:#initial-table title="Initial values for the Short-Uri-Path registry"}
 
-<!-- We could also say in prose to take them from there and have the bytes there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
+<!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
 --- back
 
@@ -260,7 +266,7 @@ they are left for further documents:
 
   Senders and recipients of this option do not need to concern themselves with that extension mechanism
   unless they implement it:
-  As the first value is an opaque value compared to known registry entries,
+  As the first value is compared to known registry entries,
   any CBOR item contained in it will simply not match any known value.
   Should the working group decide not to use that extension point,
   the registry's policy can be relaxed to also allow values with that leading bit set.
@@ -311,3 +317,4 @@ This section will be gone by the time this document is published.
 {:numbered="false"}
 
 This document was created out of discussion with Esko Dijk and Michael Richardson.
+Carsten Bormann provided useful input on shaping the registry.
