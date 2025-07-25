@@ -311,4 +311,3 @@ This section will be gone by the time this document is published.
 {:numbered="false"}
 
 This document was created out of discussion with Esko Dijk and Michael Richardson.
-Care to become authors?
