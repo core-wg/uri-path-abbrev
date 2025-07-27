@@ -103,7 +103,7 @@ Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
 The Uri-Path-Short option comes in two forms:
 
-* all initial options contain an opaque sequence of bytes, exactly like {{!RFC7252, Section 3.2}}'s uint encoding.
+* all initial options contain an opaque sequence of bytes, exactly like {{!RFC7252, Section 3.2}}'s opaque encoding.
 
 * subsequent options may contain either another sequence of bytes, or a string as per {{!RFC7252, Section 3.2}}'s string encoding.
 
