@@ -74,6 +74,7 @@ A server receiving the option with an unknown value MUST treat it as an unproces
 returning 4.02 Bad Option
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
+
 A server that supports a Uri-Path-Short value
 MUST also support the equivalent request composed of Uri-Path components.
 
