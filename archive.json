@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-24T01:39:41.644901+00:00",
+  "timestamp": "2025-07-27T01:47:21.015127+00:00",
   "repo": "chrysn/shopinc",
   "labels": [
     {
@@ -49,6 +49,78 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
-  "pulls": []
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOPRf_yM7CR9hU",
+      "title": "Option name",
+      "url": "https://github.com/chrysn/shopinc/issues/1",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "chrysn"
+      ],
+      "labels": [],
+      "body": "MCR [on list](https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI):\n\n* Uri-Short-Path for consistency with other options?",
+      "createdAt": "2025-07-24T11:03:46Z",
+      "updatedAt": "2025-07-24T13:03:35Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "mguetschow",
+          "authorAssociation": "NONE",
+          "body": "Or `Uri-Path-Short` to better express the grouping (and mutual exclusion) with `Uri-Path`?",
+          "createdAt": "2025-07-24T13:03:35Z",
+          "updatedAt": "2025-07-24T13:03:35Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOPRf_yM7CR_vJ",
+      "title": "Link to .well-known/core registry?",
+      "url": "https://github.com/chrysn/shopinc/issues/2",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "chrysn"
+      ],
+      "labels": [],
+      "body": "Strictly speaking our new registry is decoupled from the .well-known registry, but IIRC there was precedent for placing notes in registries if they become foreign keys of others, so maybe that's possible here even when it's not *exclusively* a foreign key.\n\nSee-Also: https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI",
+      "createdAt": "2025-07-24T11:06:48Z",
+      "updatedAt": "2025-07-24T11:06:50Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 3,
+      "id": "PR_kwDOPRf_yM6gdTPM",
+      "title": "Fix minor typos",
+      "url": "https://github.com/chrysn/shopinc/pull/3",
+      "state": "OPEN",
+      "author": "mguetschow",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-24T13:33:42Z",
+      "updatedAt": "2025-07-24T13:33:42Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
+      "headRepository": "mguetschow/shopinc",
+      "headRefName": "patch-1",
+      "headRefOid": "ae8006228fdea0c40aaa1000cb4754dbe3e45dd5",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
