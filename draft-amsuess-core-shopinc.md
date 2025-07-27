@@ -101,9 +101,17 @@ used in CoAP requests.
 {{option-table}} summarizes these, extending Table 4 of {{RFC7252}}).
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
+The Uri-Path-Short option comes in two forms:
+
+* all initial options contain an opaque sequence of bytes, exactly like {{!RFC7252, Section 3.2}}'s uint encoding.
+
+* subsequent options may contain either another sequence of bytes, or a string as per {{!RFC7252, Section 3.2}}'s string encoding.
+
+Whether subsequent options contain a uint or a string is determined by the definition of the short option in the {{registry}}.
+
 These properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
-This has unfortunate consequences for the interactions with the Proxy-URI option,
+This has consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
 It allows the option to be used with proxies that do not implement the option.
 
@@ -138,7 +146,7 @@ or cause a 4.02 Bad Option error).
 
 Examples of rules are:
 
-* Options after the first are treated exactly like Uri-Path options.
+* Options after the first are treated exactly like Uri-Path options. (Hereby called the initial+path rule)
 
 * There can be only one added Uri-Path-Short option,
   and its opaque value is looked up in a table shaped like the Uri-Path-Short IANA registry.
@@ -163,11 +171,8 @@ This document registers values for the following well-known URIs:
 
 * `/.well-known/core`
 * `/.well-known/rd` (see {{?RFC9175}})
-
-TBD: Ask BRSKI for a description
-
-For none of these, the repeated use of the option is specified;
-note that both are commonly used with Uri-Query options.
+* `/.well-known/brski` (see {{?I-D.ietf-anima-constrained-voucher}})
+* `/.well-known/est`   (see {{?RFC9148}})
 
 # Security Considerations
 
@@ -188,7 +193,7 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 * Name: Uri-Path-Short
 * Reference: this document
 
-## Uri-Path-Short registry
+## Uri-Path-Short registry {#registry}
 
 IANA is requested to establish a new registry in the CoRE parameters group:
 Values of the first Uri-Path-Short option in a CoAP request correspond to a URI path according to this registry.
@@ -215,6 +220,24 @@ Entry fields are:
 
   This field may be empty if the document describes that the option needs to be repeated when using this first value.
 
+* Subsequent Options
+
+This column defines how subsequent Uri-Path-Short options are to be initerpreted.
+There are four possible values for the entry:
+
+chained:
+: Subsequent options are to be looked up in this registry, and treated as an initial option.
+
+initial+path:
+: Subsequent options are to be treated exactly as Uri-Path, that is, they contain path segments as strings.
+
+forbidden:
+: No subsequent options are expected, or allowed. Any that appear MUST be ignored.
+
+custom:
+: The rules are defined in the referenced document.
+
+
 * Reference.
 
   A document that requested the allocation,
@@ -233,10 +256,12 @@ If the registration foresees updates,
 those should always just allow previously unacceptable values into new path segments,
 and not alter the semantics of previously valid expansions.
 
-| First option value | Simple expanded path | Reference |
-|--------------------+----------------------+-----------|
-| (empty)            | /.well-known/core    | {{initial}} of this document                         |
-| 00                 | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
+| First option value | Simple expanded path | Subsequent Options | Reference |
+|--------------------+----------------------+-----------+-----------|
+| (empty)            | /.well-known/core    | forbidden | {{initial}} of this document                         |
+| 00                 | /.well-known/rd      | forbidden | {{initial}} of this document, and {{?RFC9176}}       |
+| 01                 | /.well-known/brski   | initial+path | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 02                 | /.well-known/est     | initial+path | {{initial}} of this document, and {{?RFC9148}}       |
 {:#initial-table title="Initial values for the Uri-Path-Short registry"}
 
 <!-- We could also say in prose to take them from there and have the bytes there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
