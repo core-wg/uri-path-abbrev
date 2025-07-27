@@ -133,6 +133,8 @@ In such a combined message, the Uri-Path segments to which the Uri-Path-Short co
 Servers that support both Uri-Path-Short and Proxy-URI/-CRI SHOULD process requests accordingly.
 (This is not a strict requirement, as there are no known implementations of proxies that actually ).
 
+XXX: what does a CoAP/HTTP proxy do if it sees Uri-Path-Short options for which it does not have knowledge?
+
 ## Repeated use
 
 If the document defining the registered value of the first Uri-Path-Short option allows it,
