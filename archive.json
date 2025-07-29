@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-27T01:47:21.015127+00:00",
+  "timestamp": "2025-07-29T01:50:55.346839+00:00",
   "repo": "chrysn/shopinc",
   "labels": [
     {
@@ -108,7 +108,7 @@
       "labels": [],
       "body": "",
       "createdAt": "2025-07-24T13:33:42Z",
-      "updatedAt": "2025-07-24T13:33:42Z",
+      "updatedAt": "2025-07-27T15:02:34Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
@@ -120,7 +120,240 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPRf_yM62XZO7",
+          "commit": {
+            "abbreviatedOid": "ae80062"
+          },
+          "author": "mcr",
+          "authorAssociation": "NONE",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-07-27T15:02:34Z",
+          "updatedAt": "2025-07-27T15:02:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOPRf_yM6g1YQA",
+      "title": "Uri path short",
+      "url": "https://github.com/chrysn/shopinc/pull/4",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "rename to Uri-Path-Short",
+      "createdAt": "2025-07-27T15:01:07Z",
+      "updatedAt": "2025-07-27T15:01:07Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
+      "headRepository": "mcr/shopinc",
+      "headRefName": "uri-path-short",
+      "headRefOid": "af7ada7b57b1b7eced79e97323dfdb67164f6d60",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOPRf_yM6g1YRh",
+      "title": "added mcr as co-author",
+      "url": "https://github.com/chrysn/shopinc/pull/5",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-07-27T15:01:15Z",
+      "updatedAt": "2025-07-27T15:01:15Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
+      "headRepository": "mcr/shopinc",
+      "headRefName": "mcr-edits-202507",
+      "headRefOid": "9b8ab843454d9269363cfa82ea579375db6f7675",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOPRf_yM6g1YWd",
+      "title": "Subsequent options",
+      "url": "https://github.com/chrysn/shopinc/pull/6",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "(ignore first two commits, they are in other PRs, but can not change base when out-of-org)\r\nadded more details about subsequent options.",
+      "createdAt": "2025-07-27T15:01:51Z",
+      "updatedAt": "2025-07-27T17:16:37Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
+      "headRepository": "mcr/shopinc",
+      "headRefName": "subsequent-options",
+      "headRefOid": "97616a6c6db8901c41be7d6f0839ab9b9d86636d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPRf_yM62XeJB",
+          "commit": {
+            "abbreviatedOid": "ba517d9"
+          },
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T16:17:40Z",
+          "updatedAt": "2025-07-27T16:17:41Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "\"comes in two forms\" not good.\r\n\r\n\u2794 \r\n\r\nThe option value of the first U-P-S Option controls whether further U-P-S Options are allowed and how they are interpreted.",
+              "createdAt": "2025-07-27T16:17:41Z",
+              "updatedAt": "2025-07-27T16:19:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62XePF",
+          "commit": {
+            "abbreviatedOid": "ba517d9"
+          },
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T16:19:13Z",
+          "updatedAt": "2025-07-27T16:19:13Z",
+          "comments": [
+            {
+              "originalPosition": 64,
+              "body": "```suggestion\r\n* all initial options contain an opaque sequence of bytes, exactly like {{!RFC7252, Section 3.2}}'s opaque encoding.\r\n```",
+              "createdAt": "2025-07-27T16:19:13Z",
+              "updatedAt": "2025-07-27T16:19:13Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62XeSV",
+          "commit": {
+            "abbreviatedOid": "ba517d9"
+          },
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T16:20:06Z",
+          "updatedAt": "2025-07-27T16:20:06Z",
+          "comments": [
+            {
+              "originalPosition": 66,
+              "body": "We don't have to say anything here if we don't know what we want to say.  Except that the meaning and possible values are controlled by the first U-P-S option.",
+              "createdAt": "2025-07-27T16:20:06Z",
+              "updatedAt": "2025-07-27T16:20:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62XeTf",
+          "commit": {
+            "abbreviatedOid": "ba517d9"
+          },
+          "author": "cabo",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T16:20:27Z",
+          "updatedAt": "2025-07-27T16:20:27Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "\"short option\"?\r\n",
+              "createdAt": "2025-07-27T16:20:27Z",
+              "updatedAt": "2025-07-27T16:20:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62XihP",
+          "commit": {
+            "abbreviatedOid": "97616a6"
+          },
+          "author": "mcr",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T17:15:23Z",
+          "updatedAt": "2025-07-27T17:15:24Z",
+          "comments": [
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\r\nThe option value of the first U-P-S Option controls whether further U-P-S Options are allowed and how they are interpreted.\r\n```",
+              "createdAt": "2025-07-27T17:15:23Z",
+              "updatedAt": "2025-07-27T17:15:24Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62XijY",
+          "commit": {
+            "abbreviatedOid": "97616a6"
+          },
+          "author": "mcr",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T17:16:01Z",
+          "updatedAt": "2025-07-27T17:16:01Z",
+          "comments": [
+            {
+              "originalPosition": 66,
+              "body": "Does each UPS option control what happens after it, if it's not a string?",
+              "createdAt": "2025-07-27T17:16:01Z",
+              "updatedAt": "2025-07-27T17:16:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM62Xilj",
+          "commit": {
+            "abbreviatedOid": "97616a6"
+          },
+          "author": "mcr",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-07-27T17:16:36Z",
+          "updatedAt": "2025-07-27T17:16:37Z",
+          "comments": [
+            {
+              "originalPosition": 68,
+              "body": "```suggestion\r\nWhether subsequent options contain a uint or a string is determined by the definition of the option in the {{registry}}.\r\n```",
+              "createdAt": "2025-07-27T17:16:37Z",
+              "updatedAt": "2025-07-27T17:16:37Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
