@@ -1267,9 +1267,9 @@ it <span class="bcp14">SHOULD</span> fall back to sending the path explicitly if
 <p id="section-2-4">A server receiving the option with an unknown value <span class="bcp14">MUST</span> treat it as an unprocessable critical option,
 returning 4.02 Bad Option
 and <span class="bcp14">MUST NOT</span> return a 4.04 Not Found response,
-because the equivalent path may be present on the server.
-A server that supports a Short-Uri-Path value
-<span class="bcp14">MUST</span> also support the equivalent request composed of Uri-Path components.<a href="#section-2-4" class="pilcrow">¶</a></p>
+because the equivalent path may be present on the server.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-5">A server that supports a Short-Uri-Path value
+<span class="bcp14">MUST</span> also support the equivalent request composed of Uri-Path components.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <span id="name-short-uri-path-option-summa"></span><div id="option-table">
 <table class="center" id="table-1">
         <caption>
@@ -1304,29 +1304,29 @@ A server that supports a Short-Uri-Path value
         </tbody>
       </table>
 </div>
-<p id="section-2-6"><span class="cref" id="cpa">RFC-Editor: This document uses the CPA (code point allocation)
+<p id="section-2-7"><span class="cref" id="cpa">RFC-Editor: This document uses the CPA (code point allocation)
   convention described in <span>[<a href="#I-D.bormann-cbor-draft-numbers" class="cite xref">I-D.bormann-cbor-draft-numbers</a>]</span>.  For
   each usage of the term "CPA", please remove the prefix "CPA"
   from the indicated value and replace the residue with the value
   assigned by IANA; perform an analogous substitution for all other
   occurrences of the prefix "CPA" in the document.  Finally,
-  please remove this note.</span><a href="#section-2-6" class="pilcrow">¶</a></p>
-<p id="section-2-7">The Short-Uri-Path option
+  please remove this note.</span><a href="#section-2-7" class="pilcrow">¶</a></p>
+<p id="section-2-8">The Short-Uri-Path option
 has an integer value in its first occurrence;
 the type of later occurrences differs depending on the first.
 It is a critical and safe-to-forward option that is part of the cache key,
 used in CoAP requests.
 <a href="#option-table" class="auto internal xref">Table 1</a> summarizes these, extending Table 4 of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).
-Its OSCORE treatment is as Class E (<span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>).<a href="#section-2-7" class="pilcrow">¶</a></p>
-<p id="section-2-8">Apart from the format,
+Its OSCORE treatment is as Class E (<span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>).<a href="#section-2-8" class="pilcrow">¶</a></p>
+<p id="section-2-9">Apart from the format,
 these properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
-It allows the option to be used with proxies that do not implement the option.<a href="#section-2-8" class="pilcrow">¶</a></p>
-<p id="section-2-9">A proxy <span class="bcp14">MAY</span> expand or introduce a Short-Uri-Path when forwarding a request,
+It allows the option to be used with proxies that do not implement the option.<a href="#section-2-9" class="pilcrow">¶</a></p>
+<p id="section-2-10">A proxy <span class="bcp14">MAY</span> expand or introduce a Short-Uri-Path when forwarding a request,
 in particular for serving cached responses,
-as long as this introduces no new errors to the client.<a href="#section-2-9" class="pilcrow">¶</a></p>
+as long as this introduces no new errors to the client.<a href="#section-2-10" class="pilcrow">¶</a></p>
 <div id="interactions">
 <section id="section-2.1">
         <h3 id="name-interaction-with-other-opti">
