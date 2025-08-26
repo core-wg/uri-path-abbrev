@@ -87,6 +87,7 @@ Table of Contents
      6.2.  Informative References
    Appendix A.  Further development
    Appendix B.  Open questions
+   Appendix C.  Change log
    Acknowledgments
    Authors' Addresses
 
@@ -539,6 +540,23 @@ Appendix B.  Open questions
       updating the EDHOC option to also work without an OSCORE option?
 
       (The author prefers the latter).
+
+Appendix C.  Change log
+
+   Since -00:
+
+   *  Switched option type from opaque to uint (retaining the lockout
+      for values that look like CBOR arrays/maps).
+
+   *  MCR joined as author.
+
+   *  Added initial values for BRSKI and EST.
+
+   *  Allow 4.04 responses.
+
+   *  Add guidance for choosing prefixes and rules.
+
+   *  Large editorial changes.
 
 Acknowledgments
 
