@@ -1422,19 +1422,23 @@ range).<a href="#section-2.3-2.1.1" class="pilcrow">¶</a></p>
 <p id="section-3-1">This document registers values for the following well-known URIs:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3-2.1">
-          <p id="section-3-2.1.1"><code>/.well-known/core</code>; repeated use is not specified<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.1.1"><code>/.well-known/core</code><a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.2">
-          <p id="section-3-2.2.1"><code>/.well-known/rd</code> (see <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span>); repeated use is not specified<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.2.1"><code>/.well-known/rd</code> (see <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span>)<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.3">
-          <p id="section-3-2.3.1"><code>/.well-known/brski</code> (see <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>); repeated options produce Uri-Path options<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.3.1"><code>/.well-known/brski</code> (see <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>)<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.4">
-          <p id="section-3-2.4.1"><code>/.well-known/est</code> (see <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>); repeated options produce Uri-Path options<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.4.1"><code>/.well-known/est</code> (see <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>)<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-3-3">Note that the former two paths are commonly used with Uri-Query options.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-3">For all those,
+later occurrences of Short-Uri-Path are interpreted as additional Uri-Path values.
+While there are currently no resources under the CoRE and RD resource,
+this behavior is useful in BRSKI and EST.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">Note that the former two paths are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">

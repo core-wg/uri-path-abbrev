@@ -241,15 +241,18 @@ Table of Contents
 
    This document registers values for the following well-known URIs:
 
-   *  /.well-known/core; repeated use is not specified
+   *  /.well-known/core
 
-   *  /.well-known/rd (see [RFC9175]); repeated use is not specified
+   *  /.well-known/rd (see [RFC9175])
 
-   *  /.well-known/brski (see [I-D.ietf-anima-constrained-voucher]);
-      repeated options produce Uri-Path options
+   *  /.well-known/brski (see [I-D.ietf-anima-constrained-voucher])
 
-   *  /.well-known/est (see [RFC9148]); repeated options produce Uri-
-      Path options
+   *  /.well-known/est (see [RFC9148])
+
+   For all those, later occurrences of Short-Uri-Path are interpreted as
+   additional Uri-Path values.  While there are currently no resources
+   under the CoRE and RD resource, this behavior is useful in BRSKI and
+   EST.
 
    Note that the former two paths are commonly used with Uri-Query
    options.
