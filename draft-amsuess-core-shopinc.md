@@ -124,10 +124,11 @@ Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process reque
 
 ## Repeated use
 
-If the document defining the registered value of the first Short-Uri-Path option allows it,
-further Short-Uri-Path options may be added after that.
+The document defining the registered value of the first Short-Uri-Path option
+may allow additional Short-Uri-Path options,
 Their value is not expanded through the Short-Uri-Path IANA registry,
 but according to rules set up in that particular registration.
+
 To be implementable on a wide variety of platforms,
 those rules should allow expansion into Uri-Path options in an iterative way
 (i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
