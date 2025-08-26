@@ -169,8 +169,8 @@ Table of Contents
 2.1.  Interaction with other options
 
    The option is mutually exclusive with the Uri-Path option.  Receiving
-   both options in a single request MUST treated like the presence of a
-   critical request option that could not be processed (that option
+   both options in a single request MUST be treated like the presence of
+   a critical request option that could not be processed (that option
    being either the Short-Uri-Path option or the conflicting option).
 
    The Short-Uri-Path option MUST NOT be used in combination with the
