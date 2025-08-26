@@ -109,9 +109,17 @@ This has unfortunate consequences for the interactions with the Proxy-URI option
 but is generally desirable:
 It allows the option to be used with proxies that do not implement the option.
 
+## Proxy behavior
+
 A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.
+
+A proxy that knows Short-Uri-Path but not the concrete value
+SHOULD forward it unmodified,
+which is the behavior it would apply if it did not know the option.
+A reason to reject the request instead is when the proxy is tasked with enforcing access control
+(see {{seccons}}).
 
 ## Interaction with other options {#interactions}
 
@@ -187,7 +195,7 @@ TBD: Ask BRSKI for a description
 For none of these, the repeated use of the option is specified;
 note that both are commonly used with Uri-Query options.
 
-# Security Considerations
+# Security Considerations {#seccons}
 
 Having alternative expressions for information that is input to policy decisions
 can be problematic when the mechanism performing the check has a different interpretation of the presented data than the mechanism at time of use.
