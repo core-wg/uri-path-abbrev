@@ -3,9 +3,10 @@
 
 
 CoRE                                                           C. Amsüss
-Internet-Draft                                            26 August 2025
-Intended status: Informational                                          
-Expires: 27 February 2026
+Internet-Draft                                                          
+Intended status: Informational                             M. Richardson
+Expires: 27 February 2026                       Sandelman Software Works
+                                                          26 August 2025
 
 
                           Short Paths in CoAP
@@ -86,7 +87,7 @@ Table of Contents
    Appendix A.  Further development
    Appendix B.  Open questions
    Acknowledgments
-   Author's Address
+   Authors' Addresses
 
 1.  Introduction
 
@@ -493,8 +494,13 @@ Acknowledgments
    Michael Richardson.  Carsten Bormann provided useful input on shaping
    the registry.
 
-Author's Address
+Authors' Addresses
 
    Christian Amsüss
    Austria
    Email: christian@amsuess.com
+
+
+   Michael Richardson
+   Sandelman Software Works
+   Email: mcr+ietf@sandelman.ca
