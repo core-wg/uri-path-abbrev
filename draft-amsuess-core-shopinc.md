@@ -126,7 +126,8 @@ By the (de)composition rules around Proxy-Uri, and because Short-Uri-Path is saf
 a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
 In such a combined message, the Uri-Path segments to which the Short-Uri-Path corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
 Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process requests accordingly.
-(This is not a strict requirement, as there are no known implementations of proxies that actually ).
+(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
+nor is there a reason known why they should).
 
 ## Repeated use
 
