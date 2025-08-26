@@ -24,6 +24,11 @@ author:
   country: Austria
   email: christian@amsuess.com
 
+- ins: M. Richardson
+  name: Michael Richardson
+  org: Sandelman Software Works
+  email: mcr+ietf@sandelman.ca
+
 normative:
 
 informative:
