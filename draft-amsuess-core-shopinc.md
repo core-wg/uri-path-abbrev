@@ -132,7 +132,9 @@ but according to rules set up in that particular registration.
 To be implementable on a wide variety of platforms,
 those rules should allow expansion into Uri-Path options in an iterative way
 (i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
-or cause a 4.02 Bad Option error).
+or cause a 4.02 Bad Option error,
+except if there are no resources at all with that prefix,
+in which case 4.04 Not Found may be used instead).
 
 Examples of rules are:
 
