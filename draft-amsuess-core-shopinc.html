@@ -1452,10 +1452,18 @@ range).<a href="#section-2.4-2.1.1" class="pilcrow">¶</a></p>
         <li class="normal" id="section-3-2.2">
           <p id="section-3-2.2.1"><code>/.well-known/rd</code> (see <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span>)<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </li>
+        <li class="normal" id="section-3-2.3">
+          <p id="section-3-2.3.1"><code>/.well-known/brski</code> (see <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>)<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-3-2.4">
+          <p id="section-3-2.4.1"><code>/.well-known/est</code> (see <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>)<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+</li>
       </ul>
-<p id="section-3-3">TBD: Ask BRSKI for a description<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">For none of these, the repeated use of the option is specified;
-note that both are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-3">For all those,
+later occurrences of Short-Uri-Path are interpreted as additional Uri-Path values.
+While there are currently no resources under the CoRE and RD resource,
+this behavior is useful in BRSKI and EST.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">Note that the former two paths are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="seccons">
@@ -1574,6 +1582,20 @@ and not alter the semantics of previously valid expansions.<a href="#section-5.2
                 <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9176" class="cite xref">RFC9176</a>]</span>
 </td>
             </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">2</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/brski</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">3</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
           </tbody>
         </table>
 </div>
@@ -1617,6 +1639,10 @@ and not alter the semantics of previously valid expansions.<a href="#section-5.2
         <dd>
 <span class="refAuthor">Bormann, C.</span>, <span class="refTitle">"Managing CBOR codepoints in Internet-Drafts"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-bormann-cbor-draft-numbers-06</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-bormann-cbor-draft-numbers-06">https://datatracker.ietf.org/doc/html/draft-bormann-cbor-draft-numbers-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ietf-anima-constrained-voucher">[I-D.ietf-anima-constrained-voucher]</dt>
+        <dd>
+<span class="refAuthor">Richardson, M.</span>, <span class="refAuthor">Van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, and <span class="refAuthor">E. Dijk</span>, <span class="refTitle">"Constrained Bootstrapping Remote Secure Key Infrastructure (cBRSKI)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-anima-constrained-voucher-28</span>, <time datetime="2025-07-06" class="refDate">6 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-28">https://datatracker.ietf.org/doc/html/draft-ietf-anima-constrained-voucher-28</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="I-D.ietf-core-href">[I-D.ietf-core-href]</dt>
         <dd>
 <span class="refAuthor">Bormann, C.</span> and <span class="refAuthor">H. Birkholz</span>, <span class="refTitle">"Constrained Resource Identifiers"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-href-23</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23">https://datatracker.ietf.org/doc/html/draft-ietf-core-href-23</a>&gt;</span>. </dd>
@@ -1636,6 +1662,10 @@ and not alter the semantics of previously valid expansions.<a href="#section-5.2
 <dt id="RFC8790">[RFC8790]</dt>
         <dd>
 <span class="refAuthor">Keränen, A.</span> and <span class="refAuthor">M. Mohajer</span>, <span class="refTitle">"FETCH and PATCH with Sensor Measurement Lists (SenML)"</span>, <span class="seriesInfo">RFC 8790</span>, <span class="seriesInfo">DOI 10.17487/RFC8790</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8790">https://www.rfc-editor.org/rfc/rfc8790</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9148">[RFC9148]</dt>
+        <dd>
+<span class="refAuthor">van der Stok, P.</span>, <span class="refAuthor">Kampanakis, P.</span>, <span class="refAuthor">Richardson, M.</span>, and <span class="refAuthor">S. Raza</span>, <span class="refTitle">"EST-coaps: Enrollment over Secure Transport with the Secure Constrained Application Protocol"</span>, <span class="seriesInfo">RFC 9148</span>, <span class="seriesInfo">DOI 10.17487/RFC9148</span>, <time datetime="2022-04" class="refDate">April 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9148">https://www.rfc-editor.org/rfc/rfc9148</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9175">[RFC9175]</dt>
         <dd>

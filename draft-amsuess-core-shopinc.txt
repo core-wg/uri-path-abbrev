@@ -265,10 +265,17 @@ Table of Contents
 
    *  /.well-known/rd (see [RFC9175])
 
-   TBD: Ask BRSKI for a description
+   *  /.well-known/brski (see [I-D.ietf-anima-constrained-voucher])
 
-   For none of these, the repeated use of the option is specified; note
-   that both are commonly used with Uri-Query options.
+   *  /.well-known/est (see [RFC9148])
+
+   For all those, later occurrences of Short-Uri-Path are interpreted as
+   additional Uri-Path values.  While there are currently no resources
+   under the CoRE and RD resource, this behavior is useful in BRSKI and
+   EST.
+
+   Note that the former two paths are commonly used with Uri-Query
+   options.
 
 4.  Security Considerations
 
@@ -353,16 +360,26 @@ Table of Contents
    previously unacceptable values into new path segments, and not alter
    the semantics of previously valid expansions.
 
-     +====================+===============+=========================+
-     | First option value | Simple        | Reference               |
-     |                    | expanded path |                         |
-     +====================+===============+=========================+
-     | 0                  | /.well-known/ | Section 3 of this       |
-     |                    | core          | document                |
-     +--------------------+---------------+-------------------------+
-     | 1                  | /.well-known/ | Section 3 of this       |
-     |                    | rd            | document, and [RFC9176] |
-     +--------------------+---------------+-------------------------+
+    +==============+==========+======================================+
+    | First option | Simple   | Reference                            |
+    | value        | expanded |                                      |
+    |              | path     |                                      |
+    +==============+==========+======================================+
+    | 0            | /.well-  | Section 3 of this document           |
+    |              | known/   |                                      |
+    |              | core     |                                      |
+    +--------------+----------+--------------------------------------+
+    | 1            | /.well-  | Section 3 of this document, and      |
+    |              | known/rd | [RFC9176]                            |
+    +--------------+----------+--------------------------------------+
+    | 2            | /.well-  | Section 3 of this document, and      |
+    |              | known/   | [I-D.ietf-anima-constrained-voucher] |
+    |              | brski    |                                      |
+    +--------------+----------+--------------------------------------+
+    | 3            | /.well-  | Section 3 of this document, and      |
+    |              | known/   | [RFC9148]                            |
+    |              | est      |                                      |
+    +--------------+----------+--------------------------------------+
 
          Table 2: Initial values for the Short-Uri-Path registry
 
@@ -393,6 +410,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-bormann-cbor-
               draft-numbers-06>.
 
+   [I-D.ietf-anima-constrained-voucher]
+              Richardson, M., Van der Stok, P., Kampanakis, P., and E.
+              Dijk, "Constrained Bootstrapping Remote Secure Key
+              Infrastructure (cBRSKI)", Work in Progress, Internet-
+              Draft, draft-ietf-anima-constrained-voucher-28, 6 July
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              anima-constrained-voucher-28>.
+
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
@@ -418,6 +443,12 @@ Table of Contents
               Measurement Lists (SenML)", RFC 8790,
               DOI 10.17487/RFC8790, June 2020,
               <https://www.rfc-editor.org/rfc/rfc8790>.
+
+   [RFC9148]  van der Stok, P., Kampanakis, P., Richardson, M., and S.
+              Raza, "EST-coaps: Enrollment over Secure Transport with
+              the Secure Constrained Application Protocol", RFC 9148,
+              DOI 10.17487/RFC9148, April 2022,
+              <https://www.rfc-editor.org/rfc/rfc9148>.
 
    [RFC9175]  Amsüss, C., Preuß Mattsson, J., and G. Selander,
               "Constrained Application Protocol (CoAP): Echo, Request-
