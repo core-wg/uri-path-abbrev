@@ -361,6 +361,17 @@ This section will be gone by the time this document is published.
 
   (The author prefers the latter).
 
+# Change log
+
+Since -00:
+
+* Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).
+* MCR joined as author.
+* Added initial values for BRSKI and EST.
+* Allow 4.04 responses.
+* Add guidance for choosing prefixes and rules.
+* Large editorial changes.
+
 # Acknowledgments
 {:numbered="false"}
 
