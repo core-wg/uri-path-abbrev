@@ -1,0 +1,82 @@
+\input{shared/ietf-slides.tex}
+
+% about the presentation
+\title{Short Paths in CoAP}
+\subtitle{\ietfdraft{amsuess-core-shopinc-01}}
+\author{\textit{Christian~Amsüss}, Michael~Richardson}
+\date{2025-08-27, CoRE interim}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Why?}\Large
+  GET /.well-known/core has 17 bytes of Uri-Path.
+
+  \bigskip
+
+  EDHOC was unhappy.
+
+  \bigskip
+
+  cBRSKI is unhappy.
+
+  \bigskip
+
+  IETFers are jealous of other SDOs.
+\end{frame}
+
+\begin{frame}{Solution}\Large
+  Numeric option.
+
+  \bigskip
+
+  Look up number, expand to Uri-Path.
+
+  e.\,g. \texttt{d0 00} → \texttt{bb . w e l l - k n o w n 04 c o r e}
+
+  \bigskip
+
+  Critical. Safe-to-forward, even though Uri-Path is not.
+\end{frame}
+
+\begin{frame}{Interactions}\large
+  \begin{block}{With Uri-Query}
+    Simple if we pick a number < Uri-Query.
+
+    That number is 13.
+  \end{block}
+
+  \begin{block}{With itself}
+    Specified per number.
+
+    Typical (e.\,g. cBRSKI): Treat like added Uri-Path strings.
+  \end{block}
+
+  \begin{block}{Proxy-Uri}
+    Yikes. Ceterum censeo…
+
+    Small interop hazard, maybe none.
+  \end{block}
+
+  \begin{block}{Uri-Path}
+    Prefix? See issue \href{https://github.com/chrysn/shopinc/issues/9}{\#9}.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Open questions}\Large
+    \begin{itemize}
+        \item Number 13 justified?
+        \item Are we encouraging excessive .well-known-ness?
+        \item Prepopulate with EDHOC?
+        \item Presenting multiple-option handling: List? Default-or-custom?
+        \item IANA interactions \href{https://github.com/chrysn/shopinc/issues/2}{\#2}
+    \end{itemize}
+    … or can we already go on to
+    \begin{itemize}
+        \item Bikeshedding option and document name.
+        \item Can we ship it in time for cBRSKI to not need probing?
+    \end{itemize}
+\end{frame}
+
+\end{document}
