@@ -178,13 +178,12 @@ or remove before publication.
 
 This document registers values for the following well-known URIs:
 
-* `/.well-known/core`
-* `/.well-known/rd` (see {{?RFC9175}})
+* `/.well-known/core`; repeated use is not specified
+* `/.well-known/rd` (see {{?RFC9175}}); repeated use is not specified
+* `/.well-known/brski` (see {{?I-D.ietf-anima-constrained-voucher}}); repeated options produce Uri-Path options
+* `/.well-known/est` (see {{?RFC9148}}); repeated options produce Uri-Path options
 
-TBD: Ask BRSKI for a description
-
-For none of these, the repeated use of the option is specified;
-note that both are commonly used with Uri-Query options.
+Note that the former two paths are commonly used with Uri-Query options.
 
 # Security Considerations
 
@@ -261,6 +260,8 @@ and not alter the semantics of previously valid expansions.
 |--------------------+----------------------+-----------|
 | 0                  | /.well-known/core    | {{initial}} of this document                         |
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
+| 2                  | /.well-known/brski   | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 3                  | /.well-known/est     | {{initial}} of this document, and {{?RFC9148}}       |
 {:#initial-table title="Initial values for the Short-Uri-Path registry"}
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
