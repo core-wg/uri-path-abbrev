@@ -1166,21 +1166,24 @@ This document introduces an option that allows expressing well-known paths in as
             <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-the-short-uri-path-option" class="internal xref">The Short-Uri-Path option</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-interaction-with-other-opti" class="internal xref">Interaction with other options</a></p>
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-proxy-behavior" class="internal xref">Proxy behavior</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-repeated-use" class="internal xref">Repeated use</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.1">
-                    <p id="section-toc.1-1.2.2.2.2.1.1"><a href="#section-2.2.1" class="auto internal xref">2.2.1</a>.  <a href="#name-examples-of-rules" class="internal xref">Examples of rules</a></p>
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-interaction-with-other-opti" class="internal xref">Interaction with other options</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2.2.2">
-                    <p id="section-toc.1-1.2.2.2.2.2.1"><a href="#section-2.2.2" class="auto internal xref">2.2.2</a>.  <a href="#name-considerations-for-choosing" class="internal xref">Considerations for choosing rules and prefixes</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-repeated-use" class="internal xref">Repeated use</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.1">
+                    <p id="section-toc.1-1.2.2.3.2.1.1"><a href="#section-2.3.1" class="auto internal xref">2.3.1</a>.  <a href="#name-examples-of-rules" class="internal xref">Examples of rules</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.2">
+                    <p id="section-toc.1-1.2.2.3.2.2.1"><a href="#section-2.3.2" class="auto internal xref">2.3.2</a>.  <a href="#name-considerations-for-choosing" class="internal xref">Considerations for choosing rules and prefixes</a></p>
 </li>
                 </ul>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-choice-of-the-option-number" class="internal xref">Choice of the option number</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
+                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-choice-of-the-option-number" class="internal xref">Choice of the option number</a></p>
 </li>
             </ul>
 </li>
@@ -1324,99 +1327,112 @@ in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
 It allows the option to be used with proxies that do not implement the option.<a href="#section-2-9" class="pilcrow">¶</a></p>
-<p id="section-2-10">A proxy <span class="bcp14">MAY</span> expand or introduce a Short-Uri-Path when forwarding a request,
-in particular for serving cached responses,
-as long as this introduces no new errors to the client.<a href="#section-2-10" class="pilcrow">¶</a></p>
-<div id="interactions">
+<div id="proxy-behavior">
 <section id="section-2.1">
-        <h3 id="name-interaction-with-other-opti">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-interaction-with-other-opti" class="section-name selfRef">Interaction with other options</a>
+        <h3 id="name-proxy-behavior">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-proxy-behavior" class="section-name selfRef">Proxy behavior</a>
         </h3>
-<p id="section-2.1-1">The option is mutually exclusive with the Uri-Path option.
+<p id="section-2.1-1">A proxy <span class="bcp14">MAY</span> expand or introduce a Short-Uri-Path when forwarding a request,
+in particular for serving cached responses,
+as long as this introduces no new errors to the client.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">A proxy that knows Short-Uri-Path but not the concrete value
+<span class="bcp14">SHOULD</span> forward it unmodified,
+which is the behavior it would apply if it did not know the option.
+A reason to reject the request instead is when the proxy is tasked with enforcing access control
+(see <a href="#seccons" class="auto internal xref">Section 4</a>).<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="interactions">
+<section id="section-2.2">
+        <h3 id="name-interaction-with-other-opti">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-interaction-with-other-opti" class="section-name selfRef">Interaction with other options</a>
+        </h3>
+<p id="section-2.2-1">The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request <span class="bcp14">MUST</span> be treated like the presence of a critical request option that could not be processed
-(that option being either the Short-Uri-Path option or the conflicting option).<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">The Short-Uri-Path option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
-Proxies that understand Short-Uri-Path and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Short-Uri-Path if they know the value.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">By the (de)composition rules around Proxy-Uri, and because Short-Uri-Path is safe-to-forward,
+(that option being either the Short-Uri-Path option or the conflicting option).<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">The Short-Uri-Path option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
+Proxies that understand Short-Uri-Path and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Short-Uri-Path if they know the value.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">By the (de)composition rules around Proxy-Uri, and because Short-Uri-Path is safe-to-forward,
 a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-* options.
 In such a combined message, the Uri-Path segments to which the Short-Uri-Path corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
 Servers that support both Short-Uri-Path and Proxy-URI/-CRI <span class="bcp14">SHOULD</span> process requests accordingly.
-(This is not a strict requirement, as there are no known implementations of proxies that actually ).<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
+nor is there a reason known why they should).<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="repeated">
-<section id="section-2.2">
+<section id="section-2.3">
         <h3 id="name-repeated-use">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-repeated-use" class="section-name selfRef">Repeated use</a>
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-repeated-use" class="section-name selfRef">Repeated use</a>
         </h3>
-<p id="section-2.2-1">The document defining the registered value of the first Short-Uri-Path option
+<p id="section-2.3-1">The document defining the registered value of the first Short-Uri-Path option
 may allow additional Short-Uri-Path options,
 Their value is not expanded through the Short-Uri-Path IANA registry,
-but according to rules set up in that particular registration.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">To be implementable on a wide variety of platforms,
+but according to rules set up in that particular registration.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">To be implementable on a wide variety of platforms,
 those rules should allow expansion into Uri-Path options in an iterative way
 (i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
 or cause a 4.02 Bad Option error,
 except if there are no resources at all with that prefix,
-in which case 4.04 Not Found may be used instead).<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+in which case 4.04 Not Found may be used instead).<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 <div id="examples-of-rules">
-<section id="section-2.2.1">
+<section id="section-2.3.1">
           <h4 id="name-examples-of-rules">
-<a href="#section-2.2.1" class="section-number selfRef">2.2.1. </a><a href="#name-examples-of-rules" class="section-name selfRef">Examples of rules</a>
+<a href="#section-2.3.1" class="section-number selfRef">2.3.1. </a><a href="#name-examples-of-rules" class="section-name selfRef">Examples of rules</a>
           </h4>
-<p id="section-2.2.1-1">Some rules anticipated to be used are:<a href="#section-2.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.1-1">Some rules anticipated to be used are:<a href="#section-2.3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.2.1-2.1">
-              <p id="section-2.2.1-2.1.1">Options after the first are treated exactly like Uri-Path options.<a href="#section-2.2.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.3.1-2.1">
+              <p id="section-2.3.1-2.1.1">Options after the first are treated exactly like Uri-Path options.<a href="#section-2.3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-2.2.1-2.2">
-              <p id="section-2.2.1-2.2.1">There can be only one added Short-Uri-Path option,
-and its opaque value is looked up in a table shaped like the Short-Uri-Path IANA registry.<a href="#section-2.2.1-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-2.3.1-2.2">
+              <p id="section-2.3.1-2.2.1">There can be only one added Short-Uri-Path option,
+and its opaque value is looked up in a table shaped like the Short-Uri-Path IANA registry.<a href="#section-2.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
 </div>
 <div id="rulecons">
-<section id="section-2.2.2">
+<section id="section-2.3.2">
           <h4 id="name-considerations-for-choosing">
-<a href="#section-2.2.2" class="section-number selfRef">2.2.2. </a><a href="#name-considerations-for-choosing" class="section-name selfRef">Considerations for choosing rules and prefixes</a>
+<a href="#section-2.3.2" class="section-number selfRef">2.3.2. </a><a href="#name-considerations-for-choosing" class="section-name selfRef">Considerations for choosing rules and prefixes</a>
           </h4>
-<p id="section-2.2.2-1">It is recommended 
+<p id="section-2.3.2-1">It is recommended 
 that the expansion of the first Short-Uri-Path option does not end with a trailing slash.
 While that is a valid CoAP URI,
 any additional path segments generated by expanding additional Short-Uri-Path options
 would generated paths with interior double slashes,
-which is highly unusual and generally not intended.<a href="#section-2.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2.2-2">When no repeated use is anticipated,
+which is highly unusual and generally not intended.<a href="#section-2.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.3.2-2">When no repeated use is anticipated,
 it is recommended to not forbid them outright:
 That would make it harder to use that exension point later,
 as allowing it would be a breaking change to the specification.
 Instead, either the common behavior of treating them as extra Uri-Path strings can be specified
 (which does not make a server without resources under the prefix any more complex,
-as it may answer react with 4.02 or 4.04 as per <a href="#repeated" class="auto internal xref">Section 2.2</a>),
+as it may answer react with 4.02 or 4.04 as per <a href="#repeated" class="auto internal xref">Section 2.3</a>),
 or the semantics of repeated options can explicitly be left unspecified
-(which retains more flexibility in assigning meaning later).<a href="#section-2.2.2-2" class="pilcrow">¶</a></p>
+(which retains more flexibility in assigning meaning later).<a href="#section-2.3.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="choice-of-the-option-number">
-<section id="section-2.3">
+<section id="section-2.4">
         <h3 id="name-choice-of-the-option-number">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-choice-of-the-option-number" class="section-name selfRef">Choice of the option number</a>
+<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-choice-of-the-option-number" class="section-name selfRef">Choice of the option number</a>
         </h3>
-<p id="section-2.3-1">TBD: Rephrase this to either be useful for readers of the final document
+<p id="section-2.4-1">TBD: Rephrase this to either be useful for readers of the final document
 who can thus learn how the option number namespace is managed,
-or remove before publication.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+or remove before publication.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-2.3-2.1">
-            <p id="section-2.3-2.1.1">It's already 1+1 -- we generally do try to keep even the 1+1 high so
+<li class="normal ulEmpty" id="section-2.4-2.1">
+            <p id="section-2.4-2.1.1">It's already 1+1 -- we generally do try to keep even the 1+1 high so
 that later option typically paired with a low option (like EDHOC
 paired with OSCORE) can use the small delta. In this case, there's a
 good reason (being ordered before Uri-Query) though, and I don't
 expect that any other option would need this particular property
 (especially given that this option on its own has an extensible value
-range).<a href="#section-2.3-2.1.1" class="pilcrow">¶</a></p>
+range).<a href="#section-2.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1442,7 +1458,7 @@ range).<a href="#section-2.3-2.1.1" class="pilcrow">¶</a></p>
 note that both are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-considerations">
+<div id="seccons">
 <section id="section-4">
       <h2 id="name-security-considerations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
@@ -1524,7 +1540,7 @@ and how later values are expanded<a href="#section-5.2-4.3.2" class="pilcrow">¶
 <p id="section-5.2-5">Reviewer instructions:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <p id="section-5.2-6">The reviewer is instructed to be frugal with the 128 values that correspond to a single-vbyte value,
 focusing on applications that are expected to be useful in different constrained ecosystems.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2-7">If the considerations of <a href="#rulecons" class="auto internal xref">Section 2.2.2</a> are not followed,
+<p id="section-5.2-7">If the considerations of <a href="#rulecons" class="auto internal xref">Section 2.3.2</a> are not followed,
 the reviewer is asked to verify with the applicant that they are deliberately deciding otherwise.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <p id="section-5.2-8">The expanded path (or paths) are expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
@@ -1670,7 +1686,7 @@ the registry's policy can be relaxed to also allow values with that leading bit 
           <p id="appendix-A-2.3.1">A future document may update this document
 to allow registering values that are allowed to use together with Uri-Path values
 (but at the time of writing, no examples are known by which such a design could be properly vetted).
-In particular, that update weakens the "<span class="bcp14">MUST</span>" in <a href="#interactions" class="auto internal xref">Section 2.1</a>.<a href="#appendix-A-2.3.1" class="pilcrow">¶</a></p>
+In particular, that update weakens the "<span class="bcp14">MUST</span>" in <a href="#interactions" class="auto internal xref">Section 2.2</a>.<a href="#appendix-A-2.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-A-2.4">
           <p id="appendix-A-2.4.1">This option is designed to stand in for the Uri-Path option alone,

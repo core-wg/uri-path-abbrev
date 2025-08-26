@@ -71,11 +71,12 @@ Table of Contents
    1.  Introduction
      1.1.  Conventions and Definitions
    2.  The Short-Uri-Path option
-     2.1.  Interaction with other options
-     2.2.  Repeated use
-       2.2.1.  Examples of rules
-       2.2.2.  Considerations for choosing rules and prefixes
-     2.3.  Choice of the option number
+     2.1.  Proxy behavior
+     2.2.  Interaction with other options
+     2.3.  Repeated use
+       2.3.1.  Examples of rules
+       2.3.2.  Considerations for choosing rules and prefixes
+     2.4.  Choice of the option number
    3.  Initial Short-Uri-Path values
    4.  Security Considerations
    5.  IANA Considerations
@@ -163,11 +164,18 @@ Table of Contents
    Proxy-URI option, but is generally desirable: It allows the option to
    be used with proxies that do not implement the option.
 
+2.1.  Proxy behavior
+
    A proxy MAY expand or introduce a Short-Uri-Path when forwarding a
    request, in particular for serving cached responses, as long as this
    introduces no new errors to the client.
 
-2.1.  Interaction with other options
+   A proxy that knows Short-Uri-Path but not the concrete value SHOULD
+   forward it unmodified, which is the behavior it would apply if it did
+   not know the option.  A reason to reject the request instead is when
+   the proxy is tasked with enforcing access control (see Section 4).
+
+2.2.  Interaction with other options
 
    The option is mutually exclusive with the Uri-Path option.  Receiving
    both options in a single request MUST be treated like the presence of
@@ -189,9 +197,11 @@ Table of Contents
    present as individual options in the request without conflicting.
    Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD
    process requests accordingly.  (This is not a strict requirement, as
-   there are no known implementations of proxies that actually ).
+   there are no known implementations of proxies that actually compose a
+   Proxy-URI/-CRI from individual options, nor is there a reason known
+   why they should).
 
-2.2.  Repeated use
+2.3.  Repeated use
 
    The document defining the registered value of the first Short-Uri-
    Path option may allow additional Short-Uri-Path options, Their value
@@ -205,7 +215,7 @@ Table of Contents
    are no resources at all with that prefix, in which case 4.04 Not
    Found may be used instead).
 
-2.2.1.  Examples of rules
+2.3.1.  Examples of rules
 
    Some rules anticipated to be used are:
 
@@ -215,7 +225,7 @@ Table of Contents
       value is looked up in a table shaped like the Short-Uri-Path IANA
       registry.
 
-2.2.2.  Considerations for choosing rules and prefixes
+2.3.2.  Considerations for choosing rules and prefixes
 
    It is recommended that the expansion of the first Short-Uri-Path
    option does not end with a trailing slash.  While that is a valid
@@ -229,11 +239,11 @@ Table of Contents
    specification.  Instead, either the common behavior of treating them
    as extra Uri-Path strings can be specified (which does not make a
    server without resources under the prefix any more complex, as it may
-   answer react with 4.02 or 4.04 as per Section 2.2), or the semantics
+   answer react with 4.02 or 4.04 as per Section 2.3), or the semantics
    of repeated options can explicitly be left unspecified (which retains
    more flexibility in assigning meaning later).
 
-2.3.  Choice of the option number
+2.4.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
    document who can thus learn how the option number namespace is
@@ -331,7 +341,7 @@ Table of Contents
    correspond to a single-vbyte value, focusing on applications that are
    expected to be useful in different constrained ecosystems.
 
-   If the considerations of Section 2.2.2 are not followed, the reviewer
+   If the considerations of Section 2.3.2 are not followed, the reviewer
    is asked to verify with the applicant that they are deliberately
    deciding otherwise.
 
@@ -456,7 +466,7 @@ Appendix A.  Further development
       values that are allowed to use together with Uri-Path values (but
       at the time of writing, no examples are known by which such a
       design could be properly vetted).  In particular, that update
-      weakens the "MUST" in Section 2.1.
+      weakens the "MUST" in Section 2.2.
 
    *  This option is designed to stand in for the Uri-Path option alone,
       not for any other option; this simplifies its interaction rules.
