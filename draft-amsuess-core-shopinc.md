@@ -115,7 +115,7 @@ as long as this introduces no new errors to the client.
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
-Receiving both options in a single request MUST treated like the presence of a critical request option that could not be processed
+Receiving both options in a single request MUST be treated like the presence of a critical request option that could not be processed
 (that option being either the Short-Uri-Path option or the conflicting option).
 
 The Short-Uri-Path option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
