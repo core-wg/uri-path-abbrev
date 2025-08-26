@@ -109,9 +109,17 @@ This has unfortunate consequences for the interactions with the Proxy-URI option
 but is generally desirable:
 It allows the option to be used with proxies that do not implement the option.
 
+## Proxy behavior
+
 A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.
+
+A proxy that knows Short-Uri-Path but not the concrete value
+SHOULD forward it unmodified,
+which is the behavior it would apply if it did not know the option.
+A reason to reject the request instead is when the proxy is tasked with enforcing access control
+(see {{seccons}}).
 
 ## Interaction with other options {#interactions}
 
@@ -126,7 +134,8 @@ By the (de)composition rules around Proxy-Uri, and because Short-Uri-Path is saf
 a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
 In such a combined message, the Uri-Path segments to which the Short-Uri-Path corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
 Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process requests accordingly.
-(This is not a strict requirement, as there are no known implementations of proxies that actually ).
+(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
+nor is there a reason known why they should).
 
 ## Repeated use {#repeated}
 
@@ -196,7 +205,7 @@ TBD: Ask BRSKI for a description
 For none of these, the repeated use of the option is specified;
 note that both are commonly used with Uri-Query options.
 
-# Security Considerations
+# Security Considerations {#seccons}
 
 Having alternative expressions for information that is input to policy decisions
 can be problematic when the mechanism performing the check has a different interpretation of the presented data than the mechanism at time of use.
