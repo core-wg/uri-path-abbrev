@@ -110,6 +110,24 @@ A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.
 
+## Short-Uri-Path encoding
+
+The Option Value contents of this option are encoded in CBOR {{RFC8949}}.
+Only two CBOR encodings are currently allowed.
+
+It may be a CBOR positive integer (Major Type 0).
+This accomodates values from 0 to 2^(64)-1.
+
+The first instance of this option always contains an integer, indexed into the Registry defined in {{registry}}
+
+Subsequent instances of this option will contain either another positive integer or a definite-length CBOR string.
+
+It is not an encoding error if the Option Length implies that there are more bytes present in the option value than the first CBOR value requires.
+This shall be understood to be a CBOR Sequence {{?RFC8742}}, and it's use is reserved for future expansion.
+
+When an integer, the first option definition determines if it's an index into a option-specific registry, or a repeated index into the Registry contained in this document.
+
+
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
@@ -187,7 +205,7 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 * Name: Short-Uri-Path
 * Reference: this document
 
-## Short-Uri-Path registry
+## Short-Uri-Path registry {#registry}
 
 IANA is requested to establish a new registry in the CoRE parameters group:
 Values of the first Short-Uri-Path option in a CoAP request correspond to a URI path according to this registry.
