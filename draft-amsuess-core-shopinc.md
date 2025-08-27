@@ -114,6 +114,7 @@ as long as this introduces no new errors to the client.
 
 The Option Value contents of this option are encoded in CBOR {{RFC8949}}.
 Only two CBOR encodings are currently allowed.
+In addition, there is one special encoding when the Option Value is empty, which is reserved for the /.well-known/core value.
 
 It may be a CBOR positive integer (Major Type 0).
 This accomodates values from 0 to 2^(64)-1.
@@ -124,6 +125,9 @@ Subsequent instances of this option will contain either another positive integer
 
 It is not an encoding error if the Option Length implies that there are more bytes present in the option value than the first CBOR value requires.
 This shall be understood to be a CBOR Sequence {{?RFC8742}}, and it's use is reserved for future expansion.
+
+Other CBOR encodings including all maps, arrays, and special types are reserved.
+A CoAP server receiving any of these should consider them to be values unknown, resulting in a 4.04 reply.
 
 When an integer, the first option definition determines if it's an index into a option-specific registry, or a repeated index into the Registry contained in this document.
 
@@ -240,8 +244,8 @@ Entry fields are:
 
 Reviewer instructions:
 
-The reviewer is instructed to be frugal with the 128 single-byte values,
-focusing on applications that are expected to be useful in different constrained ecosystems.
+The reviewer is instructed to be frugal with the 24 1-byte values, preferring to use 1+1 values up to 255 for many allocations.
+Deeper/longer strings, (i.e., /.well-known/foo/bar, vs /.well-known/foo) should be placed into the 1+2 space.
 
 The expanded path (or paths) are expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
