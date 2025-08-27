@@ -110,6 +110,22 @@ A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.
 
+## Short-Uri-Path encoding
+
+The Option Value contents of this option are either an unsigned integer or a UTF-8 encoded string.
+The first instance of this option always contains an integer, indexed into the Registry defined in {{registry}}
+
+The integer may be one, two, three or four bytes long, encoding integers from 0-127,
+from 0-32767, from 0-8388607 and from 0-214783647.  In each case, the upper bit of the first byte must be 0.
+Values with a leading 1 are RESERVED.
+
+Subsequent instances of this option will contain either an integer or a string (exactly as Uri-Path from {{RFC7252, section 5.10.1}}.
+
+Whether a string or an integer is expected depends upon the definition of the first option, in the Reference column.
+
+When an integer, the first option definition determines if it's an index into a option-specific registry, or a repeated index into the Registry contained in this document.
+
+
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
@@ -187,7 +203,7 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 * Name: Short-Uri-Path
 * Reference: this document
 
-## Short-Uri-Path registry
+## Short-Uri-Path registry {#registry}
 
 IANA is requested to establish a new registry in the CoRE parameters group:
 Values of the first Short-Uri-Path option in a CoAP request correspond to a URI path according to this registry.
