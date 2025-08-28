@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-07-29T01:50:55.346839+00:00",
+  "timestamp": "2025-08-28T01:18:31.429997+00:00",
   "repo": "chrysn/shopinc",
   "labels": [
     {
@@ -64,22 +64,29 @@
       "labels": [],
       "body": "MCR [on list](https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI):\n\n* Uri-Short-Path for consistency with other options?",
       "createdAt": "2025-07-24T11:03:46Z",
-      "updatedAt": "2025-07-24T13:03:35Z",
+      "updatedAt": "2025-08-27T15:25:20Z",
       "closedAt": null,
       "comments": [
         {
           "author": "mguetschow",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "body": "Or `Uri-Path-Short` to better express the grouping (and mutual exclusion) with `Uri-Path`?",
           "createdAt": "2025-07-24T13:03:35Z",
           "updatedAt": "2025-07-24T13:03:35Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Interim narrowed to Uri-Path-XXX where XXX could be \"Short\", but people associate short paths with routing. So, in decreasing order of my preference, more suggestions for -02:\n\n* Uri-Path-Registered\n* Uri-Path-Well-Known\n* Uri-Path-Registered\n* Uri-Path-Compact\n* Uri-Path-Concise\n* Uri-Path-Constrained\n* Uri-Path-Tiny\n* Q-Uri-Path\n* Uri-Pth",
+          "createdAt": "2025-08-27T15:25:20Z",
+          "updatedAt": "2025-08-27T15:25:20Z"
         }
       ]
     },
     {
       "number": 2,
       "id": "I_kwDOPRf_yM7CR_vJ",
-      "title": "Link to .well-known/core registry?",
+      "title": "Link to .well-known/ registry?",
       "url": "https://github.com/chrysn/shopinc/issues/2",
       "state": "OPEN",
       "author": "chrysn",
@@ -90,7 +97,23 @@
       "labels": [],
       "body": "Strictly speaking our new registry is decoupled from the .well-known registry, but IIRC there was precedent for placing notes in registries if they become foreign keys of others, so maybe that's possible here even when it's not *exclusively* a foreign key.\n\nSee-Also: https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI",
       "createdAt": "2025-07-24T11:06:48Z",
-      "updatedAt": "2025-07-24T11:06:50Z",
+      "updatedAt": "2025-08-26T19:06:07Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOPRf_yM7IGuLT",
+      "title": "Allow Uri-Path prefixes?",
+      "url": "https://github.com/chrysn/shopinc/issues/9",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "For some potential use cases it may make sense for users to have Uri-Path prefixes.\n\n## Example\n\nIf IPSO smart objects had used this (say, with Short-Uri-Path 127 expanding to nothing but followed by an option value that's a CBOR sequence of integers to be expanded into decimal ASCII path segments:\n\n```\nShort-Uri-Path: (decimal) 127\nShort-Uri-Path: (CBORseq) 3, 0, 2, 12, 42\n```\n\nequivalent to\n\n```\nUri-Path: (text) 3\nUri-Path: (text) 0\n...\n```\n\nthen, given how LwM2M now allows some of it to be hosted under a prefix resource such as `/wherever/3/0/2/12/42`, it'd make perfect sense to express that with an Uri-Path option followed by Short-Uri-Path\n\n## The challenge\n\n\u2026 is to express this in a document without saying that it's a good idea to do it (it's not a bad idea either, but nothing *typical*), and in such a way that it is clear that unless someone actively uses that construction (e.g. they run such an IPSO server *and* chose in that very server implementation to allow a prefix), they don't need any special implementation of it, and the code they'd write if it were not for the section still satisfies all requirements?\n\n## The question\n\n* Is there any other reason not to allow it?\n* Can we come up with text that solves the challenge and is otherwise super compact?",
+      "createdAt": "2025-08-26T21:41:59Z",
+      "updatedAt": "2025-08-26T21:41:59Z",
       "closedAt": null,
       "comments": []
     }
@@ -101,25 +124,35 @@
       "id": "PR_kwDOPRf_yM6gdTPM",
       "title": "Fix minor typos",
       "url": "https://github.com/chrysn/shopinc/pull/3",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mguetschow",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-07-24T13:33:42Z",
-      "updatedAt": "2025-07-27T15:02:34Z",
+      "updatedAt": "2025-08-26T19:39:31Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
       "headRepository": "mguetschow/shopinc",
       "headRefName": "patch-1",
       "headRefOid": "ae8006228fdea0c40aaa1000cb4754dbe3e45dd5",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
-      "comments": [],
+      "closedAt": "2025-08-26T19:39:31Z",
+      "mergedAt": "2025-08-26T19:39:31Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "04fe9043885ad916657faaeacff4917e6b5dfb0e"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Thanks for the fixes. We've been working in parallel, and one has been addressed in 77f6c6f6ea64430a1827d766d867e51ffde95d7b.",
+          "createdAt": "2025-08-26T19:39:28Z",
+          "updatedAt": "2025-08-26T19:39:28Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOPRf_yM62XZO7",
@@ -127,7 +160,7 @@
             "abbreviatedOid": "ae80062"
           },
           "author": "mcr",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2025-07-27T15:02:34Z",
@@ -143,12 +176,12 @@
       "url": "https://github.com/chrysn/shopinc/pull/4",
       "state": "OPEN",
       "author": "mcr",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "rename to Uri-Path-Short",
       "createdAt": "2025-07-27T15:01:07Z",
-      "updatedAt": "2025-07-27T15:01:07Z",
+      "updatedAt": "2025-08-27T14:01:17Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
@@ -159,32 +192,56 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
-      "reviews": []
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "This closes: https://github.com/chrysn/shopinc/issues/1",
+          "createdAt": "2025-08-26T19:41:36Z",
+          "updatedAt": "2025-08-26T19:41:36Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPRf_yM68WNiD",
+          "commit": {
+            "abbreviatedOid": "af7ada7"
+          },
+          "author": "mguetschow",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "I do prefer this name as already mentioned in https://github.com/chrysn/shopinc/issues/1#issuecomment-3113394577 ",
+          "createdAt": "2025-08-27T14:01:17Z",
+          "updatedAt": "2025-08-27T14:01:17Z",
+          "comments": []
+        }
+      ]
     },
     {
       "number": 5,
       "id": "PR_kwDOPRf_yM6g1YRh",
       "title": "added mcr as co-author",
       "url": "https://github.com/chrysn/shopinc/pull/5",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "mcr",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-07-27T15:01:15Z",
-      "updatedAt": "2025-07-27T15:01:15Z",
+      "updatedAt": "2025-08-26T19:34:53Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
       "headRepository": "mcr/shopinc",
       "headRefName": "mcr-edits-202507",
       "headRefOid": "9b8ab843454d9269363cfa82ea579375db6f7675",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-08-26T19:34:52Z",
+      "mergedAt": "2025-08-26T19:34:52Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "b6056ed89250a3096585dcb1ea6a295020776caa"
+      },
       "comments": [],
       "reviews": []
     },
@@ -195,12 +252,12 @@
       "url": "https://github.com/chrysn/shopinc/pull/6",
       "state": "OPEN",
       "author": "mcr",
-      "authorAssociation": "NONE",
+      "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "(ignore first two commits, they are in other PRs, but can not change base when out-of-org)\r\nadded more details about subsequent options.",
       "createdAt": "2025-07-27T15:01:51Z",
-      "updatedAt": "2025-07-27T17:16:37Z",
+      "updatedAt": "2025-08-26T21:26:38Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
@@ -211,7 +268,15 @@
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "As there've been editing conflicts from me not pushing everything right away, I'm cherry-picking here a little:\r\n* \"split this important statement into new paragraph\": f0315983cec04d966402d1466191577b0551b4a4 became 6efd561a346155cd56ba67f500a161617cdfae0e\r\n* \"question: do we need to say more about proxies\": Answered in https://github.com/chrysn/shopinc/pull/7\r\n* Registering the EST/BRSKI paths is pulled out because it conflicted with the switch to uint values, now in https://github.com/chrysn/shopinc/pull/8\r\n\r\nWhat remains is applying #4, and ae804762fa177afe3087b90e11990db2a4d76100 (explicitly naming the rules), which there are open points on (roughly \"how to best recurse\" and \"is forbidden a sensible choice\", and \"remove the previous examples-of-rules, maybe even unifying the rules in one place only\").\r\n\r\nI suggest we talk about them in the upcoming interim, and then apply the rest of this PR (probably by copy-pasting due to the edit conflicts) considering whatever we find during the interim.",
+          "createdAt": "2025-08-26T21:26:38Z",
+          "updatedAt": "2025-08-26T21:26:38Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOPRf_yM62XeJB",
@@ -299,7 +364,7 @@
             "abbreviatedOid": "97616a6"
           },
           "author": "mcr",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-07-27T17:15:23Z",
@@ -319,7 +384,7 @@
             "abbreviatedOid": "97616a6"
           },
           "author": "mcr",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-07-27T17:16:01Z",
@@ -339,7 +404,7 @@
             "abbreviatedOid": "97616a6"
           },
           "author": "mcr",
-          "authorAssociation": "NONE",
+          "authorAssociation": "CONTRIBUTOR",
           "state": "COMMENTED",
           "body": "",
           "createdAt": "2025-07-27T17:16:36Z",
@@ -352,8 +417,176 @@
               "updatedAt": "2025-07-27T17:16:37Z"
             }
           ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM68MJHI",
+          "commit": {
+            "abbreviatedOid": "97616a6"
+          },
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T21:00:54Z",
+          "updatedAt": "2025-08-26T21:00:54Z",
+          "comments": [
+            {
+              "originalPosition": 185,
+              "body": "Chaining directly into this registry doesn't make sense for many values (`/.well-known/brski/.well-known/edhoc`?), and also doesn't need the CBOR escape hatch of not having the MSB set. I'd rather have those documents specify their own list, either hardcoded in their specification or using a registry mechanism available to them.",
+              "createdAt": "2025-08-26T21:00:54Z",
+              "updatedAt": "2025-08-26T21:00:54Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM68MKk6",
+          "commit": {
+            "abbreviatedOid": "97616a6"
+          },
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T21:03:34Z",
+          "updatedAt": "2025-08-26T21:03:34Z",
+          "comments": [
+            {
+              "originalPosition": 191,
+              "body": "Thata'd be MUST NOT send and MUST ignore, which is practically unusable if one decides otherwise later. (\"Practically\", because those options could give hints, but Uri-Path-ish are not typically used in a hinting fashion).\r\n\r\nIn 9b60ac087f2259700e19d88f8f75ce8ca932867f I rather suggest going with unspecified or plain initial+path; as an implementer I don't think that's harder to do (as the options are critical and thus need to be processed anyway).",
+              "createdAt": "2025-08-26T21:03:34Z",
+              "updatedAt": "2025-08-26T21:03:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM68MXgZ",
+          "commit": {
+            "abbreviatedOid": "ae80476"
+          },
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-26T21:25:30Z",
+          "updatedAt": "2025-08-26T21:25:31Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "With the new text, the whole \"examples of rules\" can go out; let's have one or two places only to list them (currently it's two, the text in the option description and the choices for IANA, but I'd prefer to unify them.)",
+              "createdAt": "2025-08-26T21:25:30Z",
+              "updatedAt": "2025-08-26T21:25:31Z"
+            }
+          ]
         }
       ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOPRf_yM6le9Kc",
+      "title": "Proxy statement",
+      "url": "https://github.com/chrysn/shopinc/pull/7",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Recommend that proxies pass on unknown values\r\n    \r\nThis picks up a point by @mcr from https://github.com/chrysn/shopinc/pull/6: \"what does a CoAP/HTTP proxy do if it sees Uri-Path-Short options for which it does not have knowledge?\"\r\n\r\nAnother commit completes a sentence; this is bycatch from processing where that question would have been inserted.",
+      "createdAt": "2025-08-26T20:25:02Z",
+      "updatedAt": "2025-08-26T21:28:12Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "04fe9043885ad916657faaeacff4917e6b5dfb0e",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "proxy-statement",
+      "headRefOid": "f143d326613661ff802bababa19f136c1a2f058a",
+      "closedAt": "2025-08-26T21:27:28Z",
+      "mergedAt": "2025-08-26T21:27:28Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "51b1e4760a1a240d96eeca7500d4f582c8780e83"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOPRf_yM6lfDee",
+      "title": "Add /.w-k/brski and /.w-k/est",
+      "url": "https://github.com/chrysn/shopinc/pull/8",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on https://github.com/chrysn/shopinc/pull/6\r\n\r\nThis does not pick up other parts of that issue due to editing conflicts; the text after this PR is a bit under-specified because so far adding repeated options is just an example, and suddenly we rely on that behavior, but that'll be cleaned up applying the rest of #6.",
+      "createdAt": "2025-08-26T20:37:41Z",
+      "updatedAt": "2025-08-26T21:28:08Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "6efd561a346155cd56ba67f500a161617cdfae0e",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "brski-est",
+      "headRefOid": "ff57fc26bcc323f272144002594cc26c261d61ba",
+      "closedAt": "2025-08-26T21:27:50Z",
+      "mergedAt": "2025-08-26T21:27:50Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "56bbdfd68c1ac24e599616ac2b51dedb70ce490f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOPRf_yM6lpKAg",
+      "title": "expound further on encoding as int",
+      "url": "https://github.com/chrysn/shopinc/pull/10",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "explain the format of the option in more detail.",
+      "createdAt": "2025-08-27T17:12:26Z",
+      "updatedAt": "2025-08-27T17:12:26Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "66fd4b0d5eedf6c96f9e1ad36598074b0dd88165",
+      "headRepository": "mcr/shopinc",
+      "headRefName": "better-option-description",
+      "headRefOid": "e82144cb82bf45466bad26ef918ec16db7ac82ee",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOPRf_yM6lpOnl",
+      "title": "expound further on encoding as CBOR",
+      "url": "https://github.com/chrysn/shopinc/pull/11",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This explores using CBOR to encode the contents, and is an *alternative* to #10.\r\n",
+      "createdAt": "2025-08-27T17:18:42Z",
+      "updatedAt": "2025-08-27T17:28:00Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "66fd4b0d5eedf6c96f9e1ad36598074b0dd88165",
+      "headRepository": "mcr/shopinc",
+      "headRefName": "cbor-option-description",
+      "headRefOid": "181c37e698d15fc1e38e9de5e4b8dcc088d28782",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
