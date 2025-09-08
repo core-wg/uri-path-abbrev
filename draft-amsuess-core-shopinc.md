@@ -336,16 +336,6 @@ they are left for further documents:
 
 This section will be gone by the time this document is published.
 
-* Do we want to enable the use of Uri-Query with this option?
-
-  If so, we need option number 13,
-  or put what the author regards as unreasonable requirements on recipients.
-
-  In particular, the .well-known/core resource that is attractive for compression is commonly used with Uri-Query options,
-  and it also works well for /.well-known/rd.
-
-  The alternative is to use a higher number (still 1+1 but less precious), eg. 267.
-
 * Is the transformation of separate options to Proxy-URI even *legal* for proxies?
 
   If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
