@@ -1,7 +1,7 @@
 ---
 title: "Short Paths in CoAP"
 abbrev: "ShoPinC"
-category: info
+category: std
 
 docname: draft-amsuess-core-shopinc-latest
 submissiontype: IETF
