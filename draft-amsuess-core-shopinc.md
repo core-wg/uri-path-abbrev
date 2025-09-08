@@ -57,7 +57,7 @@ in particular its Uri-\* options.
 
 # The Uri-Path-Abbr option
 
-The Uri-Path-Abbr option expresses a request's URI path in a more compact form.
+The Uri-Path-Abbr option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.
 
 The Uri-Path-Abbr option represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
