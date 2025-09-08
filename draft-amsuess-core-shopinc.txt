@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Informational                             M. Richardson
-Expires: 27 February 2026                       Sandelman Software Works
-                                                          26 August 2025
+Expires: 12 March 2026                          Sandelman Software Works
+                                                        8 September 2025
 
 
                           Short Paths in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 February 2026.
+   This Internet-Draft will expire on 12 March 2026.
 
 Copyright Notice
 
@@ -422,9 +422,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-23, 7 July 2025,
+              ietf-core-href-24, 30 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-23>.
+              href-24>.
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
