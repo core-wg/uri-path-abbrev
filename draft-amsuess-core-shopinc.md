@@ -1,7 +1,7 @@
 ---
 title: "Short Paths in CoAP"
 abbrev: "ShoPinC"
-category: info
+category: std
 
 docname: draft-amsuess-core-shopinc-latest
 submissiontype: IETF
@@ -46,7 +46,7 @@ This document introduces an option that allows expressing well-known paths in as
 
 # Introduction
 
-\[ This is a -00, please read the abstract. \]
+\[ This is an early draft, please read the abstract. \]
 
 ## Conventions and Definitions
 
@@ -55,14 +55,14 @@ This document introduces an option that allows expressing well-known paths in as
 This document assumes basic familiarity with CoAP ({{!RFC7252}}),
 in particular its Uri-\* options.
 
-# The Short-Uri-Path option
+# The Uri-Path-Abbr option
 
-The Short-Uri-Path option expresses a request's URI path in a more compact form.
+The Uri-Path-Abbr option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.
 
-The Short-Uri-Path option represents a particular path,
+The Uri-Path-Abbr value represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
-The option values are coordinated by IANA in the Short-Uri-Path registry established in this document.
+The option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in {{iana-option}}.
 
 A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
@@ -75,14 +75,14 @@ returning 4.02 Bad Option
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
 
-A server that supports a Short-Uri-Path value
+A server that supports a Uri-Path-Abbr value
 MUST also support the equivalent request composed of Uri-Path components.
 
 
 | No.    | C | U | N | R | Name           | Format        | Len. | Default |
 |--------+---+---+---+---+----------------+---------------+------+---------|
-| CPA13  | x |   |   | x | Short-Uri-Path | uint / opaque | any  | (none)  |
-{:#option-table title="Short-Uri-Path Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)"}
+| CPA13  | x |   |   | x | Uri-Path-Abbr | uint / opaque | any  | (none)  |
+{:#option-table title="Uri-Path-Abbr Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)"}
 
 [^cpa]
 
@@ -94,7 +94,7 @@ MUST also support the equivalent request composed of Uri-Path components.
       occurrences of the prefix "CPA" in the document.  Finally,
       please remove this note.
 
-The Short-Uri-Path option
+The Uri-Path-Abbr option
 has an integer value in its first occurrence;
 the type of later occurrences differs depending on the first.
 It is a critical and safe-to-forward option that is part of the cache key,
@@ -111,11 +111,11 @@ It allows the option to be used with proxies that do not implement the option.
 
 ## Proxy behavior
 
-A proxy MAY expand or introduce a Short-Uri-Path when forwarding a request,
+A proxy MAY expand or introduce a Uri-Path-Abbr when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.
 
-A proxy that knows Short-Uri-Path but not the concrete value
+A proxy that knows Uri-Path-Abbr but not the concrete value
 SHOULD forward it unmodified,
 which is the behavior it would apply if it did not know the option.
 A reason to reject the request instead is when the proxy is tasked with enforcing access control
@@ -125,28 +125,28 @@ A reason to reject the request instead is when the proxy is tasked with enforcin
 
 The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request MUST be treated like the presence of a critical request option that could not be processed
-(that option being either the Short-Uri-Path option or the conflicting option).
+(that option being either the Uri-Path-Abbr option or the conflicting option).
 
-The Short-Uri-Path option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
-Proxies that understand Short-Uri-Path and convert Uri-\* options into Proxy-Uri MUST expand any Short-Uri-Path if they know the value.
+The Uri-Path-Abbr option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
+Proxies that understand Uri-Path-Abbr and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbr if they know the value.
 
-By the (de)composition rules around Proxy-Uri, and because Short-Uri-Path is safe-to-forward,
+By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbr is safe-to-forward,
 a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
-In such a combined message, the Uri-Path segments to which the Short-Uri-Path corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
-Servers that support both Short-Uri-Path and Proxy-URI/-CRI SHOULD process requests accordingly.
+In such a combined message, the Uri-Path segments to which the Uri-Path-Abbr corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
+Servers that support both Uri-Path-Abbr and Proxy-URI/-CRI SHOULD process requests accordingly.
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
 
 ## Repeated use {#repeated}
 
-The document defining the registered value of the first Short-Uri-Path option
-may allow additional Short-Uri-Path options,
-Their value is not expanded through the Short-Uri-Path IANA registry,
+The document defining the registered value of the first Uri-Path-Abbr option
+may allow additional Uri-Path-Abbr options,
+Their value is not expanded through the Uri-Path-Abbr IANA registry,
 but according to rules set up in that particular registration.
 
 To be implementable on a wide variety of platforms,
 those rules should allow expansion into Uri-Path options in an iterative way
-(i.e., any added Short-Uri-Path option corresponds only to appended Uri-Path options,
+(i.e., any added Uri-Path-Abbr option corresponds only to appended Uri-Path options,
 or cause a 4.02 Bad Option error,
 except if there are no resources at all with that prefix,
 in which case 4.04 Not Found may be used instead).
@@ -157,15 +157,15 @@ Some rules anticipated to be used are:
 
 * Options after the first are treated exactly like Uri-Path options.
 
-* There can be only one added Short-Uri-Path option,
-  and its opaque value is looked up in a table shaped like the Short-Uri-Path IANA registry.
+* There can be only one added Uri-Path-Abbr option,
+  and its opaque value is looked up in a table shaped like the Uri-Path-Abbr IANA registry.
 
 ### Considerations for choosing rules and prefixes {#rulecons}
 
 It is recommended <!-- not normative: doesn't affect interop, just applicant's later options -->
-that the expansion of the first Short-Uri-Path option does not end with a trailing slash.
+that the expansion of the first Uri-Path-Abbr option does not end with a trailing slash.
 While that is a valid CoAP URI,
-any additional path segments generated by expanding additional Short-Uri-Path options
+any additional path segments generated by expanding additional Uri-Path-Abbr options
 would generated paths with interior double slashes,
 which is highly unusual and generally not intended.
 
@@ -193,7 +193,7 @@ or remove before publication.
 > (especially given that this option on its own has an extensible value
 > range).
 
-# Initial Short-Uri-Path values {#initial}
+# Initial Uri-Path-Abbr values {#initial}
 
 This document registers values for the following well-known URIs:
 
@@ -203,7 +203,7 @@ This document registers values for the following well-known URIs:
 * `/.well-known/est` (see {{?RFC9148}})
 
 For all those,
-later occurrences of Short-Uri-Path are interpreted as additional Uri-Path values.
+later occurrences of Uri-Path-Abbr are interpreted as additional Uri-Path values.
 While there are currently no resources under the CoRE and RD resource,
 this behavior is useful in BRSKI and EST.
 
@@ -220,18 +220,18 @@ the application protected by the checker may provide the checker with an allow-l
 
 # IANA Considerations
 
-## CoAP option: Short-Uri-Path
+## CoAP option: Uri-Path-Abbr {#iana-option}
 
 IANA is requested to enter an one option into the CoAP Option Numbers registry in the CoRE Parameters group:
 
 * Number: CPA13
-* Name: Short-Uri-Path
+* Name: Uri-Path-Abbr
 * Reference: this document
 
-## Short-Uri-Path registry
+## Uri-Path-Abbr registry
 
 IANA is requested to establish a new registry in the CoRE parameters group:
-Values of the first Short-Uri-Path option in a CoAP request correspond to a URI path according to this registry.
+Values of the first Uri-Path-Abbr option in a CoAP request correspond to a URI path according to this registry.
 
 The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
 Change control for the registry follows this document's publication stream.
@@ -286,7 +286,7 @@ and not alter the semantics of previously valid expansions.
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
 | 2                  | /.well-known/brski   | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
 | 3                  | /.well-known/est     | {{initial}} of this document, and {{?RFC9148}}       |
-{:#initial-table title="Initial values for the Short-Uri-Path registry"}
+{:#initial-table title="Initial values for the Uri-Path-Abbr registry"}
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
@@ -305,7 +305,7 @@ they are left for further documents:
   authors of any future document providing such a framework
   are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.
 
-* The registry for Short-Uri-Path values is set up such that first values can not have the most significant bit of the first byte set.
+* The registry for Uri-Path-Abbr values is set up such that first values can not have the most significant bit of the first byte set.
 
   This allows future documents to reuse the option for any CBOR expressions,
   e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
@@ -336,16 +336,6 @@ they are left for further documents:
 
 This section will be gone by the time this document is published.
 
-* Do we want to enable the use of Uri-Query with this option?
-
-  If so, we need option number 13,
-  or put what the author regards as unreasonable requirements on recipients.
-
-  In particular, the .well-known/core resource that is attractive for compression is commonly used with Uri-Query options,
-  and it also works well for /.well-known/rd.
-
-  The alternative is to use a higher number (still 1+1 but less precious), eg. 267.
-
 * Is the transformation of separate options to Proxy-URI even *legal* for proxies?
 
   If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
@@ -362,6 +352,13 @@ This section will be gone by the time this document is published.
   (The author prefers the latter).
 
 # Change log
+
+Since -01: Processing 2025-08-27 interim.
+
+* Document is standards track.
+* Change name of the option from Short-Uri-Path to Uri-Path-Abbr.
+* Close question of whether use of option 13 is justified (it is).
+* Minor editorials.
 
 Since -00:
 
