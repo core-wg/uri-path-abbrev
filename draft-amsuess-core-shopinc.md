@@ -46,7 +46,7 @@ This document introduces an option that allows expressing well-known paths in as
 
 # Introduction
 
-\[ This is a -00, please read the abstract. \]
+\[ This is an early draft, please read the abstract. \]
 
 ## Conventions and Definitions
 
