@@ -62,7 +62,7 @@ The Uri-Path-Abbr option (short for "URI path, abbreviated") expresses a request
 The Uri-Path-Abbr value represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
-The option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in {{iana-option}}.
+The numeric option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in {{iana-reg}}.
 
 A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
@@ -81,8 +81,9 @@ MUST also support the equivalent request composed of Uri-Path components.
 
 | No.    | C | U | N | R | Name           | Format        | Len. | Default |
 |--------+---+---+---+---+----------------+---------------+------+---------|
-| CPA13  | x |   |   | x | Uri-Path-Abbr | uint / opaque | any  | (none)  |
-{:#option-table title="Uri-Path-Abbr Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)"}
+| CPA13¹ | x |   |   |   | Uri-Path-Abbr | uint           | 0-4  | (none)  |
+| CPA13² | x |   |   | x | Uri-Path-Abbr | uint / opaque  | any  | (none)  |
+{:#option-table title="Uri-Path-Abbr Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable). In basic (¹) and extended (²) use"}
 
 [^cpa]
 
@@ -94,16 +95,22 @@ MUST also support the equivalent request composed of Uri-Path components.
       occurrences of the prefix "CPA" in the document.  Finally,
       please remove this note.
 
-The Uri-Path-Abbr option
-has an integer value in its first occurrence;
-the type of later occurrences differs depending on the first.
-It is a critical and safe-to-forward option that is part of the cache key,
-used in CoAP requests.
+The option is a critical, safe-to-forward, and part of the cache key,
+and used in CoAP requests.
 {{option-table}} summarizes these, extending Table 4 of {{RFC7252}}).
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
+The (first occurrence of the) option has an integer value
+from the registry established in {{iana-reg}}.
+Unless that entry specifies "extended use",
+the option is used in the simpler "basic use" mode.
+
+Only applications that support entries with extended use need to implement the extensions of {{repeated}}.
+All others can regard the option as non-repeatable and uint valued,
+as long as they treat any additional Uri-Path-Abbr options as the unexpected critical option it is.
+
 Apart from the format,
-these properties only deviate from the Uri-Path (for which it stands in)
+the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
@@ -137,11 +144,18 @@ Servers that support both Uri-Path-Abbr and Proxy-URI/-CRI SHOULD process reques
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
 
-## Repeated use {#repeated}
+## Extended use {#repeated}
 
-The document defining the registered value of the first Uri-Path-Abbr option
-may allow additional Uri-Path-Abbr options,
-Their value is not expanded through the Uri-Path-Abbr IANA registry,
+[^maybedrop]
+
+[^maybedrop]: This document should also work if we dropped this and references to it completely;
+  it'd then be up to updating documents to "create" extended rules.
+  All that would need to remain is a small note that implementations must properly respond with Bad Option on unexpected occurrences..
+
+If a registered abbreviation describes an entry to apply "extended use",
+the option can be repeated, and have non-uint values ({{option-table}}).
+
+Their value of later options is not expanded through the Uri-Path-Abbr IANA registry,
 but according to rules set up in that particular registration.
 
 To be implementable on a wide variety of platforms,
@@ -160,24 +174,24 @@ Some rules anticipated to be used are:
 * There can be only one added Uri-Path-Abbr option,
   and its opaque value is looked up in a table shaped like the Uri-Path-Abbr IANA registry.
 
-### Considerations for choosing rules and prefixes {#rulecons}
+## Considerations for choosing rules and prefixes {#rulecons}
+
+As demonstrated with the initial options for {{?RFC9175}} in {{initial}},
+several abbreviations can be registered for a single document;
+those will often use numbers above 256 to be frugal with the namespace.
+Even using two bytes for the number,
+the path is encoded more efficiently than if extended use was specified:
+The total option is 4 byte long, whereas a small number would produce a 3 byte long option followed by a 2 byte repeated option with value.
 
 It is recommended <!-- not normative: doesn't affect interop, just applicant's later options -->
-that the expansion of the first Uri-Path-Abbr option does not end with a trailing slash.
-While that is a valid CoAP URI,
-any additional path segments generated by expanding additional Uri-Path-Abbr options
-would generated paths with interior double slashes,
-which is highly unusual and generally not intended.
+that the expansion of the first Uri-Path-Abbr option does not end with a trailing slash,
+even when the entry is specified for basic use.
 
-When no repeated use is anticipated,
-it is recommended to not forbid them outright:
-That would make it harder to use that exension point later,
-as allowing it would be a breaking change to the specification.
-Instead, either the common behavior of treating them as extra Uri-Path strings can be specified
-(which does not make a server without resources under the prefix any more complex,
-as it may answer react with 4.02 or 4.04 as per {{repeated}}),
-or the semantics of repeated options can explicitly be left unspecified
-(which retains more flexibility in assigning meaning later).
+This enables updates to the entry that enable extended use,
+as there is no empty path component that stands in the way of iterative expansion into Uri-Path options.
+Such a change is compatible because clients that use the new behavior
+will receive 4.02 errors from older servers,
+and fall back to sending the path in Uri-Path.
 
 ## Choice of the option number
 
@@ -240,7 +254,7 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 * Name: Uri-Path-Abbr
 * Reference: this document
 
-## Uri-Path-Abbr registry
+## Uri-Path-Abbr registry {#iana-reg}
 
 IANA is requested to establish a new registry in the CoRE parameters group:
 Values of the first Uri-Path-Abbr option in a CoAP request correspond to a URI path according to this registry.
@@ -271,6 +285,12 @@ Entry fields are:
 
   This field may be empty if the document describes that the option needs to be repeated when using this first value.
 
+* Extended use.
+
+  Brief description of the mode of extended use, or empty (`-`).
+
+  Examples: "Uri-Path string", "table lookup", "custom".
+
 * Reference.
 
   A document that requested the allocation,
@@ -292,19 +312,19 @@ If the registration foresees updates,
 those should always just allow previously unacceptable values into new path segments,
 and not alter the semantics of previously valid expansions.
 
-| First option value | Simple expanded path | Reference |
-|--------------------+----------------------+-----------|
-| 0                  | /.well-known/core    | {{initial}} of this document                         |
-| 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
-| 301                | /.well-known/est/crts  | {{initial}} of this document, and {{?RFC9148}}    |
-| 302                | /.well-known/est/sen   | {{initial}} of this document, and {{?RFC9148}}    |
-| 303                | /.well-known/est/sren  | {{initial}} of this document, and {{?RFC9148}}    |
-| 304                | /.well-known/est/skg   | {{initial}} of this document, and {{?RFC9148}}    |
-| 305                | /.well-known/est/skc   | {{initial}} of this document, and {{?RFC9148}}    |
-| 306                | /.well-known/est/att   | {{initial}} of this document, and {{?RFC9148}}    |
-| 401                | /.well-known/brski/es  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
-| 402                | /.well-known/brski/rv  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
-| 403                | /.well-known/brski/vs  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| First option value | Simple expanded path | Ext |Reference |
+|--------------------+----------------------+----------------|
+| 0                  | /.well-known/core    | - | {{initial}} of this document                         |
+| 1                  | /.well-known/rd      | - | {{initial}} of this document, and {{?RFC9176}}       |
+| 301                | /.well-known/est/crts  | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 302                | /.well-known/est/sen   | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 303                | /.well-known/est/sren  | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 304                | /.well-known/est/skg   | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 305                | /.well-known/est/skc   | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 306                | /.well-known/est/att   | - | {{initial}} of this document, and {{?RFC9148}}    |
+| 401                | /.well-known/brski/es  | - | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 402                | /.well-known/brski/rv  | - | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 403                | /.well-known/brski/vs  | - | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
 {:#initial-table title="Initial values for the Uri-Path-Abbr registry"}
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
