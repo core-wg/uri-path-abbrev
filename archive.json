@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-28T01:18:31.429997+00:00",
+  "timestamp": "2025-09-09T01:17:54.287654+00:00",
   "repo": "chrysn/shopinc",
   "labels": [
     {
@@ -64,7 +64,7 @@
       "labels": [],
       "body": "MCR [on list](https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI):\n\n* Uri-Short-Path for consistency with other options?",
       "createdAt": "2025-07-24T11:03:46Z",
-      "updatedAt": "2025-08-27T15:25:20Z",
+      "updatedAt": "2025-09-08T22:31:14Z",
       "closedAt": null,
       "comments": [
         {
@@ -80,6 +80,13 @@
           "body": "Interim narrowed to Uri-Path-XXX where XXX could be \"Short\", but people associate short paths with routing. So, in decreasing order of my preference, more suggestions for -02:\n\n* Uri-Path-Registered\n* Uri-Path-Well-Known\n* Uri-Path-Registered\n* Uri-Path-Compact\n* Uri-Path-Concise\n* Uri-Path-Constrained\n* Uri-Path-Tiny\n* Q-Uri-Path\n* Uri-Pth",
           "createdAt": "2025-08-27T15:25:20Z",
           "updatedAt": "2025-08-27T15:25:20Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "I'll toss in Uri-Path-Abbr -- that's an abbreviation in itself, and while our codes are not *exactly* like textual abbreviations, they do transform the Uri-Path option *ad breve*.",
+          "createdAt": "2025-09-08T22:31:14Z",
+          "updatedAt": "2025-09-08T22:31:14Z"
         }
       ]
     },
@@ -581,6 +588,32 @@
       "headRepository": "mcr/shopinc",
       "headRefName": "cbor-option-description",
       "headRefOid": "181c37e698d15fc1e38e9de5e4b8dcc088d28782",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOPRf_yM6neouR",
+      "title": "Prepare -02",
+      "url": "https://github.com/chrysn/shopinc/pull/12",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The last interim (minutes currently [in the pad](https://notes.ietf.org/notes-ietf-interim-2025-core-12-core#)) left us with good input to be processed, but one thing sounded urgent:\r\n\r\nSwitch to standards track so that when there's an adoption call, there's no confusion.\r\n\r\nApart from that bare minimum for -02, it also pulls in an option name change, since apparently nobody was happy with it. It picks up the Uri-Path-X pattern people [seem to like](https://github.com/chrysn/shopinc/issues/1), and chooses something self-referentially abbreviated as the suffix.",
+      "createdAt": "2025-09-08T22:45:03Z",
+      "updatedAt": "2025-09-08T22:45:03Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "ddf213e19ccebe859ba83d01903015aaa95e0411",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "prep-02",
+      "headRefOid": "5f00883f74607d9b92aed114843aefa458c8da1a",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
