@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 12 March 2026                          Sandelman Software Works
-                                                        8 September 2025
+Expires: 13 March 2026                          Sandelman Software Works
+                                                        9 September 2025
 
 
                           Short Paths in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 March 2026.
+   This Internet-Draft will expire on 13 March 2026.
 
 Copyright Notice
 
@@ -111,11 +111,11 @@ Table of Contents
    The Uri-Path-Abbr option (short for "URI path, abbreviated")
    expresses a request's URI path in a more compact form.
 
-   The Uri-Path-Abbr option represents a particular path, and is thus
+   The Uri-Path-Abbr value represents a particular path, and is thus
    equivalent to any number of Uri-Path options.  Those paths are
    typically in a "/.well-known" location as described in [RFC8615].
    The option values are coordinated by IANA in the Uri-Path-Abbr
-   registry established in this document.
+   registry established in this document in Section 5.1.
 
    A client may use the option instead of the Uri-Path option if there
    is a suitable value that can express the requested path.  Unless the
