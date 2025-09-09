@@ -62,7 +62,7 @@ The Uri-Path-Abbr option (short for "URI path, abbreviated") expresses a request
 The Uri-Path-Abbr value represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
-The option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document.
+The option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in {{iana-option}}.
 
 A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
@@ -220,7 +220,7 @@ the application protected by the checker may provide the checker with an allow-l
 
 # IANA Considerations
 
-## CoAP option: Uri-Path-Abbr
+## CoAP option: Uri-Path-Abbr {#iana-option}
 
 IANA is requested to enter an one option into the CoAP Option Numbers registry in the CoRE Parameters group:
 
