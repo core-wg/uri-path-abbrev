@@ -353,6 +353,13 @@ This section will be gone by the time this document is published.
 
 # Change log
 
+Since -01: Processing 2025-08-27 interim.
+
+* Document is standards track.
+* Change name of the option from Short-Uri-Path to Uri-Path-Abbr.
+* Close question of whether use of option 13 is justified (it is).
+* Minor editorials.
+
 Since -00:
 
 * Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).
