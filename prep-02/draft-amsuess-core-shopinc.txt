@@ -93,7 +93,7 @@ Table of Contents
 
 1.  Introduction
 
-   [ This is a -00, please read the abstract. ]
+   [ This is an early draft, please read the abstract. ]
 
 1.1.  Conventions and Definitions
 
