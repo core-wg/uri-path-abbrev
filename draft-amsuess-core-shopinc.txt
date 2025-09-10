@@ -234,6 +234,8 @@ Table of Contents
 
    *  /.well-known/rd (see [RFC9175])
 
+   *  /.well-known/edhoc (see [RFC9528])
+
    *  For EST ([RFC9148]):
 
       -  /.well-known/est/crts
@@ -354,6 +356,9 @@ Table of Contents
      | 1      | /.well-      | Section 3 of this document, and      |
      |        | known/rd     | [RFC9176]                            |
      +--------+--------------+--------------------------------------+
+     | 2      | /.well-      | Section 3 of this document, and      |
+     |        | known/edhoc  | [RFC9528]                            |
+     +--------+--------------+--------------------------------------+
      | 301    | /.well-      | Section 3 of this document, and      |
      |        | known/est/   | [RFC9148]                            |
      |        | crts         |                                      |
@@ -470,6 +475,11 @@ Table of Contents
               P. van der Stok, "Constrained RESTful Environments (CoRE)
               Resource Directory", RFC 9176, DOI 10.17487/RFC9176, April
               2022, <https://www.rfc-editor.org/rfc/rfc9176>.
+
+   [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
+              "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
+              DOI 10.17487/RFC9528, March 2024,
+              <https://www.rfc-editor.org/rfc/rfc9528>.
 
 Appendix A.  Further development
 
