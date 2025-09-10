@@ -105,7 +105,7 @@ from the registry established in {{iana-reg}}.
 Apart from the format and repeatability,
 the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
-This has unfortunate consequences for the interactions with the Proxy-URI option,
+This has consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
 It allows the option to be used with proxies that do not implement the option.
 
