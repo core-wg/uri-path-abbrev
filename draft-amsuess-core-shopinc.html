@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Amsüss &amp; Richardson</td>
-<td class="center">Expires 13 March 2026</td>
+<td class="center">Expires 14 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-amsuess-core-shopinc-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-09" class="published">9 September 2025</time>
+<time datetime="2025-09-10" class="published">10 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-13">13 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-14">14 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ This document introduces an option that allows expressing well-known paths in as
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1172,15 +1172,7 @@ This document introduces an option that allows expressing well-known paths in as
                 <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-interaction-with-other-opti" class="internal xref">Interaction with other options</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-repeated-use" class="internal xref">Repeated use</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.1">
-                    <p id="section-toc.1-1.2.2.3.2.1.1"><a href="#section-2.3.1" class="auto internal xref">2.3.1</a>.  <a href="#name-examples-of-rules" class="internal xref">Examples of rules</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3.2.2">
-                    <p id="section-toc.1-1.2.2.3.2.2.1"><a href="#section-2.3.2" class="auto internal xref">2.3.2</a>.  <a href="#name-considerations-for-choosing" class="internal xref">Considerations for choosing rules and prefixes</a></p>
-</li>
-                </ul>
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-future-development" class="internal xref">Future development</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
                 <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-choice-of-the-option-number" class="internal xref">Choice of the option number</a></p>
@@ -1264,7 +1256,7 @@ in particular its Uri-* options.<a href="#section-1.1-2" class="pilcrow">¶</a><
 <p id="section-2-2">The Uri-Path-Abbr value represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>.
-The option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in <a href="#iana-option" class="auto internal xref">Section 5.1</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+The numeric option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in <a href="#iana-reg" class="auto internal xref">Section 5.2</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
 (e.g. because the specification describing the interaction mandates support for the option in the server)
@@ -1301,10 +1293,10 @@ because the equivalent path may be present on the server.<a href="#section-2-4" 
             <td class="text-left" rowspan="1" colspan="1">x</td>
             <td class="text-left" rowspan="1" colspan="1"> </td>
             <td class="text-left" rowspan="1" colspan="1"> </td>
-            <td class="text-left" rowspan="1" colspan="1">x</td>
+            <td class="text-left" rowspan="1" colspan="1"> </td>
             <td class="text-left" rowspan="1" colspan="1">Uri-Path-Abbr</td>
-            <td class="text-left" rowspan="1" colspan="1">uint / opaque</td>
-            <td class="text-left" rowspan="1" colspan="1">any</td>
+            <td class="text-left" rowspan="1" colspan="1">uint</td>
+            <td class="text-left" rowspan="1" colspan="1">0-4</td>
             <td class="text-left" rowspan="1" colspan="1">(none)</td>
           </tr>
         </tbody>
@@ -1317,19 +1309,18 @@ because the equivalent path may be present on the server.<a href="#section-2-4" 
   assigned by IANA; perform an analogous substitution for all other
   occurrences of the prefix "CPA" in the document.  Finally,
   please remove this note.</span><a href="#section-2-7" class="pilcrow">¶</a></p>
-<p id="section-2-8">The Uri-Path-Abbr option
-has an integer value in its first occurrence;
-the type of later occurrences differs depending on the first.
-It is a critical and safe-to-forward option that is part of the cache key,
-used in CoAP requests.
+<p id="section-2-8">The option is a critical, safe-to-forward, and part of the cache key,
+and used in CoAP requests.
 <a href="#option-table" class="auto internal xref">Table 1</a> summarizes these, extending Table 4 of <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span>).
 Its OSCORE treatment is as Class E (<span>[<a href="#RFC8613" class="cite xref">RFC8613</a>]</span>).<a href="#section-2-8" class="pilcrow">¶</a></p>
-<p id="section-2-9">Apart from the format,
-these properties only deviate from the Uri-Path (for which it stands in)
+<p id="section-2-9">The option has an integer value
+from the registry established in <a href="#iana-reg" class="auto internal xref">Section 5.2</a>.<a href="#section-2-9" class="pilcrow">¶</a></p>
+<p id="section-2-10">Apart from the format and repeatability,
+the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
 This has unfortunate consequences for the interactions with the Proxy-URI option,
 but is generally desirable:
-It allows the option to be used with proxies that do not implement the option.<a href="#section-2-9" class="pilcrow">¶</a></p>
+It allows the option to be used with proxies that do not implement the option.<a href="#section-2-10" class="pilcrow">¶</a></p>
 <div id="proxy-behavior">
 <section id="section-2.1">
         <h3 id="name-proxy-behavior">
@@ -1363,60 +1354,18 @@ Servers that support both Uri-Path-Abbr and Proxy-URI/-CRI <span class="bcp14">S
 nor is there a reason known why they should).<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="repeated">
+<div id="future-development">
 <section id="section-2.3">
-        <h3 id="name-repeated-use">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-repeated-use" class="section-name selfRef">Repeated use</a>
+        <h3 id="name-future-development">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-future-development" class="section-name selfRef">Future development</a>
         </h3>
-<p id="section-2.3-1">The document defining the registered value of the first Uri-Path-Abbr option
-may allow additional Uri-Path-Abbr options,
-Their value is not expanded through the Uri-Path-Abbr IANA registry,
-but according to rules set up in that particular registration.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">To be implementable on a wide variety of platforms,
-those rules should allow expansion into Uri-Path options in an iterative way
-(i.e., any added Uri-Path-Abbr option corresponds only to appended Uri-Path options,
-or cause a 4.02 Bad Option error,
-except if there are no resources at all with that prefix,
-in which case 4.04 Not Found may be used instead).<a href="#section-2.3-2" class="pilcrow">¶</a></p>
-<div id="examples-of-rules">
-<section id="section-2.3.1">
-          <h4 id="name-examples-of-rules">
-<a href="#section-2.3.1" class="section-number selfRef">2.3.1. </a><a href="#name-examples-of-rules" class="section-name selfRef">Examples of rules</a>
-          </h4>
-<p id="section-2.3.1-1">Some rules anticipated to be used are:<a href="#section-2.3.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-2.3.1-2.1">
-              <p id="section-2.3.1-2.1.1">Options after the first are treated exactly like Uri-Path options.<a href="#section-2.3.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-2.3.1-2.2">
-              <p id="section-2.3.1-2.2.1">There can be only one added Uri-Path-Abbr option,
-and its opaque value is looked up in a table shaped like the Uri-Path-Abbr IANA registry.<a href="#section-2.3.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-</section>
-</div>
-<div id="rulecons">
-<section id="section-2.3.2">
-          <h4 id="name-considerations-for-choosing">
-<a href="#section-2.3.2" class="section-number selfRef">2.3.2. </a><a href="#name-considerations-for-choosing" class="section-name selfRef">Considerations for choosing rules and prefixes</a>
-          </h4>
-<p id="section-2.3.2-1">It is recommended 
-that the expansion of the first Uri-Path-Abbr option does not end with a trailing slash.
-While that is a valid CoAP URI,
-any additional path segments generated by expanding additional Uri-Path-Abbr options
-would generated paths with interior double slashes,
-which is highly unusual and generally not intended.<a href="#section-2.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.3.2-2">When no repeated use is anticipated,
-it is recommended to not forbid them outright:
-That would make it harder to use that exension point later,
-as allowing it would be a breaking change to the specification.
-Instead, either the common behavior of treating them as extra Uri-Path strings can be specified
-(which does not make a server without resources under the prefix any more complex,
-as it may answer react with 4.02 or 4.04 as per <a href="#repeated" class="auto internal xref">Section 2.3</a>),
-or the semantics of repeated options can explicitly be left unspecified
-(which retains more flexibility in assigning meaning later).<a href="#section-2.3.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
+<p id="section-2.3-1">Future updates to this document
+might extend the capabilities of the option to be repeated;
+that document will need to specify how later occurrences of the option
+extend the series of equivalent Uri-Path options from the first value.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">Server implementations that treat repeated Uri-Path-Abbr options
+like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
+support the transition to such an extension.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="choice-of-the-option-number">
@@ -1456,17 +1405,51 @@ range).<a href="#section-2.4-2.1.1" class="pilcrow">¶</a></p>
           <p id="section-3-2.2.1"><code>/.well-known/rd</code> (see <span>[<a href="#RFC9175" class="cite xref">RFC9175</a>]</span>)<a href="#section-3-2.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.3">
-          <p id="section-3-2.3.1"><code>/.well-known/brski</code> (see <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>)<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.3.1">For EST (<span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>):<a href="#section-3-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-2.3.2.1">
+              <p id="section-3-2.3.2.1.1"><code>/.well-known/est/crts</code><a href="#section-3-2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.3.2.2">
+              <p id="section-3-2.3.2.2.1"><code>/.well-known/est/sen</code><a href="#section-3-2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.3.2.3">
+              <p id="section-3-2.3.2.3.1"><code>/.well-known/est/sren</code><a href="#section-3-2.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.3.2.4">
+              <p id="section-3-2.3.2.4.1"><code>/.well-known/est/skg</code><a href="#section-3-2.3.2.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.3.2.5">
+              <p id="section-3-2.3.2.5.1"><code>/.well-known/est/skc</code><a href="#section-3-2.3.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.3.2.6">
+              <p id="section-3-2.3.2.6.1"><code>/.well-known/est/att</code><a href="#section-3-2.3.2.6.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-3-2.3.3">
+EST does allow using other paths, such as different root resources or arbitrary labels;
+for those, no abbreviations are supported in this document.<a href="#section-3-2.3.3" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="section-3-2.4">
-          <p id="section-3-2.4.1"><code>/.well-known/est</code> (see <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>)<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+          <p id="section-3-2.4.1">For <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>:<a href="#section-3-2.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-2.4.2.1">
+              <p id="section-3-2.4.2.1.1"><code>/.well-known/brski/es</code><a href="#section-3-2.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.4.2.2">
+              <p id="section-3-2.4.2.2.1"><code>/.well-known/brski/rv</code><a href="#section-3-2.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3-2.4.2.3">
+              <p id="section-3-2.4.2.3.1"><code>/.well-known/brski/vs</code><a href="#section-3-2.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </li>
       </ul>
 <p id="section-3-3">For all those,
 later occurrences of Uri-Path-Abbr are interpreted as additional Uri-Path values.
 While there are currently no resources under the CoRE and RD resource,
 this behavior is useful in BRSKI and EST.<a href="#section-3-3" class="pilcrow">¶</a></p>
-<p id="section-3-4">Note that the former two paths are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-4">Note that the <code>core</code> and <code>rd</code> paths are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="seccons">
@@ -1506,7 +1489,7 @@ the application protected by the checker may provide the checker with an allow-l
         </ul>
 </section>
 </div>
-<div id="uri-path-abbr-registry">
+<div id="iana-reg">
 <section id="section-5.2">
         <h3 id="name-uri-path-abbr-registry">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-uri-path-abbr-registry" class="section-name selfRef">Uri-Path-Abbr registry</a>
@@ -1551,13 +1534,8 @@ and how later values are expanded<a href="#section-5.2-4.3.2" class="pilcrow">¶
 <p id="section-5.2-5">Reviewer instructions:<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <p id="section-5.2-6">The reviewer is instructed to be frugal with the 128 values that correspond to a single-vbyte value,
 focusing on applications that are expected to be useful in different constrained ecosystems.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
-<p id="section-5.2-7">If the considerations of <a href="#rulecons" class="auto internal xref">Section 2.3.2</a> are not followed,
-the reviewer is asked to verify with the applicant that they are deliberately deciding otherwise.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
-<p id="section-5.2-8">The expanded path (or paths) are expected to be well-known paths at the time of writing,
-but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-5.2-8" class="pilcrow">¶</a></p>
-<p id="section-5.2-9">If the registration foresees updates,
-those should always just allow previously unacceptable values into new path segments,
-and not alter the semantics of previously valid expansions.<a href="#section-5.2-9" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">The expanded path is expected to be well-known paths at the time of writing,
+but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <span id="name-initial-values-for-the-uri-"></span><div id="initial-table">
 <table class="center" id="table-2">
           <caption>
@@ -1586,17 +1564,66 @@ and not alter the semantics of previously valid expansions.<a href="#section-5.2
 </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">2</td>
-              <td class="text-left" rowspan="1" colspan="1">/.well-known/brski</td>
+              <td class="text-left" rowspan="1" colspan="1">301</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/crts</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">302</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/sen</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">303</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/sren</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">304</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/skg</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">305</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/skc</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">306</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/est/att</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">401</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/brski/es</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>
 </td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">3</td>
-              <td class="text-left" rowspan="1" colspan="1">/.well-known/est</td>
+              <td class="text-left" rowspan="1" colspan="1">402</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/brski/rv</td>
               <td class="text-left" rowspan="1" colspan="1">
-                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#RFC9148" class="cite xref">RFC9148</a>]</span>
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">403</td>
+              <td class="text-left" rowspan="1" colspan="1">/.well-known/brski/vs</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <a href="#initial" class="auto internal xref">Section 3</a> of this document, and <span>[<a href="#I-D.ietf-anima-constrained-voucher" class="cite xref">I-D.ietf-anima-constrained-voucher</a>]</span>
 </td>
             </tr>
           </tbody>
