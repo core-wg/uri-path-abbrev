@@ -199,15 +199,27 @@ This document registers values for the following well-known URIs:
 
 * `/.well-known/core`
 * `/.well-known/rd` (see {{?RFC9175}})
-* `/.well-known/brski` (see {{?I-D.ietf-anima-constrained-voucher}})
-* `/.well-known/est` (see {{?RFC9148}})
+* For EST ({{?RFC9148}}):
+  * `/.well-known/est/crts`
+  * `/.well-known/est/sen`
+  * `/.well-known/est/sren`
+  * `/.well-known/est/skg`
+  * `/.well-known/est/skc`
+  * `/.well-known/est/att`
+
+  EST does allow using other paths, such as different root resources or arbitrary labels;
+  for those, no abbreviations are supported in this document.
+* For {{?I-D.ietf-anima-constrained-voucher}}:
+  * `/.well-known/brski/es`
+  * `/.well-known/brski/rv`
+  * `/.well-known/brski/vs`
 
 For all those,
 later occurrences of Uri-Path-Abbr are interpreted as additional Uri-Path values.
 While there are currently no resources under the CoRE and RD resource,
 this behavior is useful in BRSKI and EST.
 
-Note that the former two paths are commonly used with Uri-Query options.
+Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
 # Security Considerations {#seccons}
 
@@ -284,8 +296,15 @@ and not alter the semantics of previously valid expansions.
 |--------------------+----------------------+-----------|
 | 0                  | /.well-known/core    | {{initial}} of this document                         |
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
-| 2                  | /.well-known/brski   | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
-| 3                  | /.well-known/est     | {{initial}} of this document, and {{?RFC9148}}       |
+| 301                | /.well-known/est/crts  | {{initial}} of this document, and {{?RFC9148}}    |
+| 302                | /.well-known/est/sen   | {{initial}} of this document, and {{?RFC9148}}    |
+| 303                | /.well-known/est/sren  | {{initial}} of this document, and {{?RFC9148}}    |
+| 304                | /.well-known/est/skg   | {{initial}} of this document, and {{?RFC9148}}    |
+| 305                | /.well-known/est/skc   | {{initial}} of this document, and {{?RFC9148}}    |
+| 306                | /.well-known/est/att   | {{initial}} of this document, and {{?RFC9148}}    |
+| 401                | /.well-known/brski/es  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 402                | /.well-known/brski/rv  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
+| 403                | /.well-known/brski/vs  | {{initial}} of this document, and {{?I-D.ietf-anima-constrained-voucher}}       |
 {:#initial-table title="Initial values for the Uri-Path-Abbr registry"}
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
