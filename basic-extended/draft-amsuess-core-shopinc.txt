@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 13 March 2026                          Sandelman Software Works
-                                                        9 September 2025
+Expires: 14 March 2026                          Sandelman Software Works
+                                                       10 September 2025
 
 
                           Short Paths in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 March 2026.
+   This Internet-Draft will expire on 14 March 2026.
 
 Copyright Notice
 
@@ -73,10 +73,8 @@ Table of Contents
    2.  The Uri-Path-Abbr option
      2.1.  Proxy behavior
      2.2.  Interaction with other options
-     2.3.  Extended use
-       2.3.1.  Examples of rules
-     2.4.  Considerations for choosing rules and prefixes
-     2.5.  Choice of the option number
+     2.3.  Future development
+     2.4.  Choice of the option number
    3.  Initial Uri-Path-Abbr values
    4.  Security Considerations
    5.  IANA Considerations
@@ -133,17 +131,14 @@ Table of Contents
    A server that supports a Uri-Path-Abbr value MUST also support the
    equivalent request composed of Uri-Path components.
 
-   +========+===+===+===+===+===============+========+======+=========+
-   | No.    | C | U | N | R | Name          | Format | Len. | Default |
-   +========+===+===+===+===+===============+========+======+=========+
-   | CPA13¹ | x |   |   |   | Uri-Path-Abbr | uint   | 0-4  | (none)  |
-   +--------+---+---+---+---+---------------+--------+------+---------+
-   | CPA13² | x |   |   | x | Uri-Path-Abbr | uint / | any  | (none)  |
-   |        |   |   |   |   |               | opaque |      |         |
-   +--------+---+---+---+---+---------------+--------+------+---------+
+    +=======+===+===+===+===+===============+========+======+=========+
+    | No.   | C | U | N | R | Name          | Format | Len. | Default |
+    +=======+===+===+===+===+===============+========+======+=========+
+    | CPA13 | x |   |   |   | Uri-Path-Abbr | uint   | 0-4  | (none)  |
+    +-------+---+---+---+---+---------------+--------+------+---------+
 
-   Table 1: Uri-Path-Abbr Option Summary (C = Critical, U = Unsafe, N =
-     NoCacheKey, R = Repeatable).  In basic (¹) and extended (²) use
+          Table 1: Uri-Path-Abbr Option Summary (C = Critical, U =
+                  Unsafe, N = NoCacheKey, R = Repeatable)
 
 
    // RFC-Editor: This document uses the CPA (code point allocation)
@@ -159,21 +154,15 @@ Table of Contents
    Table 4 of [RFC7252]).  Its OSCORE treatment is as Class E
    ([RFC8613]).
 
-   The (first occurrence of the) option has an integer value from the
-   registry established in Section 5.2.  Unless that entry specifies
-   "extended use", the option is used in the simpler "basic use" mode.
+   The option has an integer value from the registry established in
+   Section 5.2.
 
-   Only applications that support entries with extended use need to
-   implement the extensions of Section 2.3.  All others can regard the
-   option as non-repeatable and uint valued, as long as they treat any
-   additional Uri-Path-Abbr options as the unexpected critical option it
-   is.
-
-   Apart from the format, the option's properties only deviate from the
-   Uri-Path (for which it stands in) in that this option is safe to
-   forward.  This has unfortunate consequences for the interactions with
-   the Proxy-URI option, but is generally desirable: It allows the
-   option to be used with proxies that do not implement the option.
+   Apart from the format and repeatability, the option's properties only
+   deviate from the Uri-Path (for which it stands in) in that this
+   option is safe to forward.  This has unfortunate consequences for the
+   interactions with the Proxy-URI option, but is generally desirable:
+   It allows the option to be used with proxies that do not implement
+   the option.
 
 2.1.  Proxy behavior
 
@@ -212,61 +201,18 @@ Table of Contents
    CRI from individual options, nor is there a reason known why they
    should).
 
-2.3.  Extended use
+2.3.  Future development
 
+   Future updates to this document might extend the capabilities of the
+   option to be repeated; that document will need to specify how later
+   occurrences of the option extend the series of equivalent Uri-Path
+   options from the first value.
 
-   // This document should also work if we dropped this and references
-   // to it completely;
+   Server implementations that treat repeated Uri-Path-Abbr options like
+   any other critical unprocessable option (i.e., by responding with
+   4.02 Bad Option) support the transition to such an extension.
 
-   it'd then be up to updating documents to "create" extended rules.
-   All that would need to remain is a small note that implementations
-   must properly respond with Bad Option on unexpected occurrences..
-
-   If a registered abbreviation describes an entry to apply "extended
-   use", the option can be repeated, and have non-uint values (Table 1).
-
-   Their value of later options is not expanded through the Uri-Path-
-   Abbr IANA registry, but according to rules set up in that particular
-   registration.
-
-   To be implementable on a wide variety of platforms, those rules
-   should allow expansion into Uri-Path options in an iterative way
-   (i.e., any added Uri-Path-Abbr option corresponds only to appended
-   Uri-Path options, or cause a 4.02 Bad Option error, except if there
-   are no resources at all with that prefix, in which case 4.04 Not
-   Found may be used instead).
-
-2.3.1.  Examples of rules
-
-   Some rules anticipated to be used are:
-
-   *  Options after the first are treated exactly like Uri-Path options.
-
-   *  There can be only one added Uri-Path-Abbr option, and its opaque
-      value is looked up in a table shaped like the Uri-Path-Abbr IANA
-      registry.
-
-2.4.  Considerations for choosing rules and prefixes
-
-   As demonstrated with the initial options for [RFC9175] in Section 3,
-   several abbreviations can be registered for a single document; those
-   will often use numbers above 256 to be frugal with the namespace.
-   Even using two bytes for the number, the path is encoded more
-   efficiently than if extended use was specified: The total option is 4
-   byte long, whereas a small number would produce a 3 byte long option
-   followed by a 2 byte repeated option with value.
-
-   It is recommended that the expansion of the first Uri-Path-Abbr
-   option does not end with a trailing slash, even when the entry is
-   specified for basic use.
-
-   This enables updates to the entry that enable extended use, as there
-   is no empty path component that stands in the way of iterative
-   expansion into Uri-Path options.  Such a change is compatible because
-   clients that use the new behavior will receive 4.02 errors from older
-   servers, and fall back to sending the path in Uri-Path.
-
-2.5.  Choice of the option number
+2.4.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
    document who can thus learn how the option number namespace is
@@ -381,12 +327,6 @@ Table of Contents
       This field may be empty if the document describes that the option
       needs to be repeated when using this first value.
 
-   *  Extended use.
-
-      Brief description of the mode of extended use, or empty (-).
-
-      Examples: "Uri-Path string", "table lookup", "custom".
-
    *  Reference.
 
       A document that requested the allocation, and describes whether
@@ -399,65 +339,57 @@ Table of Contents
    correspond to a single-vbyte value, focusing on applications that are
    expected to be useful in different constrained ecosystems.
 
-   If the considerations of Section 2.4 are not followed, the reviewer
-   is asked to verify with the applicant that they are deliberately
-   deciding otherwise.
+   The expanded path is expected to be well-known paths at the time of
+   writing, but it is up to the reviewers to exceptionally also admit
+   paths that are not well-known.
 
-   The expanded path (or paths) are expected to be well-known paths at
-   the time of writing, but it is up to the reviewers to exceptionally
-   also admit paths that are not well-known.
-
-   If the registration foresees updates, those should always just allow
-   previously unacceptable values into new path segments, and not alter
-   the semantics of previously valid expansions.
-
-   +========+==============+===+======================================+
-   | First  | Simple       |Ext| Reference                            |
-   | option | expanded     |   |                                      |
-   | value  | path         |   |                                      |
-   +========+==============+===+======================================+
-   | 0      | /.well-      |-  | Section 3 of this document           |
-   |        | known/core   |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 1      | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/rd     |   | [RFC9176]                            |
-   +--------+--------------+---+--------------------------------------+
-   | 301    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | crts         |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 302    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | sen          |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 303    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | sren         |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 304    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | skg          |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 305    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | skc          |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 306    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/est/   |   | [RFC9148]                            |
-   |        | att          |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 401    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/brski/ |   | [I-D.ietf-anima-constrained-voucher] |
-   |        | es           |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 402    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/brski/ |   | [I-D.ietf-anima-constrained-voucher] |
-   |        | rv           |   |                                      |
-   +--------+--------------+---+--------------------------------------+
-   | 403    | /.well-      |-  | Section 3 of this document, and      |
-   |        | known/brski/ |   | [I-D.ietf-anima-constrained-voucher] |
-   |        | vs           |   |                                      |
-   +--------+--------------+---+--------------------------------------+
+     +========+==============+======================================+
+     | First  | Simple       | Reference                            |
+     | option | expanded     |                                      |
+     | value  | path         |                                      |
+     +========+==============+======================================+
+     | 0      | /.well-      | Section 3 of this document           |
+     |        | known/core   |                                      |
+     +--------+--------------+--------------------------------------+
+     | 1      | /.well-      | Section 3 of this document, and      |
+     |        | known/rd     | [RFC9176]                            |
+     +--------+--------------+--------------------------------------+
+     | 301    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | crts         |                                      |
+     +--------+--------------+--------------------------------------+
+     | 302    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | sen          |                                      |
+     +--------+--------------+--------------------------------------+
+     | 303    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | sren         |                                      |
+     +--------+--------------+--------------------------------------+
+     | 304    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | skg          |                                      |
+     +--------+--------------+--------------------------------------+
+     | 305    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | skc          |                                      |
+     +--------+--------------+--------------------------------------+
+     | 306    | /.well-      | Section 3 of this document, and      |
+     |        | known/est/   | [RFC9148]                            |
+     |        | att          |                                      |
+     +--------+--------------+--------------------------------------+
+     | 401    | /.well-      | Section 3 of this document, and      |
+     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
+     |        | es           |                                      |
+     +--------+--------------+--------------------------------------+
+     | 402    | /.well-      | Section 3 of this document, and      |
+     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
+     |        | rv           |                                      |
+     +--------+--------------+--------------------------------------+
+     | 403    | /.well-      | Section 3 of this document, and      |
+     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
+     |        | vs           |                                      |
+     +--------+--------------+--------------------------------------+
 
           Table 2: Initial values for the Uri-Path-Abbr registry
 
