@@ -199,6 +199,7 @@ This document registers values for the following well-known URIs:
 
 * `/.well-known/core`
 * `/.well-known/rd` (see {{?RFC9175}})
+* `/.well-known/edhoc` (see {{?RFC9528}})
 * For EST ({{?RFC9148}}):
   * `/.well-known/est/crts`
   * `/.well-known/est/sen`
@@ -296,6 +297,7 @@ and not alter the semantics of previously valid expansions.
 |--------------------+----------------------+-----------|
 | 0                  | /.well-known/core    | {{initial}} of this document                         |
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
+| 2                  | /.well-known/edhoc   | {{initial}} of this document, and {{?RFC9528}}       |
 | 301                | /.well-known/est/crts  | {{initial}} of this document, and {{?RFC9148}}    |
 | 302                | /.well-known/est/sen   | {{initial}} of this document, and {{?RFC9148}}    |
 | 303                | /.well-known/est/sren  | {{initial}} of this document, and {{?RFC9148}}    |
