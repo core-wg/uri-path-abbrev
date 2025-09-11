@@ -1,32 +1,12 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-09T01:17:54.287654+00:00",
+  "timestamp": "2025-09-11T01:17:57.588616+00:00",
   "repo": "chrysn/shopinc",
   "labels": [
-    {
-      "name": "bug",
-      "description": "Something isn't working",
-      "color": "d73a4a"
-    },
-    {
-      "name": "documentation",
-      "description": "Improvements or additions to documentation",
-      "color": "0075ca"
-    },
     {
       "name": "duplicate",
       "description": "This issue or pull request already exists",
       "color": "cfd3d7"
-    },
-    {
-      "name": "enhancement",
-      "description": "New feature or request",
-      "color": "a2eeef"
-    },
-    {
-      "name": "good first issue",
-      "description": "Good for newcomers",
-      "color": "7057ff"
     },
     {
       "name": "help wanted",
@@ -34,19 +14,9 @@
       "color": "008672"
     },
     {
-      "name": "invalid",
-      "description": "This doesn't seem right",
-      "color": "e4e669"
-    },
-    {
-      "name": "question",
-      "description": "Further information is requested",
-      "color": "d876e3"
-    },
-    {
-      "name": "wontfix",
-      "description": "This will not be worked on",
-      "color": "ffffff"
+      "name": "for-bis",
+      "description": "If there's ever a need for repeated opt, the document introducing them can pick this up or revert it",
+      "color": "03f293"
     }
   ],
   "issues": [
@@ -95,7 +65,7 @@
       "id": "I_kwDOPRf_yM7CR_vJ",
       "title": "Link to .well-known/ registry?",
       "url": "https://github.com/chrysn/shopinc/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "OWNER",
       "assignees": [
@@ -104,25 +74,113 @@
       "labels": [],
       "body": "Strictly speaking our new registry is decoupled from the .well-known registry, but IIRC there was precedent for placing notes in registries if they become foreign keys of others, so maybe that's possible here even when it's not *exclusively* a foreign key.\n\nSee-Also: https://mailarchive.ietf.org/arch/msg/core/8JQplbquf6gBp1lDmpSZId4eGlI",
       "createdAt": "2025-07-24T11:06:48Z",
-      "updatedAt": "2025-08-26T19:06:07Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-09-10T15:55:05Z",
+      "closedAt": "2025-09-10T15:55:05Z",
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "The rough feeling from the 2025-08-25 interim was that this would rather encourage people to register things they don't *really* need for IoT use cases, so let's not.",
+          "createdAt": "2025-09-10T15:55:05Z",
+          "updatedAt": "2025-09-10T15:55:05Z"
+        }
+      ]
     },
     {
       "number": 9,
       "id": "I_kwDOPRf_yM7IGuLT",
       "title": "Allow Uri-Path prefixes?",
       "url": "https://github.com/chrysn/shopinc/issues/9",
+      "state": "CLOSED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "for-bis"
+      ],
+      "body": "For some potential use cases it may make sense for users to have Uri-Path prefixes.\n\n## Example\n\nIf IPSO smart objects had used this (say, with Short-Uri-Path 127 expanding to nothing but followed by an option value that's a CBOR sequence of integers to be expanded into decimal ASCII path segments:\n\n```\nShort-Uri-Path: (decimal) 127\nShort-Uri-Path: (CBORseq) 3, 0, 2, 12, 42\n```\n\nequivalent to\n\n```\nUri-Path: (text) 3\nUri-Path: (text) 0\n...\n```\n\nthen, given how LwM2M now allows some of it to be hosted under a prefix resource such as `/wherever/3/0/2/12/42`, it'd make perfect sense to express that with an Uri-Path option followed by Short-Uri-Path\n\n## The challenge\n\n\u2026 is to express this in a document without saying that it's a good idea to do it (it's not a bad idea either, but nothing *typical*), and in such a way that it is clear that unless someone actively uses that construction (e.g. they run such an IPSO server *and* chose in that very server implementation to allow a prefix), they don't need any special implementation of it, and the code they'd write if it were not for the section still satisfies all requirements?\n\n## The question\n\n* Is there any other reason not to allow it?\n* Can we come up with text that solves the challenge and is otherwise super compact?",
+      "createdAt": "2025-08-26T21:41:59Z",
+      "updatedAt": "2025-09-10T15:53:34Z",
+      "closedAt": "2025-09-10T15:53:34Z",
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "If we go with #14, this would clearly be only for there.",
+          "createdAt": "2025-09-09T14:18:45Z",
+          "updatedAt": "2025-09-09T14:18:45Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Unless we re-open repeated use, I think we can safely close this as \"no\"; a document re-introducing repeated use can still do this.",
+          "createdAt": "2025-09-10T15:52:37Z",
+          "updatedAt": "2025-09-10T15:52:37Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOPRf_yM7KlNj9",
+      "title": "Give convincing use cases",
+      "url": "https://github.com/chrysn/shopinc/issues/15",
       "state": "OPEN",
       "author": "chrysn",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
-      "body": "For some potential use cases it may make sense for users to have Uri-Path prefixes.\n\n## Example\n\nIf IPSO smart objects had used this (say, with Short-Uri-Path 127 expanding to nothing but followed by an option value that's a CBOR sequence of integers to be expanded into decimal ASCII path segments:\n\n```\nShort-Uri-Path: (decimal) 127\nShort-Uri-Path: (CBORseq) 3, 0, 2, 12, 42\n```\n\nequivalent to\n\n```\nUri-Path: (text) 3\nUri-Path: (text) 0\n...\n```\n\nthen, given how LwM2M now allows some of it to be hosted under a prefix resource such as `/wherever/3/0/2/12/42`, it'd make perfect sense to express that with an Uri-Path option followed by Short-Uri-Path\n\n## The challenge\n\n\u2026 is to express this in a document without saying that it's a good idea to do it (it's not a bad idea either, but nothing *typical*), and in such a way that it is clear that unless someone actively uses that construction (e.g. they run such an IPSO server *and* chose in that very server implementation to allow a prefix), they don't need any special implementation of it, and the code they'd write if it were not for the section still satisfies all requirements?\n\n## The question\n\n* Is there any other reason not to allow it?\n* Can we come up with text that solves the challenge and is otherwise super compact?",
-      "createdAt": "2025-08-26T21:41:59Z",
-      "updatedAt": "2025-08-26T21:41:59Z",
+      "body": "> Is this a good thing to do in the first place? Does it make a difference in practice?\n\nThis should be answered before finishing this.\n\nI do think that's the case, because sending CoAP requests in BLE advertisements should be a thing, and due to the [lake-req](https://www.ietf.org/archive/id/draft-ietf-lake-reqs-04.html)s, but it's better to have concrete numbers, or an example where a request straddles a fragmentation boundary.",
+      "createdAt": "2025-09-09T14:32:57Z",
+      "updatedAt": "2025-09-09T14:32:57Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOPRf_yM7KzpI4",
+      "title": "Process ED's WGA review",
+      "url": "https://github.com/chrysn/shopinc/issues/16",
+      "state": "OPEN",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Main points: restructure client/server/proxy behavior, emphasize that stack components should not use it on the off chance it'd work, but only if there's reason (given by the application or the protocol) to assume it should work.\n\nOriginal archived at <https://mailarchive.ietf.org/arch/msg/core/yQI0KnoEYVQoZmqYhsSpoSHD6Dc>.",
+      "createdAt": "2025-09-10T13:38:25Z",
+      "updatedAt": "2025-09-10T13:39:20Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOPRf_yM7Kztjz",
+      "title": "Register /.well-known/edhoc",
+      "url": "https://github.com/chrysn/shopinc/issues/17",
+      "state": "CLOSED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "I'm still looking for my notes on \"we could also use the EDHOC option for that\"\u2026",
+      "createdAt": "2025-09-10T13:43:30Z",
+      "updatedAt": "2025-09-10T15:41:25Z",
+      "closedAt": "2025-09-10T15:41:25Z",
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Found them: <https://notes.ietf.org/20250724-edhoc-coap-enhancements#>\n\nPeople liked doing this better than introducing the EDHOC option w/o a CoAP option.\nThe notes from that side meeting don't show that, but to elaborate on what \"that weirdness\" is:\nWhen EDHOC option is used with OSCORE option, it's clear in the response if things went OK (OSCORE in response) or not (no OSCORE in response), and it's kind of piggy-backing the EDHOC message on nothing.",
+          "createdAt": "2025-09-10T13:49:42Z",
+          "updatedAt": "2025-09-10T13:49:42Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Not making this into a PR while https://github.com/chrysn/shopinc/pull/18 is still around, as that'd be a sure merge conflict.",
+          "createdAt": "2025-09-10T13:50:34Z",
+          "updatedAt": "2025-09-10T13:53:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -181,21 +239,21 @@
       "id": "PR_kwDOPRf_yM6g1YQA",
       "title": "Uri path short",
       "url": "https://github.com/chrysn/shopinc/pull/4",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mcr",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "rename to Uri-Path-Short",
       "createdAt": "2025-07-27T15:01:07Z",
-      "updatedAt": "2025-08-27T14:01:17Z",
+      "updatedAt": "2025-09-10T15:44:25Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
       "headRepository": "mcr/shopinc",
       "headRefName": "uri-path-short",
       "headRefOid": "af7ada7b57b1b7eced79e97323dfdb67164f6d60",
-      "closedAt": null,
+      "closedAt": "2025-09-10T15:44:24Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -206,6 +264,13 @@
           "body": "This closes: https://github.com/chrysn/shopinc/issues/1",
           "createdAt": "2025-08-26T19:41:36Z",
           "updatedAt": "2025-08-26T19:41:36Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Closing in favor of #12 that switched to Uri-Path-Abbr -- that's not the end of #1, but at least it won't work with this PR due to the conflicts.",
+          "createdAt": "2025-09-10T15:44:24Z",
+          "updatedAt": "2025-09-10T15:44:24Z"
         }
       ],
       "reviews": [
@@ -257,21 +322,21 @@
       "id": "PR_kwDOPRf_yM6g1YWd",
       "title": "Subsequent options",
       "url": "https://github.com/chrysn/shopinc/pull/6",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "mcr",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "(ignore first two commits, they are in other PRs, but can not change base when out-of-org)\r\nadded more details about subsequent options.",
       "createdAt": "2025-07-27T15:01:51Z",
-      "updatedAt": "2025-08-26T21:26:38Z",
+      "updatedAt": "2025-09-10T15:49:45Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "bec6d9da0b09a2a175a85a9e83e7e4842b88eb60",
       "headRepository": "mcr/shopinc",
       "headRefName": "subsequent-options",
       "headRefOid": "97616a6c6db8901c41be7d6f0839ab9b9d86636d",
-      "closedAt": null,
+      "closedAt": "2025-09-10T15:49:45Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
@@ -600,24 +665,202 @@
       "id": "PR_kwDOPRf_yM6neouR",
       "title": "Prepare -02",
       "url": "https://github.com/chrysn/shopinc/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "chrysn",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "The last interim (minutes currently [in the pad](https://notes.ietf.org/notes-ietf-interim-2025-core-12-core#)) left us with good input to be processed, but one thing sounded urgent:\r\n\r\nSwitch to standards track so that when there's an adoption call, there's no confusion.\r\n\r\nApart from that bare minimum for -02, it also pulls in an option name change, since apparently nobody was happy with it. It picks up the Uri-Path-X pattern people [seem to like](https://github.com/chrysn/shopinc/issues/1), and chooses something self-referentially abbreviated as the suffix.",
       "createdAt": "2025-09-08T22:45:03Z",
-      "updatedAt": "2025-09-08T22:45:03Z",
+      "updatedAt": "2025-09-09T14:25:02Z",
       "baseRepository": "chrysn/shopinc",
       "baseRefName": "main",
       "baseRefOid": "ddf213e19ccebe859ba83d01903015aaa95e0411",
       "headRepository": "chrysn/shopinc",
       "headRefName": "prep-02",
-      "headRefOid": "5f00883f74607d9b92aed114843aefa458c8da1a",
-      "closedAt": null,
+      "headRefOid": "ccfd7e3ffa9b4153eb4b89ddb7c12b6a4e2cd284",
+      "closedAt": "2025-09-09T14:24:46Z",
+      "mergedAt": "2025-09-09T14:24:46Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "d6fab993ee6633af7ee8dfd57903187fe8da6fb2"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Even though we discussed making the \"later options are strings\" the default, I'm belaying that because it could be obsolete easily by https://mailarchive.ietf.org/arch/msg/core/XY415jBcPDySl7OkVy6OFooXgrQ",
+          "createdAt": "2025-09-09T10:19:11Z",
+          "updatedAt": "2025-09-09T10:19:11Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOPRf_yM6nk-hR",
+      "title": "EST, cBRSKI: Use per-resource numbers",
+      "url": "https://github.com/chrysn/shopinc/pull/13",
+      "state": "CLOSED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This change enhances wire sizes a bit (instead of 3 byte short-path option, I've chosen bigger numbers to not use up 5% of the 255 valuable points, but went with 4 bytes -- but then it saves 1+2 / 1+3 / 1+4 extra bytes for the repeated option), and more importantly it should simplify implementations: They don't even have to do the repeated option processing, but can just look at just the numeric value.\r\n\r\nSee also thread at https://mailarchive.ietf.org/arch/msg/core/gAukByI9jpUkJeHHu1RW-jepoa0\r\n\r\n@mcr, does that work for you?",
+      "createdAt": "2025-09-09T10:43:20Z",
+      "updatedAt": "2025-09-10T15:41:50Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "prep-02",
+      "baseRefOid": "2adb842f2bd3d93c5fbdd494a6942d9667a3e7cb",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "brsk-explicit",
+      "headRefOid": "2afcb18b19a03a5a00548da71ab0582aadd9a45d",
+      "closedAt": "2025-09-09T14:25:01Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "*Of course* building PRs on top of each other would still not work in GitHub in 2025 \u2026 as I can't reopen this in plac, I <del>may need to re-create this on a new number</del> re-opened this as #18.",
+          "createdAt": "2025-09-09T14:26:12Z",
+          "updatedAt": "2025-09-10T13:53:40Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOPRf_yM6nnvan",
+      "title": "Distinguish between basic and extended use",
+      "url": "https://github.com/chrysn/shopinc/pull/14",
+      "state": "CLOSED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "for-bis"
+      ],
+      "body": "If #13 is the way to go, making \"append text string\" a default is kind'a unjustified because we don't use it.\r\n\r\nMight even go further and leave the whole \"extended\" thing for later docs \u2013 why spend time on something we have no idea if there's ever a good use case.",
+      "createdAt": "2025-09-09T14:17:45Z",
+      "updatedAt": "2025-09-10T15:53:53Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "brsk-explicit",
+      "baseRefOid": "2afcb18b19a03a5a00548da71ab0582aadd9a45d",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "basic-extended",
+      "headRefOid": "b916c965eb33f7825da396a0eb42c2bf1eac4c99",
+      "closedAt": "2025-09-10T15:40:15Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "When this PR is merged, this needs to happen manually, as it points to a to-be-deleted branch rather than main.",
+          "createdAt": "2025-09-10T13:54:47Z",
+          "updatedAt": "2025-09-10T13:54:47Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Updated after today's interim to the more radical approach of not even specifying repeated use here -- after all, we're out of examples since #18 (which was taken up positively in the interim).",
+          "createdAt": "2025-09-10T15:38:03Z",
+          "updatedAt": "2025-09-10T15:38:03Z"
+        },
+        {
+          "author": "chrysn",
+          "authorAssociation": "OWNER",
+          "body": "Merged in b3a5b6699e0f070428f44ee0cc606b98ff1763ae",
+          "createdAt": "2025-09-10T15:40:16Z",
+          "updatedAt": "2025-09-10T15:40:16Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOPRf_yM6n0vcV",
+      "title": "EST, cBRSKI: Use per-resource numbers",
+      "url": "https://github.com/chrysn/shopinc/pull/18",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "(This PR replaces #13 that was created under the wrong assumption that GitHub would learn to sensibly handle PRs building on each other.)\r\n\r\nThis change enhances wire sizes a bit (instead of 3 byte short-path option, I've chosen bigger numbers to not use up 5% of the 255 valuable points, but went with 4 bytes -- but then it saves 1+2 / 1+3 / 1+4 extra bytes for the repeated option), and more importantly it should simplify implementations: They don't even have to do the repeated option processing, but can just look at just the numeric value.\r\n\r\nSee also thread at https://mailarchive.ietf.org/arch/msg/core/gAukByI9jpUkJeHHu1RW-jepoa0\r\n\r\n@mcr, does that work for you?",
+      "createdAt": "2025-09-10T13:53:13Z",
+      "updatedAt": "2025-09-10T15:42:03Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "d6fab993ee6633af7ee8dfd57903187fe8da6fb2",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "brsk-explicit2",
+      "headRefOid": "2afcb18b19a03a5a00548da71ab0582aadd9a45d",
+      "closedAt": "2025-09-10T15:39:32Z",
+      "mergedAt": "2025-09-10T15:39:32Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "770219d62428e96a2f588e4a1b594e04c6723716"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOPRf_yM6n0x_2",
+      "title": "Register EDHOC",
+      "url": "https://github.com/chrysn/shopinc/pull/19",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes: https://github.com/chrysn/shopinc/issues/17\r\n\r\n(Please ignore the earlier commits, this is built on #18)",
+      "createdAt": "2025-09-10T13:56:46Z",
+      "updatedAt": "2025-09-10T15:41:34Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "d6fab993ee6633af7ee8dfd57903187fe8da6fb2",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "edhoc",
+      "headRefOid": "f71d9ff9cd49ce054e7ae6fbc30e49a48ffbe6fb",
+      "closedAt": "2025-09-10T15:41:25Z",
+      "mergedAt": "2025-09-10T15:41:25Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "d21fea9d3543565b83e8f55f0a8036c849921433"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOPRf_yM6n2IMS",
+      "title": "s/unfortuante consequences/consequences/",
+      "url": "https://github.com/chrysn/shopinc/pull/20",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "With all other parts cherry-picked, manually cherry-picked or obsolete, this now:\r\n\r\nCloses: https://github.com/chrysn/shopinc/pull/6",
+      "createdAt": "2025-09-10T15:48:20Z",
+      "updatedAt": "2025-09-10T15:50:13Z",
+      "baseRepository": "chrysn/shopinc",
+      "baseRefName": "main",
+      "baseRefOid": "d21fea9d3543565b83e8f55f0a8036c849921433",
+      "headRepository": "chrysn/shopinc",
+      "headRefName": "pr6-bis",
+      "headRefOid": "0ec73102ad9d8e10cbe5e8a74dc0b7956c3df6b0",
+      "closedAt": "2025-09-10T15:49:44Z",
+      "mergedAt": "2025-09-10T15:49:44Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "a80f8581a3cdb81351e02f42cea50ca77b741eb9"
+      },
       "comments": [],
       "reviews": []
     }
