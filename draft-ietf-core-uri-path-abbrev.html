@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Short Paths in CoAP</title>
+<title>URI-Path abbreviation in CoAP</title>
 <meta content="Christian Amsüss" name="author">
 <meta content="Michael Richardson" name="author">
 <meta content="
@@ -13,11 +13,11 @@ and the interoperability requirement of following BCP190
 and thus registering (relatively verbose) well-known URI paths.
 This document introduces an option that allows expressing well-known paths in as little as two bytes. 
     " name="description">
-<meta content="xml2rfc 3.30.1" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="coap" name="keyword">
-<meta content="draft-amsuess-core-shopinc-latest" name="ietf.draft">
+<meta content="draft-ietf-core-uri-path-abbrev-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.1
+  xml2rfc 3.30.2
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -31,7 +31,7 @@ This document introduces an option that allows expressing well-known paths in as
     setuptools 80.9.0
     wcwidth 0.2.13
 -->
-<link href="draft-amsuess-core-shopinc.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-ietf-core-uri-path-abbrev.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1047,12 +1047,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <table class="ears">
 <thead><tr>
 <td class="left">Internet-Draft</td>
-<td class="center">ShoPinC</td>
+<td class="center">Uri-Path-Abbrev</td>
 <td class="right">September 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Amsüss &amp; Richardson</td>
-<td class="center">Expires 14 March 2026</td>
+<td class="center">Expires 28 March 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,15 +1062,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">CoRE</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-amsuess-core-shopinc-latest</dd>
+<dd class="internet-draft">draft-ietf-core-uri-path-abbrev-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-09-10" class="published">10 September 2025</time>
+<time datetime="2025-09-24" class="published">24 September 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-03-14">14 March 2026</time></dd>
+<dd class="expires"><time datetime="2026-03-28">28 March 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1083,7 +1083,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Short Paths in CoAP</h1>
+<h1 id="title">URI-Path abbreviation in CoAP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Applications built on CoAP face a conflict between the technical need for short message sizes
@@ -1097,14 +1097,14 @@ This document introduces an option that allows expressing well-known paths in as
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-amsuess-core-shopinc/">https://datatracker.ietf.org/doc/draft-amsuess-core-shopinc/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-core-uri-path-abbrev/">https://datatracker.ietf.org/doc/draft-ietf-core-uri-path-abbrev/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">
         Discussion of this document takes place on the
         Constrained RESTful Environments Working Group mailing list (<span><a href="mailto:core@ietf.org">mailto:core@ietf.org</a></span>),
         which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/core/">https://mailarchive.ietf.org/arch/browse/core/</a></span>.
         Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/core/">https://www.ietf.org/mailman/listinfo/core/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 <p id="section-note.1-4">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/chrysn/shopinc">https://github.com/chrysn/shopinc</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+        <span><a href="https://github.com/core-wg/uri-path-abbrev">https://github.com/core-wg/uri-path-abbrev</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1125,7 +1125,7 @@ This document introduces an option that allows expressing well-known paths in as
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 28 March 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1163,7 +1163,7 @@ This document introduces an option that allows expressing well-known paths in as
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-the-uri-path-abbr-option" class="internal xref">The Uri-Path-Abbr option</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-the-uri-path-abbrev-option" class="internal xref">The Uri-Path-Abbrev option</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-proxy-behavior" class="internal xref">Proxy behavior</a></p>
@@ -1180,7 +1180,7 @@ This document introduces an option that allows expressing well-known paths in as
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-initial-uri-path-abbr-value" class="internal xref">Initial Uri-Path-Abbr values</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-initial-uri-path-abbrev-val" class="internal xref">Initial Uri-Path-Abbrev values</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
@@ -1189,10 +1189,10 @@ This document introduces an option that allows expressing well-known paths in as
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-coap-option-uri-path-abbr" class="internal xref">CoAP option: Uri-Path-Abbr</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-coap-option-uri-path-abbrev" class="internal xref">CoAP option: Uri-Path-Abbrev</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-uri-path-abbr-registry" class="internal xref">Uri-Path-Abbr registry</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-uri-path-abbrev-registry" class="internal xref">Uri-Path-Abbrev registry</a></p>
 </li>
             </ul>
 </li>
@@ -1247,16 +1247,16 @@ in particular its Uri-* options.<a href="#section-1.1-2" class="pilcrow">¶</a><
 </div>
 </section>
 </div>
-<div id="the-uri-path-abbr-option">
+<div id="the-uri-path-abbrev-option">
 <section id="section-2">
-      <h2 id="name-the-uri-path-abbr-option">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-the-uri-path-abbr-option" class="section-name selfRef">The Uri-Path-Abbr option</a>
+      <h2 id="name-the-uri-path-abbrev-option">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-the-uri-path-abbrev-option" class="section-name selfRef">The Uri-Path-Abbrev option</a>
       </h2>
-<p id="section-2-1">The Uri-Path-Abbr option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The Uri-Path-Abbr value represents a particular path,
+<p id="section-2-1">The Uri-Path-Abbrev option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">The Uri-Path-Abbrev value represents a particular path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>.
-The numeric option values are coordinated by IANA in the Uri-Path-Abbr registry established in this document in <a href="#iana-reg" class="auto internal xref">Section 5.2</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+The numeric option values are coordinated by IANA in the Uri-Path-Abbrev registry established in this document in <a href="#iana-reg" class="auto internal xref">Section 5.2</a>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 Unless the client can be assured that the server supports it
 (e.g. because the specification describing the interaction mandates support for the option in the server)
@@ -1266,13 +1266,13 @@ it <span class="bcp14">SHOULD</span> fall back to sending the path explicitly if
 returning 4.02 Bad Option
 and <span class="bcp14">MUST NOT</span> return a 4.04 Not Found response,
 because the equivalent path may be present on the server.<a href="#section-2-4" class="pilcrow">¶</a></p>
-<p id="section-2-5">A server that supports a Uri-Path-Abbr value
+<p id="section-2-5">A server that supports a Uri-Path-Abbrev value
 <span class="bcp14">MUST</span> also support the equivalent request composed of Uri-Path components.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<span id="name-uri-path-abbr-option-summar"></span><div id="option-table">
+<span id="name-uri-path-abbrev-option-summ"></span><div id="option-table">
 <table class="center" id="table-1">
         <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
-<a href="#name-uri-path-abbr-option-summar" class="selfRef">Uri-Path-Abbr Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)</a>
+<a href="#name-uri-path-abbrev-option-summ" class="selfRef">Uri-Path-Abbrev Option Summary (C = Critical, U = Unsafe, N = NoCacheKey, R = Repeatable)</a>
         </caption>
 <thead>
           <tr>
@@ -1294,7 +1294,7 @@ because the equivalent path may be present on the server.<a href="#section-2-4" 
             <td class="text-left" rowspan="1" colspan="1"> </td>
             <td class="text-left" rowspan="1" colspan="1"> </td>
             <td class="text-left" rowspan="1" colspan="1"> </td>
-            <td class="text-left" rowspan="1" colspan="1">Uri-Path-Abbr</td>
+            <td class="text-left" rowspan="1" colspan="1">Uri-Path-Abbrev</td>
             <td class="text-left" rowspan="1" colspan="1">uint</td>
             <td class="text-left" rowspan="1" colspan="1">0-4</td>
             <td class="text-left" rowspan="1" colspan="1">(none)</td>
@@ -1326,10 +1326,10 @@ It allows the option to be used with proxies that do not implement the option.<a
         <h3 id="name-proxy-behavior">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-proxy-behavior" class="section-name selfRef">Proxy behavior</a>
         </h3>
-<p id="section-2.1-1">A proxy <span class="bcp14">MAY</span> expand or introduce a Uri-Path-Abbr when forwarding a request,
+<p id="section-2.1-1">A proxy <span class="bcp14">MAY</span> expand or introduce a Uri-Path-Abbrev when forwarding a request,
 in particular for serving cached responses,
 as long as this introduces no new errors to the client.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">A proxy that knows Uri-Path-Abbr but not the concrete value
+<p id="section-2.1-2">A proxy that knows Uri-Path-Abbrev but not the concrete value
 <span class="bcp14">SHOULD</span> forward it unmodified,
 which is the behavior it would apply if it did not know the option.
 A reason to reject the request instead is when the proxy is tasked with enforcing access control
@@ -1343,13 +1343,13 @@ A reason to reject the request instead is when the proxy is tasked with enforcin
         </h3>
 <p id="section-2.2-1">The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request <span class="bcp14">MUST</span> be treated like the presence of a critical request option that could not be processed
-(that option being either the Uri-Path-Abbr option or the conflicting option).<a href="#section-2.2-1" class="pilcrow">¶</a></p>
-<p id="section-2.2-2">The Uri-Path-Abbr option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
-Proxies that understand Uri-Path-Abbr and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Uri-Path-Abbr if they know the value.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
-<p id="section-2.2-3">By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbr is safe-to-forward,
+(that option being either the Uri-Path-Abbrev option or the conflicting option).<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">The Uri-Path-Abbrev option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
+Proxies that understand Uri-Path-Abbrev and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Uri-Path-Abbrev if they know the value.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
+<p id="section-2.2-3">By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbrev is safe-to-forward,
 a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-* options.
-In such a combined message, the Uri-Path segments to which the Uri-Path-Abbr corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
-Servers that support both Uri-Path-Abbr and Proxy-URI/-CRI <span class="bcp14">SHOULD</span> process requests accordingly.
+In such a combined message, the Uri-Path segments to which the Uri-Path-Abbrev corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
+Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI <span class="bcp14">SHOULD</span> process requests accordingly.
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 </section>
@@ -1363,7 +1363,7 @@ nor is there a reason known why they should).<a href="#section-2.2-3" class="pil
 might extend the capabilities of the option to be repeated;
 that document will need to specify how later occurrences of the option
 extend the series of equivalent Uri-Path options from the first value.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">Server implementations that treat repeated Uri-Path-Abbr options
+<p id="section-2.3-2">Server implementations that treat repeated Uri-Path-Abbrev options
 like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
 support the transition to such an extension.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
@@ -1393,8 +1393,8 @@ range).<a href="#section-2.4-2.1.1" class="pilcrow">¶</a></p>
 </div>
 <div id="initial">
 <section id="section-3">
-      <h2 id="name-initial-uri-path-abbr-value">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-initial-uri-path-abbr-value" class="section-name selfRef">Initial Uri-Path-Abbr values</a>
+      <h2 id="name-initial-uri-path-abbrev-val">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-initial-uri-path-abbrev-val" class="section-name selfRef">Initial Uri-Path-Abbrev values</a>
       </h2>
 <p id="section-3-1">This document registers values for the following well-known URIs:<a href="#section-3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1449,7 +1449,7 @@ for those, no abbreviations are supported in this document.<a href="#section-3-2
 </li>
       </ul>
 <p id="section-3-3">For all those,
-later occurrences of Uri-Path-Abbr are interpreted as additional Uri-Path values.
+later occurrences of Uri-Path-Abbrev are interpreted as additional Uri-Path values.
 While there are currently no resources under the CoRE and RD resource,
 this behavior is useful in BRSKI and EST.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">Note that the <code>core</code> and <code>rd</code> paths are commonly used with Uri-Query options.<a href="#section-3-4" class="pilcrow">¶</a></p>
@@ -1475,8 +1475,8 @@ the application protected by the checker may provide the checker with an allow-l
       </h2>
 <div id="iana-option">
 <section id="section-5.1">
-        <h3 id="name-coap-option-uri-path-abbr">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-coap-option-uri-path-abbr" class="section-name selfRef">CoAP option: Uri-Path-Abbr</a>
+        <h3 id="name-coap-option-uri-path-abbrev">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-coap-option-uri-path-abbrev" class="section-name selfRef">CoAP option: Uri-Path-Abbrev</a>
         </h3>
 <p id="section-5.1-1">IANA is requested to enter an one option into the CoAP Option Numbers registry in the CoRE Parameters group:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1484,7 +1484,7 @@ the application protected by the checker may provide the checker with an allow-l
             <p id="section-5.1-2.1.1">Number: CPA13<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-2.2">
-            <p id="section-5.1-2.2.1">Name: Uri-Path-Abbr<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-2.2.1">Name: Uri-Path-Abbrev<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-2.3">
             <p id="section-5.1-2.3.1">Reference: this document<a href="#section-5.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1494,11 +1494,11 @@ the application protected by the checker may provide the checker with an allow-l
 </div>
 <div id="iana-reg">
 <section id="section-5.2">
-        <h3 id="name-uri-path-abbr-registry">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-uri-path-abbr-registry" class="section-name selfRef">Uri-Path-Abbr registry</a>
+        <h3 id="name-uri-path-abbrev-registry">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-uri-path-abbrev-registry" class="section-name selfRef">Uri-Path-Abbrev registry</a>
         </h3>
 <p id="section-5.2-1">IANA is requested to establish a new registry in the CoRE parameters group:
-Values of the first Uri-Path-Abbr option in a CoAP request correspond to a URI path according to this registry.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+Values of the first Uri-Path-Abbrev option in a CoAP request correspond to a URI path according to this registry.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">The policy for adding any value is IETF Review (as described in <span>[<a href="#RFC8126" class="cite xref">RFC8126</a>]</span>).
 Change control for the registry follows this document's publication stream.
 Initial values are given in <a href="#initial-table" class="auto internal xref">Table 2</a>.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
@@ -1543,7 +1543,7 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 <table class="center" id="table-2">
           <caption>
 <a href="#table-2" class="selfRef">Table 2</a>:
-<a href="#name-initial-values-for-the-uri-" class="selfRef">Initial values for the Uri-Path-Abbr registry</a>
+<a href="#name-initial-values-for-the-uri-" class="selfRef">Initial values for the Uri-Path-Abbrev registry</a>
           </caption>
 <thead>
             <tr>
@@ -1742,7 +1742,7 @@ authors of any future document providing such a framework
 are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.<a href="#appendix-A-2.1.2" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-A-2.2">
-          <p id="appendix-A-2.2.1">The registry for Uri-Path-Abbr values is set up such that first values can not have the most significant bit of the first byte set.<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-A-2.2.1">The registry for Uri-Path-Abbrev values is set up such that first values can not have the most significant bit of the first byte set.<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
 <p id="appendix-A-2.2.2">
 This allows future documents to reuse the option for any CBOR expressions,
 e.g. the path component of a CRI <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>.
