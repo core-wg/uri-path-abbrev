@@ -1,19 +1,19 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# Short Paths in CoAP
+# URI-Path abbreviation in CoAP
 
-This is the working area for the individual Internet-Draft, "Short Paths in CoAP".
+This is the working area for the IETF [CORE Working Group](https://datatracker.ietf.org/group/core/documents/) Internet-Draft, "URI-Path abbreviation in CoAP".
 
-* [Editor's Copy](https://chrysn.github.io/shopinc/#go.draft-amsuess-core-shopinc.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-amsuess-core-shopinc)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-amsuess-core-shopinc)
-* [Compare Editor's Copy to Individual Draft](https://chrysn.github.io/shopinc/#go.draft-amsuess-core-shopinc.diff)
+* [Editor's Copy](https://core-wg.github.io/uri-path-abbrev/#go.draft-ietf-core-uri-path-abbrev.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-core-uri-path-abbrev)
+* [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-core-uri-path-abbrev)
+* [Compare Editor's Copy to Working Group Draft](https://core-wg.github.io/uri-path-abbrev/#go.draft-ietf-core-uri-path-abbrev.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/chrysn/shopinc/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/core-wg/uri-path-abbrev/blob/main/CONTRIBUTING.md).
 
 The contributing file also has tips on how to make contributions, if you
 don't already know how to do that.
