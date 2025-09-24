@@ -1,9 +1,9 @@
 ---
-title: "Short Paths in CoAP"
-abbrev: "ShoPinC"
+title: "URI-Path abbreviation in CoAP"
+abbrev: "Uri-Path-Abbrev"
 category: std
 
-docname: draft-amsuess-core-shopinc-latest
+docname: draft-ietf-core-uri-path-abbrev-latest
 submissiontype: IETF
 number:
 date:
@@ -15,7 +15,7 @@ keyword:
 venue:
   group: Constrained RESTful Environments
   mail: core@ietf.org
-  github: chrysn/shopinc
+  github: core-wg/uri-path-abbrev
 
 author:
 -
