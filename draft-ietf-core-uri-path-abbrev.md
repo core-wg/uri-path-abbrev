@@ -110,10 +110,16 @@ because the equivalent path may be present on the server.
 ## Client processing
 
 A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
+
 Unless the client can be assured that the server supports it
 (e.g. because the specification describing the interaction mandates support for the option in the server)
 it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
 (otherwise, it would have limited interoperability).
+
+A generic client implementation SHOULD NOT apply this optimization
+without explicit instructions from a higher layer or the known specification of the numeric value:
+In general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,
+and the message size savings in the successful case are dwarved by the almost doubling of resources needed to perform the fallback.
 
 ## Proxy processing
 
@@ -345,7 +351,8 @@ Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 * Allocate per-resource codes for EST and cBRSKI.
 * Allocate code for EDHOC.
 * Defer repeated use to future extensions.
-* Rearrange content to have dedicated server, client and proxy subsections for th eoption.
+* Rearrange content to have dedicated server, client and proxy subsections for option processing.
+* Establish that generic clients SHOULD NOT use this without reason.
 
 Since draft-amsuess-core-shopinc-02:
 
