@@ -333,14 +333,25 @@ This section will be gone by the time this document is published.
 
 # Change log
 
-Since -01: Processing 2025-08-27 interim.
+Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
+
+* Rename option to Uri-Path-Abbrev.
+* Allocate per-resource codes for EST and cBRSKI.
+* Allocate code for EDHOC.
+* Defer repeated use to future extensions.
+
+Since draft-amsuess-core-shopinc-02:
+
+Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev
+
+Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.
 
 * Document is standards track.
 * Change name of the option from Short-Uri-Path to Uri-Path-Abbr.
 * Close question of whether use of option 13 is justified (it is).
 * Minor editorials.
 
-Since -00:
+Since draft-amsuess-core-shopinc-00:
 
 * Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).
 * MCR joined as author.
