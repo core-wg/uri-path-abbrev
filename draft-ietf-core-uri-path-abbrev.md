@@ -331,10 +331,6 @@ This section will be gone by the time this document is published.
   the registration policy is currently "IETF Review",
   which is extremely strict and can be relaxed in a later document if the WG decides so.
 
-* Do we want to add /.well-known/edhoc here, or rather fix it by updating the EDHOC option to also work without an OSCORE option?
-
-  (The author prefers the latter).
-
 # Change log
 
 Since -01: Processing 2025-08-27 interim.
