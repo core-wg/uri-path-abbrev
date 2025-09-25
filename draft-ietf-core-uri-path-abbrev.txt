@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 28 March 2026                          Sandelman Software Works
-                                                       24 September 2025
+Expires: 29 March 2026                          Sandelman Software Works
+                                                       25 September 2025
 
 
                      URI-Path abbreviation in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 March 2026.
+   This Internet-Draft will expire on 29 March 2026.
 
 Copyright Notice
 
@@ -543,14 +543,23 @@ Appendix B.  Open questions
       currently "IETF Review", which is extremely strict and can be
       relaxed in a later document if the WG decides so.
 
-   *  Do we want to add /.well-known/edhoc here, or rather fix it by
-      updating the EDHOC option to also work without an OSCORE option?
-
-      (The author prefers the latter).
-
 Appendix C.  Change log
 
-   Since -01: Processing 2025-08-27 interim.
+   Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
+
+   *  Rename option to Uri-Path-Abbrev.
+
+   *  Allocate per-resource codes for EST and cBRSKI.
+
+   *  Allocate code for EDHOC.
+
+   *  Defer repeated use to future extensions.
+
+   Since draft-amsuess-core-shopinc-02:
+
+   Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev
+
+   Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.
 
    *  Document is standards track.
 
@@ -560,7 +569,7 @@ Appendix C.  Change log
 
    *  Minor editorials.
 
-   Since -00:
+   Since draft-amsuess-core-shopinc-00:
 
    *  Switched option type from opaque to uint (retaining the lockout
       for values that look like CBOR arrays/maps).
