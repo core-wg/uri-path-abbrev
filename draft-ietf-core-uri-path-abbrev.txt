@@ -71,10 +71,12 @@ Table of Contents
    1.  Introduction
      1.1.  Conventions and Definitions
    2.  The Uri-Path-Abbrev option
-     2.1.  Proxy behavior
-     2.2.  Interaction with other options
-     2.3.  Future development
-     2.4.  Choice of the option number
+     2.1.  Server processing
+     2.2.  Client processing
+     2.3.  Proxy processing
+     2.4.  Interaction with other options
+     2.5.  Future development
+     2.6.  Choice of the option number
    3.  Initial Uri-Path-Abbrev values
    4.  Security Considerations
    5.  IANA Considerations
@@ -115,22 +117,6 @@ Table of Contents
    The numeric option values are coordinated by IANA in the Uri-Path-
    Abbrev registry established in this document in Section 5.2.
 
-   A client may use the option instead of the Uri-Path option if there
-   is a suitable value that can express the requested path.  Unless the
-   client can be assured that the server supports it (e.g. because the
-   specification describing the interaction mandates support for the
-   option in the server) it SHOULD fall back to sending the path
-   explicitly if it receives an error indicating that the option was not
-   understood (otherwise, it would have limited interoperability).
-
-   A server receiving the option with an unknown value MUST treat it as
-   an unprocessable critical option, returning 4.02 Bad Option and MUST
-   NOT return a 4.04 Not Found response, because the equivalent path may
-   be present on the server.
-
-   A server that supports a Uri-Path-Abbrev value MUST also support the
-   equivalent request composed of Uri-Path components.
-
     +=======+=+===+===+===+=================+========+======+=========+
     | No.   |C| U | N | R | Name            | Format | Len. | Default |
     +=======+=+===+===+===+=================+========+======+=========+
@@ -164,7 +150,38 @@ Table of Contents
    It allows the option to be used with proxies that do not implement
    the option.
 
-2.1.  Proxy behavior
+2.1.  Server processing
+
+   A server receiving this option process it like the equivalent
+   sequence of Uri-Path options.
+
+   A server that supports a Uri-Path-Abbrev value MUST also support the
+   equivalent request composed of Uri-Path components.
+
+   A server receiving the option with an unknown value MUST treat it as
+   an unprocessable critical option, returning 4.02 Bad Option and MUST
+   NOT return a 4.04 Not Found response, because the equivalent path may
+   be present on the server.
+
+2.2.  Client processing
+
+   A client may use the option instead of the Uri-Path option if there
+   is a suitable value that can express the requested path.
+
+   Unless the client can be assured that the server supports it (e.g.
+   because the specification describing the interaction mandates support
+   for the option in the server) it SHOULD fall back to sending the path
+   explicitly if it receives an error indicating that the option was not
+   understood (otherwise, it would have limited interoperability).
+
+   A generic client implementation SHOULD NOT apply this optimization
+   without explicit instructions from a higher layer or the known
+   specification of the numeric value: In general, it is too unlikely
+   that the Uri-Path-Abbrev value is understood by any server, and the
+   message size savings in the successful case are dwarved by the almost
+   doubling of resources needed to perform the fallback.
+
+2.3.  Proxy processing
 
    A proxy MAY expand or introduce a Uri-Path-Abbrev when forwarding a
    request, in particular for serving cached responses, as long as this
@@ -175,7 +192,7 @@ Table of Contents
    not know the option.  A reason to reject the request instead is when
    the proxy is tasked with enforcing access control (see Section 4).
 
-2.2.  Interaction with other options
+2.4.  Interaction with other options
 
    The option is mutually exclusive with the Uri-Path option.  Receiving
    both options in a single request MUST be treated like the presence of
@@ -201,7 +218,7 @@ Table of Contents
    Proxy-URI/-CRI from individual options, nor is there a reason known
    why they should).
 
-2.3.  Future development
+2.5.  Future development
 
    Future updates to this document might extend the capabilities of the
    option to be repeated; that document will need to specify how later
@@ -212,7 +229,7 @@ Table of Contents
    like any other critical unprocessable option (i.e., by responding
    with 4.02 Bad Option) support the transition to such an extension.
 
-2.4.  Choice of the option number
+2.6.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
    document who can thus learn how the option number namespace is
@@ -517,7 +534,7 @@ Appendix A.  Further development
       values that are allowed to use together with Uri-Path values (but
       at the time of writing, no examples are known by which such a
       design could be properly vetted).  In particular, that update
-      weakens the "MUST" in Section 2.2.
+      weakens the "MUST" in Section 2.4.
 
    *  This option is designed to stand in for the Uri-Path option alone,
       not for any other option; this simplifies its interaction rules.
@@ -554,6 +571,11 @@ Appendix C.  Change log
    *  Allocate code for EDHOC.
 
    *  Defer repeated use to future extensions.
+
+   *  Rearrange content to have dedicated server, client and proxy
+      subsections for option processing.
+
+   *  Establish that generic clients SHOULD NOT use this without reason.
 
    Since draft-amsuess-core-shopinc-02:
 
