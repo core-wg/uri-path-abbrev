@@ -177,9 +177,9 @@ Table of Contents
    A generic client implementation SHOULD NOT apply this optimization
    without explicit instructions from a higher layer or the known
    specification of the numeric value: In general, it is too unlikely
-   that the Uri-Path-Abbrev value is understood, and the savings in the
-   successful case are dwarved by the almost doubling resources needed
-   to perform the fallback.
+   that the Uri-Path-Abbrev value is understood by any server, and the
+   message size savings in the successful case are dwarved by the almost
+   doubling of resources needed to perform the fallback.
 
 2.3.  Proxy processing
 
@@ -573,7 +573,7 @@ Appendix C.  Change log
    *  Defer repeated use to future extensions.
 
    *  Rearrange content to have dedicated server, client and proxy
-      subsections for th eoption.
+      subsections for option processing.
 
    *  Establish that generic clients SHOULD NOT use this without reason.
 

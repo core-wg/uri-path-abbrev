@@ -1342,8 +1342,8 @@ it <span class="bcp14">SHOULD</span> fall back to sending the path explicitly if
 (otherwise, it would have limited interoperability).<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <p id="section-2.2-3">A generic client implementation <span class="bcp14">SHOULD NOT</span> apply this optimization
 without explicit instructions from a higher layer or the known specification of the numeric value:
-In general, it is too unlikely that the Uri-Path-Abbrev value is understood,
-and the savings in the successful case are dwarved by the almost doubling resources needed to perform the fallback.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+In general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,
+and the message size savings in the successful case are dwarved by the almost doubling of resources needed to perform the fallback.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="proxy-processing">
@@ -1842,7 +1842,7 @@ which is extremely strict and can be relaxed in a later document if the WG decid
           <p id="appendix-C-2.4.1">Defer repeated use to future extensions.<a href="#appendix-C-2.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-2.5">
-          <p id="appendix-C-2.5.1">Rearrange content to have dedicated server, client and proxy subsections for th eoption.<a href="#appendix-C-2.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-2.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-2.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-2.6">
           <p id="appendix-C-2.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-2.6.1" class="pilcrow">¶</a></p>
