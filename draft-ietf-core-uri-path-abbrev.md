@@ -123,9 +123,12 @@ and the message size savings in the successful case are dwarved by the almost do
 
 ## Proxy processing
 
-A proxy MAY expand or introduce a Uri-Path-Abbrev when forwarding a request,
-in particular for serving cached responses,
-as long as this introduces no new errors to the client.
+A proxy MAY expand or introduce a Uri-Path-Abbrev before consulting its cache.
+
+It MAY expand a Uri-Path-Abbrev option before forwarding,
+in particular if it has reason to assume that the option is not understood.
+Like a generic client, it SHOULD NOT introduce an abbreviation without good reason;
+and then, it MUST fall back to the expanded form, as to not introduce unexpected errors to the client.
 
 A proxy that knows Uri-Path-Abbrev but not the concrete value
 SHOULD forward it unmodified,
