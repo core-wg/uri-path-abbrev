@@ -344,6 +344,8 @@ This section will be gone by the time this document is published.
 
   If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
 
+  Tracked at <https://github.com/core-wg/corrclar/issues/51>.
+
 * This document might incentivise users to send more traffic through /.well-known/ paths,
   rather than go through discovery.
   It is up to WG discussion to decide whether this is desirable;
