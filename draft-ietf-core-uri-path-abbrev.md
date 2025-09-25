@@ -136,6 +136,11 @@ which is the behavior it would apply if it did not know the option.
 A reason to reject the request instead is when the proxy is tasked with enforcing access control
 (see {{seccons}}).
 
+When cross-proxying to protocols that can not transport this option
+(such as HTTP),
+the proxy needs to expand the path.
+<!-- No need to state anything about the inverse direction, as the 2nd paragraph applies. -->
+
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
@@ -356,6 +361,7 @@ Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 * Defer repeated use to future extensions.
 * Rearrange content to have dedicated server, client and proxy subsections for option processing.
 * Establish that generic clients SHOULD NOT use this without reason.
+* More explicit language for proxies, including cross-proxies.
 
 Since draft-amsuess-core-shopinc-02:
 
