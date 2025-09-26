@@ -411,6 +411,8 @@ Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 * Rearrange content to have dedicated server, client and proxy subsections for option processing.
 * Establish that generic clients SHOULD NOT use this without reason.
 * More explicit language for proxies, including cross-proxies.
+* Add introduction and motivating example.
+* Add RFC7942 Implementation Status section.
 
 Since draft-amsuess-core-shopinc-02:
 
