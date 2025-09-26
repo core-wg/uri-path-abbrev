@@ -212,6 +212,28 @@ this behavior is useful in BRSKI and EST.
 
 Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
+# Implementation Status
+
+{::boilerplate rfc7942}
+
+* aiocoap <https://christian.amsuess.com/tools/aiocoap/>
+
+  A general-purpose implementation of CoAP for unconstrained sytems,
+  published under MIT License.
+
+  The implementation covers the server side of this specification,
+  applying expansion automatically before looking up which resource to serve.
+  For client, all it provides is the option field where to place a number if the application decides it is suitable,
+  relying on the client application to perform the fallback.
+
+  It implements version ietf-core-uri-path-abbrev-01.
+  Implementation experience:
+  Generally straightforward
+  unless one tries to preserve the information whether Uri-Path-Abbrev was used for the server application
+  (but that was probably just a bad idea in the first place).
+
+  Contact information: Christian Amsüss (author), updated 2025-09-26
+
 # Security Considerations {#seccons}
 
 Having alternative expressions for information that is input to policy decisions
