@@ -46,7 +46,32 @@ This document introduces an option that allows expressing well-known paths in as
 
 # Introduction
 
-\[ This is an early draft, please read the abstract. \]
+When building application components on CoAP ({{!RFC7252}}),
+sending small messages is a general goal in the ecosystem
+(i.e., constrained environments, where data rates are limited and large packets can lead to packet loss, see {{?RFC7228}}).
+While CoAP can operate with a wide range of URIs,
+short path names are therefore favored.
+
+Those short path names need to be discovered, and {{RFC7252}} and {{?RFC6690}} provide mechanisms for that.
+Applications that can not discover such paths because they precede a discovery step,
+such as the discovery itself, setting up a security context ({{?RFC9528}}) or establishing an initial identity ({{?RFC9148}})
+can not rely on discovered short paths,
+and need to use well-known paths.
+The best practice established in {{?BCP190}}
+requires applications to use the prefix ".well-known" for their paths,
+making the combined paths easily longer than the rest of the CoAP message.
+
+This document establishes a CoAP option
+that allows abbreviating the path component of the request URI through a numeric registry.
+
+## Motivating example
+
+The design criteria for {{?RFC9528}} described in {{Section 2.11 of ?I-D.ietf-lake-reqs-04}}
+give a fragmentation limit of 47 bytes CoAP message payload for 6TiSCH and 51 bytes for some parameters (and implementations) of LoRaWAN,
+and high performance penalties of not fitting in those frames.
+An EDHOC message 1 on its own carries a minimum of 37 bytes.
+The 18 bytes of an encoded "/.well-known/edhoc" path push the size over either limit,
+whereas an equivalent Uri-Path-Abbrev stays well below the limit.
 
 ## Conventions and Definitions
 
