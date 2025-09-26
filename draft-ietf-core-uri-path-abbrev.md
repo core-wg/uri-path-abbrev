@@ -46,7 +46,32 @@ This document introduces an option that allows expressing well-known paths in as
 
 # Introduction
 
-\[ This is an early draft, please read the abstract. \]
+When building application components on CoAP ({{!RFC7252}}),
+sending small messages is a general goal in the ecosystem
+(i.e., constrained environments, where data rates are limited and large packets can lead to packet loss, see {{?RFC7228}}).
+While CoAP can operate with a wide range of URIs,
+short path names are therefore favored.
+
+Those short path names need to be discovered, and {{RFC7252}} and {{?RFC6690}} provide mechanisms for that.
+Applications that can not discover such paths because they precede a discovery step,
+such as the discovery itself, setting up a security context ({{?RFC9528}}) or establishing an initial identity ({{?RFC9148}})
+can not rely on discovered short paths,
+and need to use well-known paths.
+The best practice established in {{?BCP190}}
+requires applications to use the prefix ".well-known" for their paths,
+making the combined paths easily longer than the rest of the CoAP message.
+
+This document establishes a CoAP option
+that allows abbreviating the path component of the request URI through a numeric registry.
+
+## Motivating example
+
+The design criteria for {{?RFC9528}} described in {{Section 2.11 of ?I-D.ietf-lake-reqs-04}}
+give a fragmentation limit of 47 bytes CoAP message payload for 6TiSCH and 51 bytes for some parameters (and implementations) of LoRaWAN,
+and high performance penalties of not fitting in those frames.
+An EDHOC message 1 on its own carries a minimum of 37 bytes.
+The 18 bytes of an encoded "/.well-known/edhoc" path push the size over either limit,
+whereas an equivalent Uri-Path-Abbrev stays well below the limit.
 
 ## Conventions and Definitions
 
@@ -123,15 +148,23 @@ and the message size savings in the successful case are dwarved by the almost do
 
 ## Proxy processing
 
-A proxy MAY expand or introduce a Uri-Path-Abbrev when forwarding a request,
-in particular for serving cached responses,
-as long as this introduces no new errors to the client.
+A proxy MAY expand or introduce a Uri-Path-Abbrev before consulting its cache.
+
+It MAY expand a Uri-Path-Abbrev option before forwarding,
+in particular if it has reason to assume that the option is not understood.
+Like a generic client, it SHOULD NOT introduce an abbreviation without good reason;
+and then, it MUST fall back to the expanded form, as to not introduce unexpected errors to the client.
 
 A proxy that knows Uri-Path-Abbrev but not the concrete value
 SHOULD forward it unmodified,
 which is the behavior it would apply if it did not know the option.
 A reason to reject the request instead is when the proxy is tasked with enforcing access control
 (see {{seccons}}).
+
+When cross-proxying to protocols that can not transport this option
+(such as HTTP),
+the proxy needs to expand the path.
+<!-- No need to state anything about the inverse direction, as the 2nd paragraph applies. -->
 
 ## Interaction with other options {#interactions}
 
@@ -203,6 +236,29 @@ While there are currently no resources under the CoRE and RD resource,
 this behavior is useful in BRSKI and EST.
 
 Note that the `core` and `rd` paths are commonly used with Uri-Query options.
+
+# Implementation Status
+
+{::boilerplate rfc7942}
+
+* aiocoap <https://christian.amsuess.com/tools/aiocoap/>
+
+  A general-purpose implementation of CoAP for unconstrained sytems,
+  published under MIT License.
+
+  In its current main branch,
+  the implementation covers the server side of this specification,
+  applying expansion automatically before looking up which resource to serve.
+  For client, all it provides is the option field where to place a number if the application decides it is suitable,
+  relying on the client application to perform the fallback.
+
+  It implements version ietf-core-uri-path-abbrev-01.
+  Implementation experience:
+  Generally straightforward
+  unless one tries to preserve the information whether Uri-Path-Abbrev was used for the server application
+  (but that was probably just a bad idea in the first place).
+
+  Contact information: Christian Amsüss (author), updated 2025-09-26
 
 # Security Considerations {#seccons}
 
@@ -336,6 +392,8 @@ This section will be gone by the time this document is published.
 
   If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
 
+  Tracked at <https://github.com/core-wg/corrclar/issues/51>.
+
 * This document might incentivise users to send more traffic through /.well-known/ paths,
   rather than go through discovery.
   It is up to WG discussion to decide whether this is desirable;
@@ -353,6 +411,9 @@ Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 * Defer repeated use to future extensions.
 * Rearrange content to have dedicated server, client and proxy subsections for option processing.
 * Establish that generic clients SHOULD NOT use this without reason.
+* More explicit language for proxies, including cross-proxies.
+* Add introduction and motivating example.
+* Add RFC7942 Implementation Status section.
 
 Since draft-amsuess-core-shopinc-02:
 
