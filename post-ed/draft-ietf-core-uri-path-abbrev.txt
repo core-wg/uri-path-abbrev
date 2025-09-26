@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 29 March 2026                          Sandelman Software Works
-                                                       25 September 2025
+Expires: 30 March 2026                          Sandelman Software Works
+                                                       26 September 2025
 
 
                      URI-Path abbreviation in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 March 2026.
+   This Internet-Draft will expire on 30 March 2026.
 
 Copyright Notice
 
@@ -69,7 +69,8 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  Conventions and Definitions
+     1.1.  Motivating example
+     1.2.  Conventions and Definitions
    2.  The Uri-Path-Abbrev option
      2.1.  Server processing
      2.2.  Client processing
@@ -78,13 +79,14 @@ Table of Contents
      2.5.  Future development
      2.6.  Choice of the option number
    3.  Initial Uri-Path-Abbrev values
-   4.  Security Considerations
-   5.  IANA Considerations
-     5.1.  CoAP option: Uri-Path-Abbrev
-     5.2.  Uri-Path-Abbrev registry
-   6.  References
-     6.1.  Normative References
-     6.2.  Informative References
+   4.  Implementation Status
+   5.  Security Considerations
+   6.  IANA Considerations
+     6.1.  CoAP option: Uri-Path-Abbrev
+     6.2.  Uri-Path-Abbrev registry
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
    Appendix A.  Further development
    Appendix B.  Open questions
    Appendix C.  Change log
@@ -93,9 +95,37 @@ Table of Contents
 
 1.  Introduction
 
-   [ This is an early draft, please read the abstract. ]
+   When building application components on CoAP ([RFC7252]), sending
+   small messages is a general goal in the ecosystem (i.e., constrained
+   environments, where data rates are limited and large packets can lead
+   to packet loss, see [RFC7228]).  While CoAP can operate with a wide
+   range of URIs, short path names are therefore favored.
 
-1.1.  Conventions and Definitions
+   Those short path names need to be discovered, and [RFC7252] and
+   [RFC6690] provide mechanisms for that.  Applications that can not
+   discover such paths because they precede a discovery step, such as
+   the discovery itself, setting up a security context ([RFC9528]) or
+   establishing an initial identity ([RFC9148]) can not rely on
+   discovered short paths, and need to use well-known paths.  The best
+   practice established in [BCP190] requires applications to use the
+   prefix ".well-known" for their paths, making the combined paths
+   easily longer than the rest of the CoAP message.
+
+   This document establishes a CoAP option that allows abbreviating the
+   path component of the request URI through a numeric registry.
+
+1.1.  Motivating example
+
+   The design criteria for [RFC9528] described in Section 2.11 of
+   [I-D.ietf-lake-reqs-04] give a fragmentation limit of 47 bytes CoAP
+   message payload for 6TiSCH and 51 bytes for some parameters (and
+   implementations) of LoRaWAN, and high performance penalties of not
+   fitting in those frames.  An EDHOC message 1 on its own carries a
+   minimum of 37 bytes.  The 18 bytes of an encoded "/.well-known/edhoc"
+   path push the size over either limit, whereas an equivalent Uri-Path-
+   Abbrev stays well below the limit.
+
+1.2.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -115,7 +145,7 @@ Table of Contents
    equivalent to any number of Uri-Path options.  Those paths are
    typically in a "/.well-known" location as described in [RFC8615].
    The numeric option values are coordinated by IANA in the Uri-Path-
-   Abbrev registry established in this document in Section 5.2.
+   Abbrev registry established in this document in Section 6.2.
 
     +=======+=+===+===+===+=================+========+======+=========+
     | No.   |C| U | N | R | Name            | Format | Len. | Default |
@@ -141,7 +171,7 @@ Table of Contents
    ([RFC8613]).
 
    The option has an integer value from the registry established in
-   Section 5.2.
+   Section 6.2.
 
    Apart from the format and repeatability, the option's properties only
    deviate from the Uri-Path (for which it stands in) in that this
@@ -195,7 +225,7 @@ Table of Contents
    A proxy that knows Uri-Path-Abbrev but not the concrete value SHOULD
    forward it unmodified, which is the behavior it would apply if it did
    not know the option.  A reason to reject the request instead is when
-   the proxy is tasked with enforcing access control (see Section 4).
+   the proxy is tasked with enforcing access control (see Section 5).
 
    When cross-proxying to protocols that can not transport this option
    (such as HTTP), the proxy needs to expand the path.
@@ -295,7 +325,49 @@ Table of Contents
    Note that the core and rd paths are commonly used with Uri-Query
    options.
 
-4.  Security Considerations
+4.  Implementation Status
+
+   This section records the status of known implementations of the
+   protocol defined by this specification at the time of posting of this
+   Internet-Draft, and is based on a proposal described in [RFC7942].
+   The description of implementations in this section is intended to
+   assist the IETF in its decision processes in progressing drafts to
+   RFCs.  Please note that the listing of any individual implementation
+   here does not imply endorsement by the IETF.  Furthermore, no effort
+   has been spent to verify the information presented here that was
+   supplied by IETF contributors.  This is not intended as, and must not
+   be construed to be, a catalog of available implementations or their
+   features.  Readers are advised to note that other implementations may
+   exist.
+
+   According to [RFC7942], "this will allow reviewers and working groups
+   to assign due consideration to documents that have the benefit of
+   running code, which may serve as evidence of valuable experimentation
+   and feedback that have made the implemented protocols more mature.
+   It is up to the individual working groups to use this information as
+   they see fit".
+
+   *  aiocoap https://christian.amsuess.com/tools/aiocoap/
+      (https://christian.amsuess.com/tools/aiocoap/)
+
+      A general-purpose implementation of CoAP for unconstrained sytems,
+      published under MIT License.
+
+      The implementation covers the server side of this specification,
+      applying expansion automatically before looking up which resource
+      to serve.  For client, all it provides is the option field where
+      to place a number if the application decides it is suitable,
+      relying on the client application to perform the fallback.
+
+      It implements version ietf-core-uri-path-abbrev-01.
+      Implementation experience: Generally straightforward unless one
+      tries to preserve the information whether Uri-Path-Abbrev was used
+      for the server application (but that was probably just a bad idea
+      in the first place).
+
+      Contact information: Christian Amsüss (author), updated 2025-09-26
+
+5.  Security Considerations
 
    Having alternative expressions for information that is input to
    policy decisions can be problematic when the mechanism performing the
@@ -308,9 +380,9 @@ Table of Contents
    application protected by the checker may provide the checker with an
    allow-list of options that it will treat as unchecked input.
 
-5.  IANA Considerations
+6.  IANA Considerations
 
-5.1.  CoAP option: Uri-Path-Abbrev
+6.1.  CoAP option: Uri-Path-Abbrev
 
    IANA is requested to enter an one option into the CoAP Option Numbers
    registry in the CoRE Parameters group:
@@ -321,7 +393,7 @@ Table of Contents
 
    *  Reference: this document
 
-5.2.  Uri-Path-Abbrev registry
+6.2.  Uri-Path-Abbrev registry
 
    IANA is requested to establish a new registry in the CoRE parameters
    group: Values of the first Uri-Path-Abbrev option in a CoAP request
@@ -423,9 +495,9 @@ Table of Contents
 
          Table 2: Initial values for the Uri-Path-Abbrev registry
 
-6.  References
+7.  References
 
-6.1.  Normative References
+7.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -441,7 +513,15 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-6.2.  Informative References
+7.2.  Informative References
+
+   [BCP190]   Best Current Practice 190,
+              <https://www.rfc-editor.org/info/bcp190>.
+              At the time of writing, this BCP comprises the following:
+
+              Nottingham, M., "URI Design and Ownership", BCP 190,
+              RFC 8820, DOI 10.17487/RFC8820, June 2020,
+              <https://www.rfc-editor.org/info/rfc8820>.
 
    [I-D.bormann-cbor-draft-numbers]
               Bormann, C., "Managing CBOR codepoints in Internet-
@@ -464,6 +544,27 @@ Table of Contents
               ietf-core-href-24, 30 August 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
               href-24>.
+
+   [I-D.ietf-lake-reqs-04]
+              Vučinić, M., Selander, G., Mattsson, J. P., and D. Garcia-
+              Carillo, "Requirements for a Lightweight AKE for OSCORE",
+              Work in Progress, Internet-Draft, draft-ietf-lake-reqs-04,
+              8 June 2020, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-lake-reqs-04>.
+
+   [RFC6690]  Shelby, Z., "Constrained RESTful Environments (CoRE) Link
+              Format", RFC 6690, DOI 10.17487/RFC6690, August 2012,
+              <https://www.rfc-editor.org/rfc/rfc6690>.
+
+   [RFC7228]  Bormann, C., Ersue, M., and A. Keranen, "Terminology for
+              Constrained-Node Networks", RFC 7228,
+              DOI 10.17487/RFC7228, May 2014,
+              <https://www.rfc-editor.org/rfc/rfc7228>.
+
+   [RFC7942]  Sheffer, Y. and A. Farrel, "Improving Awareness of Running
+              Code: The Implementation Status Section", BCP 205,
+              RFC 7942, DOI 10.17487/RFC7942, July 2016,
+              <https://www.rfc-editor.org/rfc/rfc7942>.
 
    [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
               Writing an IANA Considerations Section in RFCs", BCP 26,
@@ -589,6 +690,10 @@ Appendix C.  Change log
    *  Establish that generic clients SHOULD NOT use this without reason.
 
    *  More explicit language for proxies, including cross-proxies.
+
+   *  Add introduction and motivating example.
+
+   *  Add RFC7942 Implementation Status section.
 
    Since draft-amsuess-core-shopinc-02:
 
