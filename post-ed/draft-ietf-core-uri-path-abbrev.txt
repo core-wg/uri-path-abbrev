@@ -353,11 +353,12 @@ Table of Contents
       A general-purpose implementation of CoAP for unconstrained sytems,
       published under MIT License.
 
-      The implementation covers the server side of this specification,
-      applying expansion automatically before looking up which resource
-      to serve.  For client, all it provides is the option field where
-      to place a number if the application decides it is suitable,
-      relying on the client application to perform the fallback.
+      In its current main branch, the implementation covers the server
+      side of this specification, applying expansion automatically
+      before looking up which resource to serve.  For client, all it
+      provides is the option field where to place a number if the
+      application decides it is suitable, relying on the client
+      application to perform the fallback.
 
       It implements version ietf-core-uri-path-abbrev-01.
       Implementation experience: Generally straightforward unless one
