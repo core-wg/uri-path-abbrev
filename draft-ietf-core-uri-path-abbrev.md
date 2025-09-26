@@ -246,7 +246,8 @@ Note that the `core` and `rd` paths are commonly used with Uri-Query options.
   A general-purpose implementation of CoAP for unconstrained sytems,
   published under MIT License.
 
-  The implementation covers the server side of this specification,
+  In its current main branch,
+  the implementation covers the server side of this specification,
   applying expansion automatically before looking up which resource to serve.
   For client, all it provides is the option field where to place a number if the application decides it is suitable,
   relying on the client application to perform the fallback.
