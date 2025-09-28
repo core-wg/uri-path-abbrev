@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-25T01:17:19.161568+00:00",
+  "timestamp": "2025-09-28T01:24:20.100970+00:00",
   "repo": "core-wg/uri-path-abbrev",
   "labels": [
     {
@@ -140,15 +140,15 @@
       "id": "I_kwDOPRf_yM7KzpI4",
       "title": "Process ED's WGA review",
       "url": "https://github.com/core-wg/uri-path-abbrev/issues/16",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "chrysn",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Main points: restructure client/server/proxy behavior, emphasize that stack components should not use it on the off chance it'd work, but only if there's reason (given by the application or the protocol) to assume it should work.\n\nOriginal archived at <https://mailarchive.ietf.org/arch/msg/core/yQI0KnoEYVQoZmqYhsSpoSHD6Dc>.",
       "createdAt": "2025-09-10T13:38:25Z",
-      "updatedAt": "2025-09-10T13:39:20Z",
-      "closedAt": null,
+      "updatedAt": "2025-09-25T15:41:53Z",
+      "closedAt": "2025-09-25T15:41:53Z",
       "comments": []
     },
     {
@@ -181,6 +181,38 @@
           "updatedAt": "2025-09-10T13:53:50Z"
         }
       ]
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOPRf_yM7ORfg2",
+      "title": "rfc7030 updates to include abbrieviations",
+      "url": "https://github.com/core-wg/uri-path-abbrev/issues/23",
+      "state": "OPEN",
+      "author": "mcr",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.com/mcr/lamps-rfc7030-renewal-recommendation/pull/4\n\nPlease review this PR, @chrysn ",
+      "createdAt": "2025-09-27T20:27:30Z",
+      "updatedAt": "2025-09-27T20:27:30Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOPRf_yM7ORk3A",
+      "title": "Track my data",
+      "url": "https://github.com/core-wg/uri-path-abbrev/issues/24",
+      "state": "OPEN",
+      "author": "Maumau123098",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Track all my data and I never I am a proof that really upset",
+      "createdAt": "2025-09-27T20:45:15Z",
+      "updatedAt": "2025-09-27T20:45:15Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -862,6 +894,145 @@
         "oid": "a80f8581a3cdb81351e02f42cea50ca77b741eb9"
       },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOPRf_yM6qdcp_",
+      "title": "Enhancements from ED: Restructure, warn against unjustified use",
+      "url": "https://github.com/core-wg/uri-path-abbrev/pull/21",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "MEMBER",
+      "assignees": [
+        "chrysn"
+      ],
+      "labels": [],
+      "body": "Closes: https://github.com/core-wg/uri-path-abbrev/issues/16\r\n\r\nGeneric clients just using the option and then failing are not, as requested, blocked by a MUST, but by two consecutive SHOULD: A generic client SHOULD not do that in the first place (or risk excessive resource abuse), and every client SHOULD fall back (or risk loss of interoperability). @EskoDijk, do we need to strictly forbid the combined violation, or is this language sufficient?",
+      "createdAt": "2025-09-25T09:06:42Z",
+      "updatedAt": "2025-09-26T23:24:49Z",
+      "baseRepository": "core-wg/uri-path-abbrev",
+      "baseRefName": "main",
+      "baseRefOid": "706a6afa7b76044cd27184b5e4ce86d22bd0bfdf",
+      "headRepository": "core-wg/uri-path-abbrev",
+      "headRefName": "ed-review-bis",
+      "headRefOid": "e71a7dec97081b67b35b71b3644f8a6842038cae",
+      "closedAt": "2025-09-25T15:41:52Z",
+      "mergedAt": "2025-09-25T15:41:52Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "7350ab19f1df3560ceb0d20a55fbeed9c3c9154d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOPRf_yM7CtWeb",
+          "commit": {
+            "abbreviatedOid": "59071af"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks, I'm ok with the proposed description using \"SHOULD (NOT)\". A few comments added.",
+          "createdAt": "2025-09-25T09:17:19Z",
+          "updatedAt": "2025-09-25T09:23:22Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\nIn general, it is too unlikely that the Uri-Path-Abbrev value is understood by a generic server,\r\n```\r\n\r\nOr we could say \"by a server\" or \"by a typical server\" ?",
+              "createdAt": "2025-09-25T09:17:19Z",
+              "updatedAt": "2025-09-25T09:23:22Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "```suggestion\r\nand the message size savings in the successful case are dwarved by the almost doubling of resources needed to perform the fallback.\r\n```\r\n",
+              "createdAt": "2025-09-25T09:20:37Z",
+              "updatedAt": "2025-09-25T09:23:22Z"
+            },
+            {
+              "originalPosition": 60,
+              "body": "```suggestion\r\n* Rearrange content to have dedicated server, client and proxy subsections for option processing.\r\n```",
+              "createdAt": "2025-09-25T09:21:53Z",
+              "updatedAt": "2025-09-25T09:23:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM7Cz682",
+          "commit": {
+            "abbreviatedOid": "59071af"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-25T15:37:54Z",
+          "updatedAt": "2025-09-25T15:37:55Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "```suggestion\r\nIn general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,\r\n```\r\n\r\nMaybe like this?",
+              "createdAt": "2025-09-25T15:37:55Z",
+              "updatedAt": "2025-09-25T15:37:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOPRf_yM7C9aEz",
+          "commit": {
+            "abbreviatedOid": "59071af"
+          },
+          "author": "EskoDijk",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-09-26T08:35:34Z",
+          "updatedAt": "2025-09-26T08:35:35Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "Ok!",
+              "createdAt": "2025-09-26T08:35:34Z",
+              "updatedAt": "2025-09-26T08:35:35Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOPRf_yM6qigu5",
+      "title": "Follow-ups to Esko's review / #21",
+      "url": "https://github.com/core-wg/uri-path-abbrev/pull/22",
+      "state": "MERGED",
+      "author": "chrysn",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Talking about proxies this explicitly begs the question for cross-proxies; cleaning up the proxy paragraph to enable that.\r\n\r\n(And linking to https://github.com/core-wg/corrclar/issues/51 now that I've made an issue rather than just talking about that we might maybe want to perhaps discuss this somewhere around over there-ish).",
+      "createdAt": "2025-09-25T15:44:57Z",
+      "updatedAt": "2025-09-26T23:24:49Z",
+      "baseRepository": "core-wg/uri-path-abbrev",
+      "baseRefName": "main",
+      "baseRefOid": "7350ab19f1df3560ceb0d20a55fbeed9c3c9154d",
+      "headRepository": "core-wg/uri-path-abbrev",
+      "headRefName": "post-ed",
+      "headRefOid": "dcbc2318a339259441bcc406d2f2fb6e9b6be269",
+      "closedAt": "2025-09-26T23:24:30Z",
+      "mergedAt": "2025-09-26T23:24:30Z",
+      "mergedBy": "chrysn",
+      "mergeCommit": {
+        "oid": "705149196d5ad716fc6939e339b27776c1c8d683"
+      },
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "This also adds an introduction section now, and implementation status.\r\n\r\naiocoap implementation is in https://codeberg.org/aiocoap/aiocoap/pulls/36 -- but that's going to be merged this afternoon, so no point in sending the reader to the PR.",
+          "createdAt": "2025-09-26T11:56:12Z",
+          "updatedAt": "2025-09-26T11:56:40Z"
+        }
+      ],
       "reviews": []
     }
   ]
