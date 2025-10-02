@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T01:24:20.100970+00:00",
+  "timestamp": "2025-10-02T01:15:38.021743+00:00",
   "repo": "core-wg/uri-path-abbrev",
   "labels": [
     {
@@ -203,16 +203,48 @@
       "id": "I_kwDOPRf_yM7ORk3A",
       "title": "Track my data",
       "url": "https://github.com/core-wg/uri-path-abbrev/issues/24",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "Maumau123098",
       "authorAssociation": "NONE",
       "assignees": [],
       "labels": [],
       "body": "Track all my data and I never I am a proof that really upset",
       "createdAt": "2025-09-27T20:45:15Z",
-      "updatedAt": "2025-09-27T20:45:15Z",
+      "updatedAt": "2025-10-01T13:46:22Z",
+      "closedAt": "2025-10-01T13:46:22Z",
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "Closed and reported as spam.",
+          "createdAt": "2025-10-01T13:46:22Z",
+          "updatedAt": "2025-10-01T13:46:22Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOPRf_yM7PCRl-",
+      "title": "lipcoap initial port",
+      "url": "https://github.com/core-wg/uri-path-abbrev/issues/25",
+      "state": "OPEN",
+      "author": "mrdeep1",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I have done a quick port of this to the libcoap library (https://github.com/obgm/libcoap), but code has not yet been pushed.\n\nMy observations so far are\n\nFinal server  (knows about Uri-Path-Abbrev)\n-------------\nIt cannot handle Proxy-Uri and Ur-Path-Abbrev in the same request as decoding Proxy-Uri will usually give a set of Uri-Path unless there is no path in Proxy-Uri.  No path in Proxy-Uri may be a corner case.\nProxy-Scheme works fine.\n\nlibcoap currently rejects Uri-Path-Abbrev + { Uri-Path | Proxy-Uri } for simplicity.  It rejects a CON with 4.02, or a RST for NON.\n\nLegacy final server (does not know about Uri-Path-Abbrev)\n---------\nWith libcoap, receiving Uri-Path-Abbrev, it rejects a CON with 4.02, or a RST for NON.\n\nOriginal Client (knows about Uri-Path-Abbrev)\n-------------\nIf receipt of 4.02 and request contained Uri-Path-Abbrev, then libcoap retransmits the request with Uri-Path-Abbrev expanded into Uri-Path(s). The new request should have new Token and MID.\nRetry response then needs original Token when passing back to application.  Fairly straight forward to rebuild PDU with only Content-Format between Uri-Path and Uri-Path-Abbrev.\n\nQ: What should happen with a 5.02 response?\n\nLibcoap tags the CoAP session with 'no uri-path-abbrev support' on receipt of 4.02 so subsequent application requests on the same session gets Uri-Path-Abbrev expanded before transmission.\n\nUsing NON for the first Uri-Path-Abbrev gets a RST response, so CON should be used here.\n\nUnclear as to how Uri-Path-Abbrev should be used in a multicast environment (servers likely to drop 4.xx if overriding RFC7252 for NON or likely to drop RST responses)\n\nQ: How will multicast get handled?\n\n(legacy) Proxy - does not know Uri-Path-Abbrev)\n------------\nThe test  for critical option is early on in libcoap stack - before any proxy logic and so sends back a 4.02 or RST.\n\nIf proxy (safe-forward-test) test was to be done before critical option test then things should get properly forwarded.  If however there is a Proxy-Scheme and the proxy converts this and URI-* into Proxy-Uri (unlikely, libcoap does not do this) this will get rejected by upstream server.\n\nQ: If upstream server does not handle Uri-Path-Abbrev, would the legacy proxy send back a 5.02 or 4.02?\n\nNew Proxy - does know about Uri-Path-Abbrev\n--------------\nWill know not to reconstruct a Proxy-Uri if Uri-Path-Abbrev is present.\n\nThe proxy-client component acts as per libcoap client, namely on detection of 4.02 with Uri-Path-Abbrev in request will re-transmit the expanded request with nothing passed back to client.  If that fails, then the upstream server's response is passed back to downstream client.\n\nQ: Should this proxy send back a 4.02 or 5.02 on getting a 4.02 from upstream server when electing not to expand Uri-Path-Abbrev?\n\nQ: For caching responses, should the cached request (hash) include the Uri-Path-Abbrev, or should the proxy always (even if not forwarding it) expand the request and cache the expanded request (hash)\n",
+      "createdAt": "2025-10-01T13:03:14Z",
+      "updatedAt": "2025-10-01T16:03:18Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "body": "Thanks. See mailing list thread for discussion; action items taken up for here:\n\n* Point out that a server could send RST -- I don't think it should, but at any rate, that's what deployed servers will do.\n* Address multicast. Maybe \"Fallback is not a realistic option, so the 'SHOULD only send when server is known to support it' turns into a 'MUST'\"\n\n(See also [thread](https://mailarchive.ietf.org/arch/msg/core/dX1kxGgf2M_tS32liHHvCls8AFo))",
+          "createdAt": "2025-10-01T16:03:18Z",
+          "updatedAt": "2025-10-01T16:03:18Z"
+        }
+      ]
     }
   ],
   "pulls": [
