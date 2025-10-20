@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 30 March 2026                          Sandelman Software Works
-                                                       26 September 2025
+Expires: 23 April 2026                          Sandelman Software Works
+                                                         20 October 2025
 
 
                      URI-Path abbreviation in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 March 2026.
+   This Internet-Draft will expire on 23 April 2026.
 
 Copyright Notice
 
@@ -76,8 +76,7 @@ Table of Contents
      2.2.  Client processing
      2.3.  Proxy processing
      2.4.  Interaction with other options
-     2.5.  Future development
-     2.6.  Choice of the option number
+     2.5.  Choice of the option number
    3.  Initial Uri-Path-Abbrev values
    4.  Implementation Status
    5.  Security Considerations
@@ -163,7 +162,9 @@ Table of Contents
    // the indicated value and replace the residue with the value
    // assigned by IANA; perform an analogous substitution for all other
    // occurrences of the prefix "CPA" in the document.  Finally, please
-   // remove this note.
+   // remove this note.  There is one occurrence of the value 13 encoded
+   // in a1270d, which, if the number were to change, would need
+   // updating.
 
    The option is a critical, safe-to-forward, and part of the cache key,
    and used in CoAP requests.  Table 1 summarizes these, extending
@@ -189,27 +190,73 @@ Table of Contents
    equivalent request composed of Uri-Path components.
 
    A server receiving the option with an unknown value MUST treat it as
-   an unprocessable critical option, returning 4.02 Bad Option and MUST
-   NOT return a 4.04 Not Found response, because the equivalent path may
-   be present on the server.
+   an unprocessable critical option, returning 4.02 Bad Option (or
+   reject the message
+   // This option may go away if https://github.com/core-wg/corrclar/
+   // issues/52 (https://github.com/core-wg/corrclar/issues/52) is
+   // resolved before this document is published.) and MUST NOT return a
+   4.04 Not Found response, because the equivalent path may be present
+   on the server.
+
+   Since clients that use the option are usually aware of the
+   possibility of failure, there is no need to provide a diagnostic
+   payload in the error (as is generally recommended in Section 5.4.1 of
+   [RFC7252]).  A machine readable (and, albeit beyond the scope of this
+   document, actionable) response is described in Section 3.1.1 of
+   [RFC9290]: the server can set Content-Format 257 in the response and
+   send the payload a1270d, which is the CBOR encoding for the CoAP
+   problem detail "Unprocessed CoAP option" with the value CPA13.
 
 2.2.  Client processing
 
-   A client may use the option instead of the Uri-Path option if there
+   A client can use the option instead of the Uri-Path option if there
    is a suitable value that can express the requested path.
 
-   Unless the client can be assured that the server supports it (e.g.
-   because the specification describing the interaction mandates support
-   for the option in the server) it SHOULD fall back to sending the path
-   explicitly if it receives an error indicating that the option was not
-   understood (otherwise, it would have limited interoperability).
+   The option SHOULD only be sent when it is known that the server has
+   support for the concrete value.  This knowledge is typically not
+   learned, but follows from other specifications mandating support for
+   it.
 
-   A generic client implementation SHOULD NOT apply this optimization
-   without explicit instructions from a higher layer or the known
-   specification of the numeric value: In general, it is too unlikely
-   that the Uri-Path-Abbrev value is understood by any server, and the
-   message size savings in the successful case are dwarved by the almost
-   doubling of resources needed to perform the fallback.
+   A client can also send a value if it is merely likely that the server
+   supports it.  (The decision threshold varies by application, but
+   generally it's closer to 95% than a mere more-likely-than-not).  This
+   is called "tentative use".
+
+   In that case, the client needs to reliably detect failure of the
+   option, and to fall back to repeating the request with the Uri-Path
+   spelled out, to operate reliably.
+
+   There are four possible indications of the option not being
+   supported:
+
+   1.  A 4.02 Bad Option response.
+
+   2.  A 5.02 Bad Gateway caused by a proxy that received a RST or lack
+       of response.
+
+   3.  A RST caused by handling of a Non-confirmable message.
+
+   4.  Not receiving a response to a Non-confirmable message.
+
+
+   // There is ongoing discussion about whether that behavior is
+   // desirable at https://github.com/core-wg/corrclar/issues/52
+   // (https://github.com/core-wg/corrclar/issues/52).  In the unlikely
+   // case that discussion concludes before this document, the 4.02
+   // outcome might be shown as preferred in here and in server
+   // processing.
+
+   Some of the complexity of detecting lack of server-side support
+   (items 3 and 4) can be avoided by not using the option with Non-
+   confirmable requests in tentative use.
+
+   As multicast requests generally do not result in errors being
+   returned, tentative use is not available for multicast requests.
+
+   A generic client implementation SHOULD NOT use this option without
+   explicit instructions from a higher layer or the known specification
+   of the numeric value: Conditions for tentative use are generally not
+   met.
 
 2.3.  Proxy processing
 
@@ -256,18 +303,7 @@ Table of Contents
    Proxy-URI/-CRI from individual options, nor is there a reason known
    why they should).
 
-2.5.  Future development
-
-   Future updates to this document might extend the capabilities of the
-   option to be repeated; that document will need to specify how later
-   occurrences of the option extend the series of equivalent Uri-Path
-   options from the first value.
-
-   Server implementations that treat repeated Uri-Path-Abbrev options
-   like any other critical unprocessable option (i.e., by responding
-   with 4.02 Bad Option) support the transition to such an extension.
-
-2.6.  Choice of the option number
+2.5.  Choice of the option number
 
    TBD: Rephrase this to either be useful for readers of the final
    document who can thus learn how the option number namespace is
@@ -368,6 +404,14 @@ Table of Contents
 
       Contact information: Christian Amsüss (author), updated 2025-09-26
 
+   *  libcoap (preliminary)
+
+      A report on a yet unpublished implementaiton and related tests of
+      ietf-core-uri-path-abbrev-01 in libcoap has been submitted at
+      https://github.com/core-wg/uri-path-abbrev/issues/25
+      (https://github.com/core-wg/uri-path-abbrev/issues/25) on
+      2025-10-01.
+
 5.  Security Considerations
 
    Having alternative expressions for information that is input to
@@ -406,7 +450,7 @@ Table of Contents
 
    Entry fields are:
 
-   *  First option value.
+   *  Option value.
 
       An non-negative integer that can be expressed in 32 bits, unique
       within this registry.
@@ -419,80 +463,65 @@ Table of Contents
       quickly test this property for any positive number (250 in this
       example).
 
-   *  Simple expanded path.
+   *  Expanded path.
 
-      This text is the URI path (starting with /) that the option, when
-      present only once in a request, is expanded to.
-
-      This field may be empty if the document describes that the option
-      needs to be repeated when using this first value.
+      This text is the URI path (starting with /) that the option is
+      expanded to.
 
    *  Reference.
 
-      A document that requested the allocation, and describes whether
-      the option may be repeated after this first value, and how later
-      values are expanded
+      A document that requested the allocation.
 
    Reviewer instructions:
 
    The reviewer is instructed to be frugal with the 128 values that
-   correspond to a single-vbyte value, focusing on applications that are
+   correspond to a single-byte value, focusing on applications that are
    expected to be useful in different constrained ecosystems.
 
    The expanded path is expected to be well-known paths at the time of
    writing, but it is up to the reviewers to exceptionally also admit
    paths that are not well-known.
 
-     +========+==============+======================================+
-     | First  | Simple       | Reference                            |
-     | option | expanded     |                                      |
-     | value  | path         |                                      |
-     +========+==============+======================================+
-     | 0      | /.well-      | Section 3 of this document           |
-     |        | known/core   |                                      |
-     +--------+--------------+--------------------------------------+
-     | 1      | /.well-      | Section 3 of this document, and      |
-     |        | known/rd     | [RFC9176]                            |
-     +--------+--------------+--------------------------------------+
-     | 2      | /.well-      | Section 3 of this document, and      |
-     |        | known/edhoc  | [RFC9528]                            |
-     +--------+--------------+--------------------------------------+
-     | 301    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | crts         |                                      |
-     +--------+--------------+--------------------------------------+
-     | 302    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | sen          |                                      |
-     +--------+--------------+--------------------------------------+
-     | 303    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | sren         |                                      |
-     +--------+--------------+--------------------------------------+
-     | 304    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | skg          |                                      |
-     +--------+--------------+--------------------------------------+
-     | 305    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | skc          |                                      |
-     +--------+--------------+--------------------------------------+
-     | 306    | /.well-      | Section 3 of this document, and      |
-     |        | known/est/   | [RFC9148]                            |
-     |        | att          |                                      |
-     +--------+--------------+--------------------------------------+
-     | 401    | /.well-      | Section 3 of this document, and      |
-     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
-     |        | es           |                                      |
-     +--------+--------------+--------------------------------------+
-     | 402    | /.well-      | Section 3 of this document, and      |
-     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
-     |        | rv           |                                      |
-     +--------+--------------+--------------------------------------+
-     | 403    | /.well-      | Section 3 of this document, and      |
-     |        | known/brski/ | [I-D.ietf-anima-constrained-voucher] |
-     |        | vs           |                                      |
-     +--------+--------------+--------------------------------------+
+    +========+================+======================================+
+    | Option | Expanded path  | Reference                            |
+    | value  |                |                                      |
+    +========+================+======================================+
+    | 0      | /.well-known/  | Section 3 of this document           |
+    |        | core           |                                      |
+    +--------+----------------+--------------------------------------+
+    | 1      | /.well-known/  | Section 3 of this document, and      |
+    |        | rd             | [RFC9176]                            |
+    +--------+----------------+--------------------------------------+
+    | 2      | /.well-known/  | Section 3 of this document, and      |
+    |        | edhoc          | [RFC9528]                            |
+    +--------+----------------+--------------------------------------+
+    | 301    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/crts | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 302    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/sen  | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 303    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/sren | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 304    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/skg  | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 305    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/skc  | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 306    | /.well-        | Section 3 of this document, and      |
+    |        | known/est/att  | [RFC9148]                            |
+    +--------+----------------+--------------------------------------+
+    | 401    | /.well-        | Section 3 of this document, and      |
+    |        | known/brski/es | [I-D.ietf-anima-constrained-voucher] |
+    +--------+----------------+--------------------------------------+
+    | 402    | /.well-        | Section 3 of this document, and      |
+    |        | known/brski/rv | [I-D.ietf-anima-constrained-voucher] |
+    +--------+----------------+--------------------------------------+
+    | 403    | /.well-        | Section 3 of this document, and      |
+    |        | known/brski/vs | [I-D.ietf-anima-constrained-voucher] |
+    +--------+----------------+--------------------------------------+
 
          Table 2: Initial values for the Uri-Path-Abbrev registry
 
@@ -535,16 +564,16 @@ Table of Contents
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
               Dijk, "Constrained Bootstrapping Remote Secure Key
               Infrastructure (cBRSKI)", Work in Progress, Internet-
-              Draft, draft-ietf-anima-constrained-voucher-28, 6 July
+              Draft, draft-ietf-anima-constrained-voucher-29, 18 October
               2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
-              anima-constrained-voucher-28>.
+              anima-constrained-voucher-29>.
 
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-24, 30 August 2025,
+              ietf-core-href-26, 16 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-24>.
+              href-26>.
 
    [I-D.ietf-lake-reqs-04]
               Vučinić, M., Selander, G., Mattsson, J. P., and D. Garcia-
@@ -603,6 +632,11 @@ Table of Contents
               Resource Directory", RFC 9176, DOI 10.17487/RFC9176, April
               2022, <https://www.rfc-editor.org/rfc/rfc9176>.
 
+   [RFC9290]  Fossati, T. and C. Bormann, "Concise Problem Details for
+              Constrained Application Protocol (CoAP) APIs", RFC 9290,
+              DOI 10.17487/RFC9290, October 2022,
+              <https://www.rfc-editor.org/rfc/rfc9290>.
+
    [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
               "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
               DOI 10.17487/RFC9528, March 2024,
@@ -612,7 +646,18 @@ Appendix A.  Further development
 
    Several possible further directions are anticipated in this document,
    but not specified at this point in time; they are left for further
-   documents:
+   documents that update and thus compatibly extend this document.
+
+   In any case, server implementations that treat unknown option values
+   or repeated Uri-Path-Abbrev options like any other critical
+   unprocessable option (i.e., by responding with 4.02 Bad Option)
+   support the transition to such an extension.
+
+   *  Some values of the option might admit repetition of the option.  A
+      document that updates this document and the Uri-Path-Abbrev
+      registry will need to specify how later occurrences of the option
+      extend the series of equivalent Uri-Path options from the first
+      value, or defer some of that decision to that first value's entry.
 
    *  The mechanism of expanding one option into another option might be
       expressed using the terminology of SCHC.
