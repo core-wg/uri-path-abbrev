@@ -213,7 +213,8 @@ nor is there a reason known why they should).
 ## Future development
 
 Future updates to this document
-might extend the capabilities of the option to be repeated;
+might extend the capabilities of the option to be repeated,
+or may define a use for currently reserved values;
 that document will need to specify how later occurrences of the option
 extend the series of equivalent Uri-Path options from the first value.
 
