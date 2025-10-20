@@ -324,7 +324,7 @@ Initial values are given in {{initial-table}}.
 
 Entry fields are:
 
-* First option value.
+* Option value.
 
   An non-negative integer that can be expressed in 32 bits,
   unique within this registry.
@@ -336,19 +336,14 @@ Entry fields are:
   `python3 -c 'print("reserved" if (250).bit_length() % 8 == 0 else "unreserved")'`
   can be used to quickly test this property for any positive number (250 in this example).
 
-* Simple expanded path.
+* Expanded path.
 
-  This text is the URI path (starting with `/`) that the option,
-  when present only once in a request,
+  This text is the URI path (starting with `/`) that the option
   is expanded to.
-
-  This field may be empty if the document describes that the option needs to be repeated when using this first value.
 
 * Reference.
 
-  A document that requested the allocation,
-  and describes whether the option may be repeated after this first value,
-  and how later values are expanded
+  A document that requested the allocation.
 
 Reviewer instructions:
 
@@ -358,7 +353,7 @@ focusing on applications that are expected to be useful in different constrained
 The expanded path is expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
-| First option value | Simple expanded path | Reference |
+| Option value       | Expanded path        | Reference |
 |--------------------+----------------------+-----------|
 | 0                  | /.well-known/core    | {{initial}} of this document                         |
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
