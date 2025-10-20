@@ -210,19 +210,6 @@ Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD process requ
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
 
-## Future development
-
-Future updates to this document
-might extend the capabilities of the option to be repeated,
-or may define a use for currently reserved values;
-that document will need to specify how later occurrences of the option
-extend the series of equivalent Uri-Path options from the first value.
-
-Server implementations that treat repeated Uri-Path-Abbrev options
-like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
-support the transition to such an extension.
-<!-- It'd be great to state "this is already required in 7252", but it only implies that and doesn't make it explicit. -->
-
 ## Choice of the option number
 
 TBD: Rephrase this to either be useful for readers of the final document
@@ -377,7 +364,18 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 Several possible further directions are anticipated in this document,
 but not specified at this point in time;
-they are left for further documents:
+they are left for further documents that update and thus compatibly extend this document.
+
+In any case, server implementations that treat unknown option values or repeated Uri-Path-Abbrev options
+like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
+support the transition to such an extension.
+<!-- It'd be great to state "this is already required in 7252", but it only implies that and doesn't make it explicit. -->
+
+* Some values of the option might admit repetition of the option.
+  A document that updates this document and the Uri-Path-Abbrev registry will need to specify
+  how later occurrences of the option
+  extend the series of equivalent Uri-Path options from the first value,
+  or defer some of that decision to that first value's entry.
 
 * The mechanism of expanding one option into another option
   might be expressed using the terminology of SCHC.
