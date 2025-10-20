@@ -129,8 +129,11 @@ MUST also support the equivalent request composed of Uri-Path components.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
 returning 4.02 Bad Option
+(or reject the message[^ref52small])
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
+
+[^ref52small]: This option may go away if <https://github.com/core-wg/corrclar/issues/52> is resolved before this document is published.
 
 ## Client processing
 
