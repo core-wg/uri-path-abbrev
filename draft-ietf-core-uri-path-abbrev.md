@@ -264,11 +264,6 @@ This document registers values for the following well-known URIs:
   * `/.well-known/brski/rv`
   * `/.well-known/brski/vs`
 
-For all those,
-later occurrences of Uri-Path-Abbrev are interpreted as additional Uri-Path values.
-While there are currently no resources under the CoRE and RD resource,
-this behavior is useful in BRSKI and EST.
-
 Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
 # Implementation Status
