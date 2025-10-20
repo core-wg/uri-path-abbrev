@@ -421,6 +421,20 @@ support the transition to such an extension.
 
 # Change log
 
+Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.
+
+* Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.
+* The "SHOULD" to support fallback mode was lifted to "SHOULD only be [used when the server is known to support it]",
+  with the recovery being a factual necessity for reliability in tentative use.
+* The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).
+* Use with multicast was limited to non-tentative use.
+* Added reference to libcoap work.
+* Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.
+* Sections on future work were unified in the appendix.
+* Appendix on open questions was moved into the issue tracker at <https://github.com/core-wg/uri-path-abbrev/issues/>.
+* Cleanup of IANA considerations where -01 previous changes were not accounted for.
+* Editorial changes.
+
 Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 
 * Rename option to Uri-Path-Abbrev.
@@ -458,3 +472,4 @@ Since draft-amsuess-core-shopinc-00:
 
 This document was created out of discussion with Esko Dijk and Michael Richardson.
 Carsten Bormann provided useful input on shaping the registry.
+Jon Shallow provided much input, in particular around gaps in the fallback process.
