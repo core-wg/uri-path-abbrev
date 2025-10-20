@@ -220,17 +220,27 @@ nor is there a reason known why they should).
 
 ## Choice of the option number
 
-TBD: Rephrase this to either be useful for readers of the final document
-who can thus learn how the option number namespace is managed,
-or remove before publication.
+[^removeme]
 
-> It's already 1+1 -- we generally do try to keep even the 1+1 high so
-> that later option typically paired with a low option (like EDHOC
-> paired with OSCORE) can use the small delta. In this case, there's a
-> good reason (being ordered before Uri-Query) though, and I don't
-> expect that any other option would need this particular property
-> (especially given that this option on its own has an extensible value
-> range).
+[^removeme]: RFC-Editor: Please remove this section during publication.
+        It is valuable only to the working group and designated experts who mange the limited resource of option numbers,
+        and stays available for future documents that may want to apply similar rationale throughout the draft versions.
+
+The option's desired properties (critical, safe-to-forward, part of the cache key) limit the available number space
+to patterns ending with 0bXXX01 where XXX is not 111.
+All options encodable with a short (1+0-byte) delta, i.e. <= 12, are already assigned.
+Usually, we'd then look at other options this is typically combined with,
+and if there are none (as is the case here),
+go for a large value in the next more efficient (1+1-byte) space
+so that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined with their "favorite pairs".
+(This was done with the EDHOC option which is usually paired with OSCORE).
+
+However, in this case, there is an extra concern:
+The option number should also be smaller than Uri-Query,
+so that processing the options in a linear fashion
+can happen as it would happen with Uri-Path:
+The path gets processed, setting up a state machine to process the query.
+As Uri-Query has option number 15, the value 13 is the only good choice for this option.
 
 # Initial Uri-Path-Abbrev values {#initial}
 
@@ -433,6 +443,7 @@ Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.
 * Sections on future work were unified in the appendix.
 * Appendix on open questions was moved into the issue tracker at <https://github.com/core-wg/uri-path-abbrev/issues/>.
 * Cleanup of IANA considerations where -01 previous changes were not accounted for.
+* "Choice of option number" spelled out and set up for removal before publication.
 * Editorial changes.
 
 Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
