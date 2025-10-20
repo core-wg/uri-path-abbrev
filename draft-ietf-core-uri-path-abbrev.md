@@ -145,6 +145,8 @@ it SHOULD fall back to sending the path explicitly if it receives an error indic
 (otherwise, it would have limited interoperability).
 As it is permissible for a server contacted with a a Non-confirmable message over UDP to not respond at all,
 clients that use the option in Non-confirmable messages and expect to fall back need to exert extra caution to cover all indications.
+As a concequence,
+the option can not be used with multicast requests when fallback is expected.
 
 There are four possible indications of the option not being supported:
 
