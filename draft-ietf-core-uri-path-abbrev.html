@@ -1219,16 +1219,13 @@ This document introduces an option that allows expressing well-known paths in as
             <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-further-development" class="internal xref">Further development</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-open-questions" class="internal xref">Open questions</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-change-log" class="internal xref">Change log</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-change-log" class="internal xref">Change log</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1939,117 +1936,127 @@ are advised to avail themselves of the FETCH method introduced in <span>[<a href
       </ul>
 </section>
 </div>
-<div id="open-questions">
+<div id="change-log">
 <section id="appendix-B">
-      <h2 id="name-open-questions">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-open-questions" class="section-name selfRef">Open questions</a>
+      <h2 id="name-change-log">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-change-log" class="section-name selfRef">Change log</a>
       </h2>
-<p id="appendix-B-1">This section will be gone by the time this document is published.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-1">Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B-2.1">
-          <p id="appendix-B-2.1.1">Is the transformation of separate options to Proxy-URI even <em>legal</em> for proxies?<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2.1.2">
-If not, we can simplify the handling (and Uri-Path would <em>really</em> not have needed to be proxy-unsafe).<a href="#appendix-B-2.1.2" class="pilcrow">¶</a></p>
-<p id="appendix-B-2.1.3">
-Tracked at <a href="https://github.com/core-wg/corrclar/issues/51">https://github.com/core-wg/corrclar/issues/51</a>.<a href="#appendix-B-2.1.3" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.1.1">Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.<a href="#appendix-B-2.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-B-2.2">
-          <p id="appendix-B-2.2.1">This document might incentivise users to send more traffic through /.well-known/ paths,
-rather than go through discovery.
-It is up to WG discussion to decide whether this is desirable;
-to not make this document depend on that outcome,
-the registration policy is currently "IETF Review",
-which is extremely strict and can be relaxed in a later document if the WG decides so.<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-B-2.2.1">The "<span class="bcp14">SHOULD</span>" to support fallback mode was lifted to "<span class="bcp14">SHOULD</span> only be [used when the server is known to support it]",
+with the recovery being a factual necessity for reliability in tentative use.<a href="#appendix-B-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.3">
+          <p id="appendix-B-2.3.1">The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).<a href="#appendix-B-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.4">
+          <p id="appendix-B-2.4.1">Use with multicast was limited to non-tentative use.<a href="#appendix-B-2.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.5">
+          <p id="appendix-B-2.5.1">Added reference to libcoap work.<a href="#appendix-B-2.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.6">
+          <p id="appendix-B-2.6.1">Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.<a href="#appendix-B-2.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.7">
+          <p id="appendix-B-2.7.1">Sections on future work were unified in the appendix.<a href="#appendix-B-2.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.8">
+          <p id="appendix-B-2.8.1">Appendix on open questions was moved into the issue tracker at <a href="https://github.com/core-wg/uri-path-abbrev/issues/">https://github.com/core-wg/uri-path-abbrev/issues/</a>.<a href="#appendix-B-2.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.9">
+          <p id="appendix-B-2.9.1">Cleanup of IANA considerations where -01 previous changes were not accounted for.<a href="#appendix-B-2.9.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-B-2.10">
+          <p id="appendix-B-2.10.1">Editorial changes.<a href="#appendix-B-2.10.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-</section>
-</div>
-<div id="change-log">
-<section id="appendix-C">
-      <h2 id="name-change-log">
-<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-change-log" class="section-name selfRef">Change log</a>
-      </h2>
-<p id="appendix-C-1">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-2.1">
-          <p id="appendix-C-2.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B-4.1">
+          <p id="appendix-B-4.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.2">
-          <p id="appendix-C-2.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-C-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.2">
+          <p id="appendix-B-4.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.3">
-          <p id="appendix-C-2.3.1">Allocate code for EDHOC.<a href="#appendix-C-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.3">
+          <p id="appendix-B-4.3.1">Allocate code for EDHOC.<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.4">
-          <p id="appendix-C-2.4.1">Defer repeated use to future extensions.<a href="#appendix-C-2.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.4">
+          <p id="appendix-B-4.4.1">Defer repeated use to future extensions.<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.5">
-          <p id="appendix-C-2.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-2.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.5">
+          <p id="appendix-B-4.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.6">
-          <p id="appendix-C-2.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-2.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.6">
+          <p id="appendix-B-4.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-B-4.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.7">
-          <p id="appendix-C-2.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-C-2.7.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.7">
+          <p id="appendix-B-4.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-B-4.7.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.8">
-          <p id="appendix-C-2.8.1">Add introduction and motivating example.<a href="#appendix-C-2.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.8">
+          <p id="appendix-B-4.8.1">Add introduction and motivating example.<a href="#appendix-B-4.8.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.9">
-          <p id="appendix-C-2.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-C-2.9.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-4.9">
+          <p id="appendix-B-4.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-B-4.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-3">Since draft-amsuess-core-shopinc-02:<a href="#appendix-C-3" class="pilcrow">¶</a></p>
-<p id="appendix-C-4">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-C-4" class="pilcrow">¶</a></p>
-<p id="appendix-C-5">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-B-5">Since draft-amsuess-core-shopinc-02:<a href="#appendix-B-5" class="pilcrow">¶</a></p>
+<p id="appendix-B-6">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-B-6" class="pilcrow">¶</a></p>
+<p id="appendix-B-7">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-B-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-6.1">
-          <p id="appendix-C-6.1.1">Document is standards track.<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B-8.1">
+          <p id="appendix-B-8.1.1">Document is standards track.<a href="#appendix-B-8.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.2">
-          <p id="appendix-C-6.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-C-6.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-8.2">
+          <p id="appendix-B-8.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-B-8.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.3">
-          <p id="appendix-C-6.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-C-6.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-8.3">
+          <p id="appendix-B-8.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-B-8.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.4">
-          <p id="appendix-C-6.4.1">Minor editorials.<a href="#appendix-C-6.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-8.4">
+          <p id="appendix-B-8.4.1">Minor editorials.<a href="#appendix-B-8.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-7">Since draft-amsuess-core-shopinc-00:<a href="#appendix-C-7" class="pilcrow">¶</a></p>
+<p id="appendix-B-9">Since draft-amsuess-core-shopinc-00:<a href="#appendix-B-9" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-8.1">
-          <p id="appendix-C-8.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-C-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-B-10.1">
+          <p id="appendix-B-10.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-B-10.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-8.2">
-          <p id="appendix-C-8.2.1">MCR joined as author.<a href="#appendix-C-8.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-10.2">
+          <p id="appendix-B-10.2.1">MCR joined as author.<a href="#appendix-B-10.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-8.3">
-          <p id="appendix-C-8.3.1">Added initial values for BRSKI and EST.<a href="#appendix-C-8.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-10.3">
+          <p id="appendix-B-10.3.1">Added initial values for BRSKI and EST.<a href="#appendix-B-10.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-8.4">
-          <p id="appendix-C-8.4.1">Allow 4.04 responses.<a href="#appendix-C-8.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-10.4">
+          <p id="appendix-B-10.4.1">Allow 4.04 responses.<a href="#appendix-B-10.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-8.5">
-          <p id="appendix-C-8.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-C-8.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-10.5">
+          <p id="appendix-B-10.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-B-10.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-8.6">
-          <p id="appendix-C-8.6.1">Large editorial changes.<a href="#appendix-C-8.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-B-10.6">
+          <p id="appendix-B-10.6.1">Large editorial changes.<a href="#appendix-B-10.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-D">
+<section id="appendix-C">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-D-1">This document was created out of discussion with Esko Dijk and Michael Richardson.
-Carsten Bormann provided useful input on shaping the registry.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">This document was created out of discussion with Esko Dijk and Michael Richardson.
+Carsten Bormann provided useful input on shaping the registry.
+Jon Shallow provided much input, in particular around gaps in the fallback process.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-E">
+<section id="appendix-D">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

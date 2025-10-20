@@ -87,8 +87,7 @@ Table of Contents
      7.1.  Normative References
      7.2.  Informative References
    Appendix A.  Further development
-   Appendix B.  Open questions
-   Appendix C.  Change log
+   Appendix B.  Change log
    Acknowledgments
    Authors' Addresses
 
@@ -698,27 +697,39 @@ Appendix A.  Further development
       options in a more concise or easier to process way are advised to
       avail themselves of the FETCH method introduced in [RFC8790].
 
-Appendix B.  Open questions
+Appendix B.  Change log
 
-   This section will be gone by the time this document is published.
+   Since ietf-core-uri-path-abbrev-01: Processing WGA review input and
+   cleanup.
 
-   *  Is the transformation of separate options to Proxy-URI even
-      _legal_ for proxies?
+   *  Using Uri-Path-Abbrev without knowing it will be supported now has
+      a term ("tentative use") and was reworded.
 
-      If not, we can simplify the handling (and Uri-Path would _really_
-      not have needed to be proxy-unsafe).
+   *  The "SHOULD" to support fallback mode was lifted to "SHOULD only
+      be [used when the server is known to support it]", with the
+      recovery being a factual necessity for reliability in tentative
+      use.
 
-      Tracked at https://github.com/core-wg/corrclar/issues/51
-      (https://github.com/core-wg/corrclar/issues/51).
+   *  The fallback detection was extended to account for possible
+      reactions to NONs (namely, RST, not replying at all, and 5.02).
 
-   *  This document might incentivise users to send more traffic through
-      /.well-known/ paths, rather than go through discovery.  It is up
-      to WG discussion to decide whether this is desirable; to not make
-      this document depend on that outcome, the registration policy is
-      currently "IETF Review", which is extremely strict and can be
-      relaxed in a later document if the WG decides so.
+   *  Use with multicast was limited to non-tentative use.
 
-Appendix C.  Change log
+   *  Added reference to libcoap work.
+
+   *  Added pointer to RFC9290 (Problem Details) error messages,
+      discouraging diagnostic payloads.
+
+   *  Sections on future work were unified in the appendix.
+
+   *  Appendix on open questions was moved into the issue tracker at
+      https://github.com/core-wg/uri-path-abbrev/issues/
+      (https://github.com/core-wg/uri-path-abbrev/issues/).
+
+   *  Cleanup of IANA considerations where -01 previous changes were not
+      accounted for.
+
+   *  Editorial changes.
 
    Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
 
@@ -774,7 +785,8 @@ Acknowledgments
 
    This document was created out of discussion with Esko Dijk and
    Michael Richardson.  Carsten Bormann provided useful input on shaping
-   the registry.
+   the registry.  Jon Shallow provided much input, in particular around
+   gaps in the fallback process.
 
 Authors' Addresses
 
