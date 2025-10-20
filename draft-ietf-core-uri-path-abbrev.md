@@ -139,21 +139,23 @@ because the equivalent path may be present on the server.
 
 A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 
-Unless the client can be assured that the server supports it
-(e.g. because the specification describing the interaction mandates support for the option in the server)
-it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
-(otherwise, it would have limited interoperability).
-As it is permissible for a server contacted with a a Non-confirmable message over UDP to not respond at all,
-clients that use the option in Non-confirmable messages and expect to fall back need to exert extra caution to cover all indications.
-As a concequence,
-the option can not be used with multicast requests when fallback is expected.
+The option SHOULD only be sent when it is known that the server has support for the concrete value.
+This knowledge is typically not learned, but follows from other specifications mandating support for it.
+
+A client can also send a value if it is merely likely that the server supports it.
+(The decision threshold varies by application, but generally it's closer to 95% than a mere more-likely-than-not).
+This is called "tentative use".
+
+In that case, the client needs to reliably detect failure of the option,
+and to fall back to repeating the request with the Uri-Path spelled out,
+to operate reliably.
 
 There are four possible indications of the option not being supported:
 
-* A 4.02 Bad Option response.
-* A RST caused by handling of a Non-confirmable message.
-* Not receiving a response to a Non-confirmable message.
-* A 5.02 Bad Gateway caused by a proxy that received a RST or lack of response.
+1. A 4.02 Bad Option response.
+2. A 5.02 Bad Gateway caused by a proxy that received a RST or lack of response.
+3. A RST caused by handling of a Non-confirmable message.
+4. Not receiving a response to a Non-confirmable message.
 
 [^ref52]
 
@@ -161,6 +163,12 @@ There are four possible indications of the option not being supported:
         at <https://github.com/core-wg/corrclar/issues/52>.
         In the unlikely case that discussion concludes before this document,
         the 4.02 outcome might be shown as preferred in here and in server processing.
+
+Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
+by not using the option with Non-confirmable requests in tentative use.
+
+As multicast requests generally do not result in errors being returned,
+tentative use is not available for multicast requests.
 
 A generic client implementation SHOULD NOT apply this optimization
 without explicit instructions from a higher layer or the known specification of the numeric value:
