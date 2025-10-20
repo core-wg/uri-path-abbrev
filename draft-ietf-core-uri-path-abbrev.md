@@ -141,6 +141,20 @@ Unless the client can be assured that the server supports it
 it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
 (otherwise, it would have limited interoperability).
 
+There are four possible indications of the option not being supported:
+
+* A 4.02 Bad Option response.
+* A RST caused by handling of a Non-confirmable message.
+* Not receiving a response to a Non-confirmable message.
+* A 5.02 Bad Gateway caused by a proxy that received a RST or lack of response.
+
+[^ref52]
+
+[^ref52]: There is ongoing discussion about whether that behavior is desirable
+        at <https://github.com/core-wg/corrclar/issues/52>.
+        In the unlikely case that discussion concludes before this document,
+        the 4.02 outcome might be shown as preferred in here and in server processing.
+
 A generic client implementation SHOULD NOT apply this optimization
 without explicit instructions from a higher layer or the known specification of the numeric value:
 In general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,
