@@ -277,6 +277,11 @@ Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
   Contact information: Christian Amsüss (author), updated 2025-09-26
 
+* libcoap (preliminary)
+
+  A report on a yet unpublished implementaiton and related tests of ietf-core-uri-path-abbrev-01 in libcoap
+  has been submitted at <https://github.com/core-wg/uri-path-abbrev/issues/25> on 2025-10-01.
+
 # Security Considerations {#seccons}
 
 Having alternative expressions for information that is input to policy decisions
