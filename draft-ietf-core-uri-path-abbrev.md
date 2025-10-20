@@ -419,23 +419,6 @@ support the transition to such an extension.
   application authors who seek to express Uri-Query options in a more concise or easier to process way
   are advised to avail themselves of the FETCH method introduced in {{?RFC8790}}.
 
-# Open questions
-
-This section will be gone by the time this document is published.
-
-* Is the transformation of separate options to Proxy-URI even *legal* for proxies?
-
-  If not, we can simplify the handling (and Uri-Path would *really* not have needed to be proxy-unsafe).
-
-  Tracked at <https://github.com/core-wg/corrclar/issues/51>.
-
-* This document might incentivise users to send more traffic through /.well-known/ paths,
-  rather than go through discovery.
-  It is up to WG discussion to decide whether this is desirable;
-  to not make this document depend on that outcome,
-  the registration policy is currently "IETF Review",
-  which is extremely strict and can be relaxed in a later document if the WG decides so.
-
 # Change log
 
 Since ietf-core-uri-path-abbrev-00: Processing previous two interims.
