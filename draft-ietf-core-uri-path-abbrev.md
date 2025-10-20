@@ -104,6 +104,8 @@ The numeric option values are coordinated by IANA in the Uri-Path-Abbrev registr
       assigned by IANA; perform an analogous substitution for all other
       occurrences of the prefix "CPA" in the document.  Finally,
       please remove this note.
+      There is one occurrence of the value 13 encoded in `a1270d`,
+      which, if the number were to change, would need updating.
 
 The option is a critical, safe-to-forward, and part of the cache key,
 and used in CoAP requests.
@@ -129,22 +131,56 @@ MUST also support the equivalent request composed of Uri-Path components.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
 returning 4.02 Bad Option
+(or reject the message[^ref52small])
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
 
+Since clients that use the option are usually aware of the possibility of failure,
+there is no need to provide a diagnostic payload in the error (as is generally recommended in {{Section 5.4.1 of RFC7252}}).
+A machine readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
+the server can set Content-Format 257 in the response and send the payload `a1270d`,
+which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
+
+[^ref52small]: This option may go away if <https://github.com/core-wg/corrclar/issues/52> is resolved before this document is published.
+
 ## Client processing
 
-A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
+A client can use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 
-Unless the client can be assured that the server supports it
-(e.g. because the specification describing the interaction mandates support for the option in the server)
-it SHOULD fall back to sending the path explicitly if it receives an error indicating that the option was not understood
-(otherwise, it would have limited interoperability).
+The option SHOULD only be sent when it is known that the server has support for the concrete value.
+This knowledge is typically not learned, but follows from other specifications mandating support for it.
 
-A generic client implementation SHOULD NOT apply this optimization
+A client can also send a value if it is merely likely that the server supports it.
+(The decision threshold varies by application, but generally it's closer to 95% than a mere more-likely-than-not).
+This is called "tentative use".
+
+In that case, the client needs to reliably detect failure of the option,
+and to fall back to repeating the request with the Uri-Path spelled out,
+to operate reliably.
+
+There are four possible indications of the option not being supported:
+
+1. A 4.02 Bad Option response.
+2. A 5.02 Bad Gateway caused by a proxy that received a RST or lack of response.
+3. A RST caused by handling of a Non-confirmable message.
+4. Not receiving a response to a Non-confirmable message.
+
+[^ref52]
+
+[^ref52]: There is ongoing discussion about whether that behavior is desirable
+        at <https://github.com/core-wg/corrclar/issues/52>.
+        In the unlikely case that discussion concludes before this document,
+        the 4.02 outcome might be shown as preferred in here and in server processing.
+
+Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
+by not using the option with Non-confirmable requests in tentative use.
+
+As multicast requests generally do not result in errors being returned,
+tentative use is not available for multicast requests.
+
+A generic client implementation SHOULD NOT use this option
 without explicit instructions from a higher layer or the known specification of the numeric value:
-In general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,
-and the message size savings in the successful case are dwarved by the almost doubling of resources needed to perform the fallback.
+Conditions for tentative use are generally not met.
 
 ## Proxy processing
 
@@ -181,18 +217,6 @@ In such a combined message, the Uri-Path segments to which the Uri-Path-Abbrev c
 Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD process requests accordingly.
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
-
-## Future development
-
-Future updates to this document
-might extend the capabilities of the option to be repeated;
-that document will need to specify how later occurrences of the option
-extend the series of equivalent Uri-Path options from the first value.
-
-Server implementations that treat repeated Uri-Path-Abbrev options
-like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
-support the transition to such an extension.
-<!-- It'd be great to state "this is already required in 7252", but it only implies that and doesn't make it explicit. -->
 
 ## Choice of the option number
 
@@ -260,6 +284,11 @@ Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
   Contact information: Christian Amsüss (author), updated 2025-09-26
 
+* libcoap (preliminary)
+
+  A report on a yet unpublished implementaiton and related tests of ietf-core-uri-path-abbrev-01 in libcoap
+  has been submitted at <https://github.com/core-wg/uri-path-abbrev/issues/25> on 2025-10-01.
+
 # Security Considerations {#seccons}
 
 Having alternative expressions for information that is input to policy decisions
@@ -290,7 +319,7 @@ Initial values are given in {{initial-table}}.
 
 Entry fields are:
 
-* First option value.
+* Option value.
 
   An non-negative integer that can be expressed in 32 bits,
   unique within this registry.
@@ -302,29 +331,24 @@ Entry fields are:
   `python3 -c 'print("reserved" if (250).bit_length() % 8 == 0 else "unreserved")'`
   can be used to quickly test this property for any positive number (250 in this example).
 
-* Simple expanded path.
+* Expanded path.
 
-  This text is the URI path (starting with `/`) that the option,
-  when present only once in a request,
+  This text is the URI path (starting with `/`) that the option
   is expanded to.
-
-  This field may be empty if the document describes that the option needs to be repeated when using this first value.
 
 * Reference.
 
-  A document that requested the allocation,
-  and describes whether the option may be repeated after this first value,
-  and how later values are expanded
+  A document that requested the allocation.
 
 Reviewer instructions:
 
-The reviewer is instructed to be frugal with the 128 values that correspond to a single-vbyte value,
+The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
 The expanded path is expected to be well-known paths at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
-| First option value | Simple expanded path | Reference |
+| Option value       | Expanded path        | Reference |
 |--------------------+----------------------+-----------|
 | 0                  | /.well-known/core    | {{initial}} of this document                         |
 | 1                  | /.well-known/rd      | {{initial}} of this document, and {{?RFC9176}}       |
@@ -348,7 +372,18 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 Several possible further directions are anticipated in this document,
 but not specified at this point in time;
-they are left for further documents:
+they are left for further documents that update and thus compatibly extend this document.
+
+In any case, server implementations that treat unknown option values or repeated Uri-Path-Abbrev options
+like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
+support the transition to such an extension.
+<!-- It'd be great to state "this is already required in 7252", but it only implies that and doesn't make it explicit. -->
+
+* Some values of the option might admit repetition of the option.
+  A document that updates this document and the Uri-Path-Abbrev registry will need to specify
+  how later occurrences of the option
+  extend the series of equivalent Uri-Path options from the first value,
+  or defer some of that decision to that first value's entry.
 
 * The mechanism of expanding one option into another option
   might be expressed using the terminology of SCHC.
