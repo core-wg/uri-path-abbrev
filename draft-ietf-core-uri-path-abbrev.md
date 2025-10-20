@@ -347,7 +347,7 @@ Entry fields are:
 
 Reviewer instructions:
 
-The reviewer is instructed to be frugal with the 128 values that correspond to a single-vbyte value,
+The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
 The expanded path is expected to be well-known paths at the time of writing,
