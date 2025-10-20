@@ -137,7 +137,7 @@ because the equivalent path may be present on the server.
 
 ## Client processing
 
-A client may use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
+A client can use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
 
 The option SHOULD only be sent when it is known that the server has support for the concrete value.
 This knowledge is typically not learned, but follows from other specifications mandating support for it.
@@ -170,10 +170,9 @@ by not using the option with Non-confirmable requests in tentative use.
 As multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.
 
-A generic client implementation SHOULD NOT apply this optimization
+A generic client implementation SHOULD NOT use this option
 without explicit instructions from a higher layer or the known specification of the numeric value:
-In general, it is too unlikely that the Uri-Path-Abbrev value is understood by any server,
-and the message size savings in the successful case are dwarved by the almost doubling of resources needed to perform the fallback.
+Conditions for tentative use are generally not met.
 
 ## Proxy processing
 
