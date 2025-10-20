@@ -104,6 +104,8 @@ The numeric option values are coordinated by IANA in the Uri-Path-Abbrev registr
       assigned by IANA; perform an analogous substitution for all other
       occurrences of the prefix "CPA" in the document.  Finally,
       please remove this note.
+      There is one occurrence of the value 13 encoded in `a1270d`,
+      which, if the number were to change, would need updating.
 
 The option is a critical, safe-to-forward, and part of the cache key,
 and used in CoAP requests.
@@ -132,6 +134,12 @@ returning 4.02 Bad Option
 (or reject the message[^ref52small])
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
+
+Since clients that use the option are usually aware of the possibility of failure,
+there is no need to provide a diagnostic payload in the error (as is generally recommended in {{Section 5.4.1 of RFC7252}}).
+A machine readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
+the server can set Content-Format 257 in the response and send the payload `a1270d`,
+which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
 
 [^ref52small]: This option may go away if <https://github.com/core-wg/corrclar/issues/52> is resolved before this document is published.
 
