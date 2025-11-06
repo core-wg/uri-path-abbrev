@@ -1,0 +1,115 @@
+\input{shared/ietf-slides.tex}
+
+\title{URI-Path abbreviation in CoAP}
+\subtitle{\ietfdraft{ietf-core-uri-path-abbrev-02}}
+\author{\textit{Christian~Amsüss}, Michael~Richardson}
+\date{2025-11-07, CoRE at IETF124}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Why?}\Large
+  GET /.well-known/core has 17 bytes of Uri-Path.
+
+  \bigskip
+
+  EDHOC was unhappy.
+
+  \bigskip
+
+  cBRSKI is unhappy.
+
+  \bigskip
+
+  IETFers are jealous of other SDOs\footnote{LwM2M's \texttt{/rd} is a BCP190 no-go}
+\end{frame}
+
+\begin{frame}{Solution}\Large
+  Numeric Uri-Path-Abbrev option.
+
+  \bigskip
+
+  \begin{tabular}{l|l}
+    Abbreviated & Expanded \\ \hline
+    Uri-Path: 0 \hspace{1cm} & Uri-Path: ``.well-known'', ``core'' \\
+    \texttt{d0 00} & \texttt{bb . w e l l - k n o w n 04 c o r e} \\
+    2 & 17 \\
+  \end{tabular}
+
+  \bigskip
+
+  Critical. Safe-to-forward\footnote{even though Uri-Path is not}.
+
+  \bigskip
+
+  Uri-Host (3), Uri-Port (7), \textbf{Uri-Path-Abbrev (13)}, Uri-Query (15).
+\end{frame}
+
+\begin{frame}{History}\Large
+  \begin{description}
+    \item[\textasciitilde 2012] considered but not prioritized  -- too early.
+    \item[2021] more generic precursor suggested\footnote{interim meeting, 2021-05-12, ``Common option compression''}  -- too broad.
+    \item[IETF123] EST consideres workaround; quick -00.
+
+    \item[\ldots] Simplified into WG -02:
+      \begin{itemize}
+        \item Single uint value.
+        \item Mutually exclusive with Uri-Path.
+      \end{itemize}
+  \end{description}
+\end{frame}
+
+\begin{frame}{Applications}\large
+  \begin{description}[\texttt{-responses}]
+    \item[EDHOC] first 3 message total: -30 byte down to 122\footnote{CoAP data: 3 \times 5 (CoAP structure) + 2 \times 2 Uri-Path-Abbrev + 2 \times 1 \texttt{C\_I / true} + 101 from \rfc{9528}} (-20\%).
+
+      \bigskip
+
+      Negligible over lifetime. Significant during mass onboarding (\ietfdraft{ietf-lake-reqs}, straddles AKE-for-6TiSCH fragmentation boundary).
+
+      \bigskip
+
+    \item[EST/cBRSKI] Eases management of .well-known coordination with HTTP.
+
+    \item[\texttt{-responses}] ``If you queried me for /.well-known/core?a=b, you'd get \$\{payload\}''
+  \end{description}
+
+  \vspace{1.5cm}
+
+  Ideally: Server MUST implement (in \ietfdraft{ietf-ace-edhoc-oscore-profile}, incoming in cBRSKI)
+\end{frame}
+
+\begin{frame}{Status}\Huge
+  Implemented.
+
+  \vspace{1.5cm}
+
+  Ready.
+\end{frame}
+
+\begin{frame}{Open issues}\Large
+    \begin{itemize}
+        \item Explain use cases -- open for more examples \href{https://github.com/core-wg/uri-path-abbrev/issues/15}{\#15}
+          \bigskip
+        \item Proliferation of well-known vs. discovery? \href{https://github.com/core-wg/uri-path-abbrev/issues/29}{\#29}
+          \bigskip
+        \item Reap benefits from corr-clar if possible in time \href{https://github.com/core-wg/uri-path-abbrev/issues/28}{\#28}
+          \begin{itemize}\large
+            \item If one proxy does an odd thing, another must fix it. \href{https://github.com/core-wg/corrclar/issues/51}{cc\#51}
+            \item Failover: handle 5.02 Bad GW due to 4.02 Bad Option NON-issues. \href{https://github.com/core-wg/corrclar/issues/52}{cc\#52}
+          \end{itemize}
+          \bigskip
+        \item Does anyone need what was removed since -00? \href{https://github.com/core-wg/uri-path-abbrev/issues/23}{\#23}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Next steps}\Huge
+  Dependents are approaching WGLC.
+
+  \vspace{1.5cm}
+
+  Can we keep the pace?
+\end{frame}
+
+\end{document}
