@@ -81,6 +81,11 @@ whereas an equivalent Uri-Path-Abbrev option lets the message stay well below th
 This document assumes basic familiarity with CoAP ({{!RFC7252}}),
 in particular its Uri-\* options.
 
+The term "expand" is used to refer to the process of translating a Uri-Path-Abbrev option into an equivalent
+sequence of Uri-Path options.
+The term "abbreviate" is used to refer to the reverse process of translating a sequence of one or more Uri-Path
+options into a single Uri-Path-Abbrev option.
+
 # The Uri-Path-Abbrev option
 
 The Uri-Path-Abbrev option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.
@@ -186,11 +191,11 @@ because conditions for tentative use are generally not met in this case.
 
 ## Proxy processing
 
-A proxy MAY expand or introduce a Uri-Path-Abbrev option before consulting its cache.
+A proxy MAY expand into Uri-Path options, or abbreviate to a Uri-Path-Abbrev option, before consulting its cache.
 
 It MAY expand a Uri-Path-Abbrev option before forwarding,
 in particular if it has reason to assume that the option is not understood by the receiver.
-Like a generic client, it SHOULD NOT introduce an abbreviation without good reason;
+Like a generic client, it SHOULD NOT abbreviate without good reason;
 and if it does, it MUST be able to fall back to the expanded form upon failure, as to not introduce unexpected errors to the client.
 
 A proxy that knows the Uri-Path-Abbrev option but not the concrete value at hand
