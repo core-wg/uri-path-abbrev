@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-21T01:20:38.130294+00:00",
+  "timestamp": "2025-12-02T01:24:42.635893+00:00",
   "repo": "core-wg/uri-path-abbrev",
   "labels": [
     {
@@ -364,6 +364,22 @@
       "body": "This document might incentivise users to send more traffic through /.well-known/ paths, rather than go through discovery. It is up to WG discussion to decide whether this is desirable; to not make this document depend on that outcome, the registration policy is currently \"IETF Review\", which is extremely strict and can be relaxed in a later document if the WG decides so.\n\nThe topic has been discussed briefly in interims, but I'd like to keep it visible for IETF124, even if the outcome is just to close it (which probably suffices).",
       "createdAt": "2025-10-20T13:00:41Z",
       "updatedAt": "2025-10-20T13:00:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOPRf_yM7bYxrM",
+      "title": "Unclear text related to implementation experience",
+      "url": "https://github.com/core-wg/uri-path-abbrev/issues/30",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "```\n  Implementation experience:\n  generally straightforward\n  unless one tries to preserve the information whether Uri-Path-Abbrev was used for the server application\n  (but that was probably just a bad idea in the first place).\n```\n\nI don't understand what's said here. Could we update?",
+      "createdAt": "2025-12-01T12:10:29Z",
+      "updatedAt": "2025-12-01T12:10:29Z",
       "closedAt": null,
       "comments": []
     }
@@ -1222,6 +1238,32 @@
           "updatedAt": "2025-10-20T11:27:31Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOPRf_yM62WpKr",
+      "title": "Editorial/clarification review",
+      "url": "https://github.com/core-wg/uri-path-abbrev/pull/31",
+      "state": "OPEN",
+      "author": "EskoDijk",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is a PR following an editorial review. It tries to clarify the text and be more precise on certain points (sacrificing brevity).\r\n\r\nIn a separate commit, terminology for 'abbreviate' and 'expand' is introduced to help understand the usage of these terms better.",
+      "createdAt": "2025-12-01T13:55:16Z",
+      "updatedAt": "2025-12-01T13:55:16Z",
+      "baseRepository": "core-wg/uri-path-abbrev",
+      "baseRefName": "main",
+      "baseRefOid": "173d24b632e6d4b88807247642719d0f789162d8",
+      "headRepository": "EskoDijk/uri-path-abbrev",
+      "headRefName": "pr-review-02-esko",
+      "headRefOid": "5cf5526f6e54ff1bba4815c882fd5f1c6bb70012",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
       "reviews": []
     }
   ]
