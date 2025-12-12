@@ -2,6 +2,7 @@
 title: "URI-Path abbreviation in CoAP"
 abbrev: "Uri-Path-Abbrev"
 category: std
+updates: 7252
 
 docname: draft-ietf-core-uri-path-abbrev-latest
 submissiontype: IETF
@@ -42,6 +43,9 @@ and the interoperability requirement of following BCP190
 and thus using (relatively verbose) well-known URI paths.
 This document introduces a CoAP option that allows expressing well-known URI paths in as little as two bytes.
 
+Negotiating the use of this option between client and server revealed a subtle flaw in RFC7252.
+This document updates RFC725 to rectify it, thus making the extension point of critical options more useful.
+
 --- middle
 
 # Introduction
@@ -73,6 +77,17 @@ and imply high performance penalties of a CoAP message not fitting in a single f
 An EDHOC message 1 on its own carries a minimum of 37 bytes.
 The 18 bytes of an encoded "/.well-known/edhoc" URI path push the CoAP message size over either limit,
 whereas an equivalent Uri-Path-Abbrev option lets the message stay well below these limits.
+
+## Update to RFC7252
+
+The use of a critical CoAP option that is not understood by the server has a CoAP response error code (4.02 Bad Option) assigned,
+which generally enables clients to retry without using the critical option.
+This mechanism is useful for the abbreviation mechanism of this document.
+
+That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 1.2 of RFC7252}} for handling unprocessable non-confirmable messages,
+which makes detection of missing option support less reliable.
+
+{{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to alter the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
 
 ## Conventions and Definitions
 
@@ -379,6 +394,113 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
 --- back
+
+# RFC7252-5.4.1: Critical Options and Error Messages
+
+{{Section 1.2 of -coap}} introduces the concept of *rejecting* a
+message, by sending back a RST (Reset) message or by silently
+ignoring the rejected message.
+This can deal with messages for which a node does not have (e.g., no
+longer has) the necessary context to process it, such as a response to
+a message that was sent immediately before a node rebooted.
+
+The concept of rejecting a message is a quite powerful way to limit
+the complexity of dealing with a variety of error conditions.
+However, it seems {{Section 5.4.1 of -coap}} overuses this instrument
+for the case of non-confirmable messages.
+
+{{Section 5.4.1 of -coap}} describes Critical Options, which, if not
+implemented/understood by a node, may require the return of server
+errors.
+For Confirmable messages containing requests, unrecognized critical
+options in requests are handled by a 4.02 (Bad Option) response, while
+those in Confirmable messages with responses and Acknowledgements are
+rejected.
+
+<blockquote markdown="1">
+   *  Unrecognized options of class "critical" that occur in a
+      Confirmable request MUST cause the return of a 4.02 (Bad Option)
+      response.  This response SHOULD include a diagnostic payload
+      describing the unrecognized option(s) (see Section 5.5.2).
+
+   *  Unrecognized options of class "critical" that occur in a
+      Confirmable response, or piggybacked in an Acknowledgement, MUST
+      cause the response to be rejected (Section 4.2).
+</blockquote>
+
+The 4.02 error response enables clients to perform discovery of
+whether a critical option is recognized by a server, but surprisingly
+only for Confirmable messages.
+
+For unknown reasons, {{Section 5.4.1 of -coap}} then goes on to handle
+all Non-confirmable messages with unrecognized critical options by
+rejecting them:
+
+<blockquote markdown="1">
+   *  Unrecognized options of class "critical" that occur in a
+      Non-confirmable message MUST cause the message to be rejected
+      (Section 4.3).
+</blockquote>
+
+This deprives the sender of a Non-confirmable request of the
+information what caused the rejection.
+However, using Non-confirmable messages does not automatically mean
+that the recipient does not have the context needed to process the
+message.
+
+This unexplained inconsistency has been present in {{-coap}} since its
+initial publication, apparently without causing much trouble.
+Recently, {{-upa}} has been describing a situation where discovery of
+Option support is more central to at least one use case; not being
+able to properly perform this discovery for Non-confirmable messages now
+emerges as an actual defect.
+
+This defect can be remedied by applying this change:
+
+INCORRECT:
+: <blockquote markdown="1">
+     *  Unrecognized options of class "critical" that occur in a Non-
+        confirmable message MUST cause the message to be rejected
+        (Section 4.3).
+  </blockquote>
+
+
+CORRECTED:
+: <blockquote markdown="1">
+     *  Unrecognized options of class "critical" that occur in a
+        Non-confirmable request SHOULD cause the return of a 4.02 (Bad Option)
+        response.  This response SHOULD include a diagnostic payload
+        describing the unrecognized option(s) (see Section 5.5.2).
+
+     *  Unrecognized options of class "critical" that occur in a
+        Non-confirmable response, or piggybacked in an Acknowledgement, MUST
+        cause the response to be rejected (Section 4.3).
+  </blockquote>
+
+(This replacement text could be integrated in a less redundant way;
+the present proposal primarily aims at clarity.)
+
+Of course, existing implementations will not immediately change their
+behavior, so an implementation of a discovery process in {{-upa}}
+will still need to deal with uncertainty for the foreseeable future,
+but the likelihood will reduce over time.
+Client implementations that are not updated and actually rely on not
+receiving an error response in this case will simply reject the
+message, causing little downside.
+
+As this is a technical change, it needs to be included in a
+standards-track RFC to become effective.
+The present document proposes to include the change in {{-upa}}, which
+is likely to be the next standards-track specification to emerge from
+the CoRE WG and also directly can make use of the updated functionality.
+
+Note that the SHOULD about diagnostic payloads is repeated here; such
+a mandate usually needs to provide more information about when this
+interoperability requirement does not need to be met.
+{{-problem}} now in many cases provides a better way to respond than a
+diagnostic payload; for conciseness, this observation is not included
+in the normative replacement text proposed above.
+
 
 # Further development
 
