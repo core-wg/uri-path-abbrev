@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-02T01:24:42.635893+00:00",
+  "timestamp": "2025-12-14T01:41:49.356456+00:00",
   "repo": "core-wg/uri-path-abbrev",
   "labels": [
     {
@@ -1252,7 +1252,7 @@
       "labels": [],
       "body": "This is a PR following an editorial review. It tries to clarify the text and be more precise on certain points (sacrificing brevity).\r\n\r\nIn a separate commit, terminology for 'abbreviate' and 'expand' is introduced to help understand the usage of these terms better.",
       "createdAt": "2025-12-01T13:55:16Z",
-      "updatedAt": "2025-12-01T13:55:16Z",
+      "updatedAt": "2025-12-12T15:49:21Z",
       "baseRepository": "core-wg/uri-path-abbrev",
       "baseRefName": "main",
       "baseRefOid": "173d24b632e6d4b88807247642719d0f789162d8",
@@ -1264,7 +1264,46 @@
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOPRf_yM7U7lE8",
+          "commit": {
+            "abbreviatedOid": "5cf5526"
+          },
+          "author": "chrysn",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "Thanks, those are good input. Would you accept my suggestions?",
+          "createdAt": "2025-12-12T15:38:47Z",
+          "updatedAt": "2025-12-12T15:49:21Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "Minor suggestion:\r\n\r\n```suggestion\r\nmaking the combined size of the URI path options easily longer than the rest of the CoAP message.\r\n```",
+              "createdAt": "2025-12-12T15:38:47Z",
+              "updatedAt": "2025-12-12T15:49:21Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\nThe 18 bytes of an encoded \"/.well-known/edhoc\" URI path push the CoAP message size over either limit,\r\n```\r\n\r\nGrammar: I think that needs to say, because the bytes push.",
+              "createdAt": "2025-12-12T15:40:33Z",
+              "updatedAt": "2025-12-12T15:49:21Z"
+            },
+            {
+              "originalPosition": 86,
+              "body": "```suggestion\r\nMUST also support the equivalent request where the URI path is composed of Uri-Path options.\r\n```\r\n\r\nThe segments are the logical content, but those are also encoded indirectly in UPA; the options are more tangible things.",
+              "createdAt": "2025-12-12T15:42:55Z",
+              "updatedAt": "2025-12-12T15:49:21Z"
+            },
+            {
+              "originalPosition": 217,
+              "body": "Maybe\r\n\r\n```suggestion\r\nso that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined in their \"favorite pairings\".\r\n```",
+              "createdAt": "2025-12-12T15:47:37Z",
+              "updatedAt": "2025-12-12T15:49:21Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
