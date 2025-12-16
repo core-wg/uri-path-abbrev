@@ -133,7 +133,7 @@ It allows the option to be used with CoAP proxies that do not implement the opti
 A CoAP server receiving this option processes it like the equivalent sequence of Uri-Path options.
 
 A server that supports a specific Uri-Path-Abbrev value
-MUST also support the equivalent request where the URI path is composed of Uri-Path segments.
+MUST also support the equivalent request where the URI path is composed of Uri-Path options.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
 returning a 4.02 Bad Option response
