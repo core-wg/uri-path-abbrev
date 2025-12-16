@@ -239,7 +239,7 @@ All options encodable with a short (1+0-byte) delta, i.e. <= 12, are already ass
 Usually, we'd then look at other options this is typically combined with,
 and if there are none (as is the case here),
 go for a large value in the next more efficient (1+1-byte) space
-so that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined with their "favorite peers".
+so that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined in their "favorite pairings".
 (This was done with the EDHOC option {{?RFC9528}} which is usually paired with the OSCORE option {{?RFC8613}}).
 
 However, in this case, there is an extra concern:
