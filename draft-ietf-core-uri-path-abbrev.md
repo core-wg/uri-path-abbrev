@@ -71,7 +71,7 @@ The design criteria for EDHOC {{?RFC9528}} described in {{Section 2.11 of ?I-D.i
 give a frame fragmentation limit of 47 bytes for a CoAP message payload for 6TiSCH and 51 bytes for some parameters (and implementations) of LoRaWAN,
 and imply high performance penalties of a CoAP message not fitting in a single frame.
 An EDHOC message 1 on its own carries a minimum of 37 bytes.
-The 18 bytes of an encoded "/.well-known/edhoc" URI path pushes the CoAP message size over either limit,
+The 18 bytes of an encoded "/.well-known/edhoc" URI path push the CoAP message size over either limit,
 whereas an equivalent Uri-Path-Abbrev option lets the message stay well below these limits.
 
 ## Conventions and Definitions
