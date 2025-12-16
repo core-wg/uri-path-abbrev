@@ -59,7 +59,7 @@ can not rely on discovered short paths,
 and need to use well-known paths.
 The best practice established in {{?BCP190}}
 requires applications to use the prefix ".well-known" for their paths,
-making the combined size of the URI path segments easily longer than the rest of the CoAP message.
+making the combined size of the URI path options easily longer than the rest of the CoAP message.
 
 This document establishes a CoAP option that allows abbreviating the path component of the request URI by encoding
 the path component as a single number.
