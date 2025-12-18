@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-12-14T01:41:49.356456+00:00",
+  "timestamp": "2025-12-18T01:24:07.821576+00:00",
   "repo": "core-wg/uri-path-abbrev",
   "labels": [
     {
@@ -1252,18 +1252,26 @@
       "labels": [],
       "body": "This is a PR following an editorial review. It tries to clarify the text and be more precise on certain points (sacrificing brevity).\r\n\r\nIn a separate commit, terminology for 'abbreviate' and 'expand' is introduced to help understand the usage of these terms better.",
       "createdAt": "2025-12-01T13:55:16Z",
-      "updatedAt": "2025-12-12T15:49:21Z",
+      "updatedAt": "2025-12-16T22:00:17Z",
       "baseRepository": "core-wg/uri-path-abbrev",
       "baseRefName": "main",
       "baseRefOid": "173d24b632e6d4b88807247642719d0f789162d8",
       "headRepository": "EskoDijk/uri-path-abbrev",
       "headRefName": "pr-review-02-esko",
-      "headRefOid": "5cf5526f6e54ff1bba4815c882fd5f1c6bb70012",
+      "headRefOid": "ac71d78f72c866f2d385ae2e0b9d0785a638125b",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "EskoDijk",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@chrysn I've accepted your suggestions! That looks good.",
+          "createdAt": "2025-12-16T22:00:16Z",
+          "updatedAt": "2025-12-16T22:00:16Z"
+        }
+      ],
       "reviews": [
         {
           "id": "PRR_kwDOPRf_yM7U7lE8",
