@@ -192,22 +192,19 @@ In that case, the client needs to reliably detect failure of the option processi
 and needs to fall back to repeating the request with the Uri-Path spelled out (using Uri-Path options),
 to operate reliably.
 
-There are four possible indications of the Uri-Path-Abbrev option not being supported:
+The client can expect that a server which does not support the Uri-Path-Abbrev option
+responds with 4.02 Bad Option.
+Diverging behavior has been allowed until the changes in {{update7252}} have been made.
+To account for older servers, the full set of reactions to expect is:
 
 1. A 4.02 Bad Option response.
 2. A 5.02 Bad Gateway response caused by a proxy that received a RST message or lack of response.
 3. A RST message caused by handling of a Non-confirmable request message.
 4. Not receiving a response to a Non-confirmable request message.
 
-[^ref52]
-
-[^ref52]: There is ongoing discussion about whether that behavior is desirable
-        at <https://github.com/core-wg/corrclar/issues/52>.
-        In the unlikely case that discussion concludes before this document,
-        the 4.02 outcome might be shown as preferred in here and in server processing.
-
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
+Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other cases.
 
 As CoAP multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.
@@ -500,18 +497,19 @@ Client implementations that are not updated and actually rely on not
 receiving an error response in this case will simply reject the
 message, causing little downside.
 
-As this is a technical change, it needs to be included in a
-standards-track RFC to become effective.
-{{Section 2.2 of ?I-D.ietf-core-corr-clar-03}} proposed to include the change in this document, which
-is likely to be the next standards-track specification to emerge from
-the CoRE WG and also directly can make use of the updated functionality.
-
 Note that the SHOULD about diagnostic payloads is repeated here; such
 a mandate usually needs to provide more information about when this
 interoperability requirement does not need to be met.
 {{?RFC9457}} now in many cases provides a better way to respond than a
 diagnostic payload; for conciseness, this observation is not included
 in the normative replacement text proposed above.
+
+\[ The following section to be removed by the RFC editor. \]
+
+This technical change was originally developed as {{Section 2.2 of ?I-D.ietf-core-corr-clar-03}},
+and moved into this document for publication,
+so that it can be used for simplifications in describing tentative use,
+where the text would otherwise have had to reaffirm the original behavior.
 
 
 # Further development
