@@ -1382,8 +1382,7 @@ It allows the option to be used with proxies that do not implement the option.<a
 <p id="section-2.1-2">A server that supports a Uri-Path-Abbrev value
 <span class="bcp14">MUST</span> also support the equivalent request composed of Uri-Path components.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1-3">A server receiving the option with an unknown value <span class="bcp14">MUST</span> treat it as an unprocessable critical option,
-returning 4.02 Bad Option
-(or reject the message<span class="cref" id="ref52small">This option may go away if <a href="https://github.com/core-wg/corrclar/issues/52">https://github.com/core-wg/corrclar/issues/52</a> is resolved before this document is published.</span>)
+returning 4.02 Bad Option,
 and <span class="bcp14">MUST NOT</span> return a 4.04 Not Found response,
 because the equivalent path may be present on the server.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 <p id="section-2.1-4">Since clients that use the option are usually aware of the possibility of failure,
