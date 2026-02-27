@@ -163,8 +163,7 @@ A server that supports a specific Uri-Path-Abbrev value
 MUST also support the equivalent request where the URI path is composed of Uri-Path options.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
-returning a 4.02 Bad Option response
-(or reject the message[^ref52small])
+returning a 4.02 Bad Option response,
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
 
@@ -173,8 +172,6 @@ there is no need to provide a diagnostic payload in the error (as is generally r
 A machine-readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
 the server can set Content-Format 257 in the response and send the payload `a1270d`,
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
-
-[^ref52small]: This option may go away if <https://github.com/core-wg/corrclar/issues/52> is resolved before this document is published.
 
 ## Client processing
 
