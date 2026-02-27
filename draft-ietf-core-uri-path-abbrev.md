@@ -407,9 +407,9 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 --- back
 
-# RFC7252-5.4.1: Critical Options and Error Messages
+# RFC7252-5.4.1: Critical Options and Error Messages {#update7252}
 
-{{Section 1.2 of -coap}} introduces the concept of *rejecting* a
+{{Section 1.2 of RFC7252}} introduces the concept of *rejecting* a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
@@ -418,10 +418,10 @@ a message that was sent immediately before a node rebooted.
 
 The concept of rejecting a message is a quite powerful way to limit
 the complexity of dealing with a variety of error conditions.
-However, it seems {{Section 5.4.1 of -coap}} overuses this instrument
+However, it seems {{Section 5.4.1 of RFC7252}} overuses this instrument
 for the case of non-confirmable messages.
 
-{{Section 5.4.1 of -coap}} describes Critical Options, which, if not
+{{Section 5.4.1 of RFC7252}} describes Critical Options, which, if not
 implemented/understood by a node, may require the return of server
 errors.
 For Confirmable messages containing requests, unrecognized critical
@@ -444,7 +444,7 @@ The 4.02 error response enables clients to perform discovery of
 whether a critical option is recognized by a server, but surprisingly
 only for Confirmable messages.
 
-For unknown reasons, {{Section 5.4.1 of -coap}} then goes on to handle
+For unknown reasons, {{Section 5.4.1 of RFC7252}} then goes on to handle
 all Non-confirmable messages with unrecognized critical options by
 rejecting them:
 
@@ -460,9 +460,9 @@ However, using Non-confirmable messages does not automatically mean
 that the recipient does not have the context needed to process the
 message.
 
-This unexplained inconsistency has been present in {{-coap}} since its
+This unexplained inconsistency has been present in {{RFC7252}} since its
 initial publication, apparently without causing much trouble.
-Recently, {{-upa}} has been describing a situation where discovery of
+Recently, this document has been describing a situation where discovery of
 Option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
@@ -493,7 +493,7 @@ CORRECTED:
 the present proposal primarily aims at clarity.)
 
 Of course, existing implementations will not immediately change their
-behavior, so an implementation of a discovery process in {{-upa}}
+behavior, so an implementation of a discovery process in this document
 will still need to deal with uncertainty for the foreseeable future,
 but the likelihood will reduce over time.
 Client implementations that are not updated and actually rely on not
@@ -502,14 +502,14 @@ message, causing little downside.
 
 As this is a technical change, it needs to be included in a
 standards-track RFC to become effective.
-The present document proposes to include the change in {{-upa}}, which
+{{Section 2.2 of ?I-D.ietf-core-corr-clar-03}} proposed to include the change in this document, which
 is likely to be the next standards-track specification to emerge from
 the CoRE WG and also directly can make use of the updated functionality.
 
 Note that the SHOULD about diagnostic payloads is repeated here; such
 a mandate usually needs to provide more information about when this
 interoperability requirement does not need to be met.
-{{-problem}} now in many cases provides a better way to respond than a
+{{?RFC9457}} now in many cases provides a better way to respond than a
 diagnostic payload; for conciseness, this observation is not included
 in the normative replacement text proposed above.
 
