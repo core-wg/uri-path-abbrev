@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 23 April 2026                          Sandelman Software Works
-                                                         20 October 2025
+Expires: 31 August 2026                         Sandelman Software Works
+                                                        27 February 2026
 
 
                      URI-Path abbreviation in CoAP
@@ -50,11 +50,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2026.
+   This Internet-Draft will expire on 31 August 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -563,9 +563,9 @@ Table of Contents
    [I-D.bormann-cbor-draft-numbers]
               Bormann, C., "Managing CBOR codepoints in Internet-
               Drafts", Work in Progress, Internet-Draft, draft-bormann-
-              cbor-draft-numbers-06, 7 July 2025,
+              cbor-draft-numbers-07, 12 January 2026,
               <https://datatracker.ietf.org/doc/html/draft-bormann-cbor-
-              draft-numbers-06>.
+              draft-numbers-07>.
 
    [I-D.ietf-anima-constrained-voucher]
               Richardson, M., Van der Stok, P., Kampanakis, P., and E.
@@ -578,9 +578,9 @@ Table of Contents
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
-              ietf-core-href-26, 16 October 2025,
+              ietf-core-href-30, 21 November 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-core-
-              href-26>.
+              href-30>.
 
    [I-D.ietf-lake-reqs-04]
               Vučinić, M., Selander, G., Mattsson, J. P., and D. Garcia-
