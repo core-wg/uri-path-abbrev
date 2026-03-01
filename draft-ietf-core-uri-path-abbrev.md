@@ -39,8 +39,8 @@ informative:
 
 Applications built on CoAP face a conflict between the technical need for short message sizes
 and the interoperability requirement of following BCP190
-and thus registering (relatively verbose) well-known URI paths.
-This document introduces an option that allows expressing well-known paths in as little as two bytes.
+and thus using (relatively verbose) well-known URI paths.
+This document introduces a CoAP option that allows expressing well-known URI paths in as little as two bytes.
 
 --- middle
 
@@ -59,19 +59,20 @@ can not rely on discovered short paths,
 and need to use well-known paths.
 The best practice established in {{?BCP190}}
 requires applications to use the prefix ".well-known" for their paths,
-making the combined paths easily longer than the rest of the CoAP message.
+making the combined size of the URI path options easily longer than the rest of the CoAP message.
 
-This document establishes a CoAP option
-that allows abbreviating the path component of the request URI through a numeric registry.
+This document establishes a CoAP option that allows abbreviating the path component of the request URI by encoding
+the path component as a single number.
+A registry is established to maintain the mapping between numbers and URI paths.
 
 ## Motivating example
 
-The design criteria for {{?RFC9528}} described in {{Section 2.11 of ?I-D.ietf-lake-reqs-04}}
-give a fragmentation limit of 47 bytes CoAP message payload for 6TiSCH and 51 bytes for some parameters (and implementations) of LoRaWAN,
-and high performance penalties of not fitting in those frames.
+The design criteria for EDHOC {{?RFC9528}} described in {{Section 2.11 of ?I-D.ietf-lake-reqs-04}}
+give a frame fragmentation limit of 47 bytes for a CoAP message payload for 6TiSCH and 51 bytes for some parameters (and implementations) of LoRaWAN,
+and imply high performance penalties of a CoAP message not fitting in a single frame.
 An EDHOC message 1 on its own carries a minimum of 37 bytes.
-The 18 bytes of an encoded "/.well-known/edhoc" path push the size over either limit,
-whereas an equivalent Uri-Path-Abbrev stays well below the limit.
+The 18 bytes of an encoded "/.well-known/edhoc" URI path push the CoAP message size over either limit,
+whereas an equivalent Uri-Path-Abbrev option lets the message stay well below these limits.
 
 ## Conventions and Definitions
 
@@ -80,11 +81,16 @@ whereas an equivalent Uri-Path-Abbrev stays well below the limit.
 This document assumes basic familiarity with CoAP ({{!RFC7252}}),
 in particular its Uri-\* options.
 
+The term "expand" is used to refer to the process of translating a Uri-Path-Abbrev option into an equivalent
+sequence of Uri-Path options.
+The term "abbreviate" is used to refer to the reverse process of translating a sequence of one or more Uri-Path
+options into a single Uri-Path-Abbrev option.
+
 # The Uri-Path-Abbrev option
 
 The Uri-Path-Abbrev option (short for "URI path, abbreviated") expresses a request's URI path in a more compact form.
 
-The Uri-Path-Abbrev value represents a particular path,
+The Uri-Path-Abbrev value represents a particular URI path,
 and is thus equivalent to any number of Uri-Path options.
 Those paths are typically in a "/.well-known" location as described in {{?RFC8615}}.
 The numeric option values are coordinated by IANA in the Uri-Path-Abbrev registry established in this document in {{iana-reg}}.
@@ -107,7 +113,7 @@ The numeric option values are coordinated by IANA in the Uri-Path-Abbrev registr
       There is one occurrence of the value 13 encoded in `a1270d`,
       which, if the number were to change, would need updating.
 
-The option is a critical, safe-to-forward, and part of the cache key,
+The option is critical, safe-to-forward, part of the cache key, non-repeatable
 and used in CoAP requests.
 {{option-table}} summarizes these, extending Table 4 of {{RFC7252}}).
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
@@ -118,26 +124,26 @@ from the registry established in {{iana-reg}}.
 Apart from the format and repeatability,
 the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
-This has consequences for the interactions with the Proxy-URI option,
-but is generally desirable:
-It allows the option to be used with proxies that do not implement the option.
+This has consequences for its interactions with the Proxy-URI option,
+but these consequences are generally desirable:
+It allows the option to be used with CoAP proxies that do not implement the option.
 
 ## Server processing
 
-A server receiving this option process it like the equivalent sequence of Uri-Path options.
+A CoAP server receiving this option processes it like the equivalent sequence of Uri-Path options.
 
-A server that supports a Uri-Path-Abbrev value
-MUST also support the equivalent request composed of Uri-Path components.
+A server that supports a specific Uri-Path-Abbrev value
+MUST also support the equivalent request where the URI path is composed of Uri-Path options.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
-returning 4.02 Bad Option
+returning a 4.02 Bad Option response
 (or reject the message[^ref52small])
 and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
 
-Since clients that use the option are usually aware of the possibility of failure,
+Since CoAP clients that use the option are usually aware of the possibility of failure,
 there is no need to provide a diagnostic payload in the error (as is generally recommended in {{Section 5.4.1 of RFC7252}}).
-A machine readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
+A machine-readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
 the server can set Content-Format 257 in the response and send the payload `a1270d`,
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
 
@@ -145,25 +151,26 @@ which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option"
 
 ## Client processing
 
-A client can use the option instead of the Uri-Path option if there is a suitable value that can express the requested path.
+A CoAP client can use the option instead of one or more Uri-Path option(s) if there is a suitable Uri-Path-Abbrev value
+that can express the requested URI path.
 
-The option SHOULD only be sent when it is known that the server has support for the concrete value.
-This knowledge is typically not learned, but follows from other specifications mandating support for it.
+The option SHOULD only be sent when it is known that the CoAP server has support for the concrete value.
+This knowledge is typically not learned/discovered, but follows from other specifications mandating support for it.
 
 A client can also send a value if it is merely likely that the server supports it.
 (The decision threshold varies by application, but generally it's closer to 95% than a mere more-likely-than-not).
-This is called "tentative use".
+This is called "tentative use" of the option.
 
-In that case, the client needs to reliably detect failure of the option,
-and to fall back to repeating the request with the Uri-Path spelled out,
+In that case, the client needs to reliably detect failure of the option processing,
+and needs to fall back to repeating the request with the Uri-Path spelled out (using Uri-Path options),
 to operate reliably.
 
-There are four possible indications of the option not being supported:
+There are four possible indications of the Uri-Path-Abbrev option not being supported:
 
 1. A 4.02 Bad Option response.
-2. A 5.02 Bad Gateway caused by a proxy that received a RST or lack of response.
-3. A RST caused by handling of a Non-confirmable message.
-4. Not receiving a response to a Non-confirmable message.
+2. A 5.02 Bad Gateway response caused by a proxy that received a RST message or lack of response.
+3. A RST message caused by handling of a Non-confirmable request message.
+4. Not receiving a response to a Non-confirmable request message.
 
 [^ref52]
 
@@ -175,45 +182,45 @@ There are four possible indications of the option not being supported:
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
 
-As multicast requests generally do not result in errors being returned,
+As CoAP multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.
 
 A generic client implementation SHOULD NOT use this option
-without explicit instructions from a higher layer or the known specification of the numeric value:
-Conditions for tentative use are generally not met.
+without explicit instructions from a higher layer or the known specification of the numeric value,
+because conditions for tentative use are generally not met in this case.
 
 ## Proxy processing
 
-A proxy MAY expand or introduce a Uri-Path-Abbrev before consulting its cache.
+A proxy MAY expand into Uri-Path options, or abbreviate to a Uri-Path-Abbrev option, before consulting its cache.
 
 It MAY expand a Uri-Path-Abbrev option before forwarding,
-in particular if it has reason to assume that the option is not understood.
-Like a generic client, it SHOULD NOT introduce an abbreviation without good reason;
-and then, it MUST fall back to the expanded form, as to not introduce unexpected errors to the client.
+in particular if it has reason to assume that the option is not understood by the receiver.
+Like a generic client, it SHOULD NOT abbreviate without good reason;
+and if it does, it MUST be able to fall back to the expanded form upon failure, as to not introduce unexpected errors to the client.
 
-A proxy that knows Uri-Path-Abbrev but not the concrete value
-SHOULD forward it unmodified,
+A proxy that knows the Uri-Path-Abbrev option but not the concrete value at hand
+SHOULD forward a request unmodified,
 which is the behavior it would apply if it did not know the option.
-A reason to reject the request instead is when the proxy is tasked with enforcing access control
+A valid exception where the proxy can reject the request instead is when the proxy is tasked with enforcing access control
 (see {{seccons}}).
 
-When cross-proxying to protocols that can not transport this option
+When cross-proxying to protocols that cannot transport this option
 (such as HTTP),
-the proxy needs to expand the path.
+the proxy needs to expand the path always.
 <!-- No need to state anything about the inverse direction, as the 2nd paragraph applies. -->
 
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request MUST be treated like the presence of a critical request option that could not be processed
-(that option being either the Uri-Path-Abbrev option or the conflicting option).
+(that option being either the Uri-Path-Abbrev option or the conflicting Uri-Path option).
 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
-Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev if they know the value.
+Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev option if they know the value.
 
 By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbrev is safe-to-forward,
-a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) when it combines the Uri-\* options.
-In such a combined message, the Uri-Path segments to which the Uri-Path-Abbrev corresponds are appended to the path as if all components were present as individual options in the request without conflicting.
+a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) in a single CoAP request when it combines the Uri-\* options.
+In such a combined message, the Uri-Path segments to which the Uri-Path-Abbrev corresponds are appended to the path as if all segments were present as individual options in the request without conflicting.
 Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD process requests accordingly.
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
@@ -223,7 +230,7 @@ nor is there a reason known why they should).
 [^removeme]
 
 [^removeme]: RFC-Editor: Please remove this section during publication.
-        It is valuable only to the working group and designated experts who mange the limited resource of option numbers,
+        It is valuable only to the working group and designated experts who manage the limited resource of option numbers,
         and stays available for future documents that may want to apply similar rationale throughout the draft versions.
 
 The option's desired properties (critical, safe-to-forward, part of the cache key) limit the available number space
@@ -232,15 +239,15 @@ All options encodable with a short (1+0-byte) delta, i.e. <= 12, are already ass
 Usually, we'd then look at other options this is typically combined with,
 and if there are none (as is the case here),
 go for a large value in the next more efficient (1+1-byte) space
-so that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined with their "favorite pairs".
-(This was done with the EDHOC option which is usually paired with OSCORE).
+so that the small-but-quite-not-1+0-byte numbers stay usable as 1+0-byte options when combined in their "favorite pairings".
+(This was done with the EDHOC option {{?RFC9528}} which is usually paired with the OSCORE option {{?RFC8613}}).
 
 However, in this case, there is an extra concern:
 The option number should also be smaller than Uri-Query,
 so that processing the options in a linear fashion
 can happen as it would happen with Uri-Path:
-The path gets processed, setting up a state machine to process the query.
-As Uri-Query has option number 15, the value 13 is the only good choice for this option.
+the path gets processed first, setting up a state machine to process the query.
+As Uri-Query has option number 15, the value 13 is the only good choice for the Uri-Path-Abbrev option.
 
 # Initial Uri-Path-Abbrev values {#initial}
 
@@ -264,7 +271,7 @@ This document registers values for the following well-known URIs:
   * `/.well-known/brski/rv`
   * `/.well-known/brski/vs`
 
-Note that the `core` and `rd` paths are commonly used with Uri-Query options.
+Note that the `core` and `rd` paths are commonly used together with Uri-Query options.
 
 # Implementation Status
 
@@ -283,7 +290,7 @@ Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
   It implements version ietf-core-uri-path-abbrev-01.
   Implementation experience:
-  Generally straightforward
+  generally straightforward
   unless one tries to preserve the information whether Uri-Path-Abbrev was used for the server application
   (but that was probably just a bad idea in the first place).
 
@@ -291,7 +298,7 @@ Note that the `core` and `rd` paths are commonly used with Uri-Query options.
 
 * libcoap (preliminary)
 
-  A report on a yet unpublished implementaiton and related tests of ietf-core-uri-path-abbrev-01 in libcoap
+  A report on a yet unpublished implementation and related tests of ietf-core-uri-path-abbrev-01 in libcoap
   has been submitted at <https://github.com/core-wg/uri-path-abbrev/issues/25> on 2025-10-01.
 
 # Security Considerations {#seccons}
@@ -300,14 +307,14 @@ Having alternative expressions for information that is input to policy decisions
 can be problematic when the mechanism performing the check has a different interpretation of the presented data than the mechanism at time of use.
 That concern is not new to this document:
 Both the Proxy-Uri of {{RFC7252}} and the Proxy-Cri option of {{I-D.ietf-core-href}} have the same properties in that regard.
-The appropriate behavior is for policy checkers to reject any request that contains critical options that is not understood;
+The appropriate behavior is for policy checkers to reject any request that contains critical options that are not understood;
 the application protected by the checker may provide the checker with an allow-list of options that it will treat as unchecked input.
 
 # IANA Considerations
 
 ## CoAP option: Uri-Path-Abbrev {#iana-option}
 
-IANA is requested to enter an one option into the CoAP Option Numbers registry in the CoRE Parameters group:
+IANA is requested to enter one option into the CoAP Option Numbers registry in the CoRE Parameters registry group:
 
 * Number: CPA13
 * Name: Uri-Path-Abbrev
@@ -315,21 +322,21 @@ IANA is requested to enter an one option into the CoAP Option Numbers registry i
 
 ## Uri-Path-Abbrev registry {#iana-reg}
 
-IANA is requested to establish a new registry in the CoRE parameters group:
-Values of the first Uri-Path-Abbrev option in a CoAP request correspond to a URI path according to this registry.
+IANA is requested to establish a new registry in the CoRE parameters registry group.
+The value of the first Uri-Path-Abbrev option in a CoAP request corresponds to a URI path entry in this registry.
 
 The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
 Change control for the registry follows this document's publication stream.
-Initial values are given in {{initial-table}}.
+Initial values for the registry are given in {{initial-table}}.
 
-Entry fields are:
+The required fields for each registration are:
 
 * Option value.
 
-  An non-negative integer that can be expressed in 32 bits,
+  A non-negative integer (uint) that can be expressed in 32 bits,
   unique within this registry.
 
-  All positive values whose most significant bit of the most significant byte is 1
+  All positive values whose most significant bit of the most significant non-zero byte is '1'
   are reserved.
 
   The Python invocation
@@ -347,10 +354,10 @@ Entry fields are:
 
 Reviewer instructions:
 
-The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte value,
+The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte option value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
-The expanded path is expected to be well-known paths at the time of writing,
+The expanded path is expected to be a well-known path ({{?RFC8615}}) at the time of writing,
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
 | Option value       | Expanded path        | Reference |
