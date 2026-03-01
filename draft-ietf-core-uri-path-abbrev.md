@@ -218,10 +218,11 @@ Receiving both options in a single request MUST be treated like the presence of 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
 Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev option if they know the value.
 
-By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbrev is safe-to-forward,
-a proxy (being generally unaware of this specification) is allowed to combine the option with Proxy-Uri (or Proxy-CRI) in a single CoAP request when it combines the Uri-\* options.
-In such a combined message, the Uri-Path segments to which the Uri-Path-Abbrev corresponds are appended to the path as if all segments were present as individual options in the request without conflicting.
-Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD process requests accordingly.
+In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
+(but, being unaware of its existence, not Uri-Path-Abbrev)
+into a single Proxy-URI/-CRI option.
+Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD decompose the Proxy-\* option into Uri-\* options before further processing,
+which entails an error response if both Uri-Path and Uri-Path-Abbrev are present.
 (This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
 nor is there a reason known why they should).
 
