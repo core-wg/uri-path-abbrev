@@ -233,8 +233,7 @@ the proxy needs to expand the path always.
 ## Interaction with other options {#interactions}
 
 The option is mutually exclusive with the Uri-Path option.
-Receiving both options in a single request MUST be treated like the presence of a critical request option that could not be processed
-(that option being either the Uri-Path-Abbrev option or the conflicting Uri-Path option).
+Receiving both options in a single request, a server MUST treat the Uri-Path-Abbrev option as a critical request option that could not be processed.
 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
 Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev option if they know the value.
