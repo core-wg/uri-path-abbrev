@@ -565,6 +565,14 @@ support the transition to such an extension.
 
 # Change log
 
+Since ietf-core-uri-path-abbrev-02:
+
+* Added normative appendix fixing an oversight in RFC7252 (moving in from corr-clar). This allows limiting the handling of exotic cases in tentative use.
+* Named Uri-Path-Abbrev as the unprocessed option when it occurs together with Uri-Path.
+* Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if a path component is present in the former. Text was changed to indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev together is an exotic case even when there is no conflict.
+* Formal definitions of abbreviate/expand.
+* Editorial enhancements.
+
 Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.
 
 * Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.
@@ -615,6 +623,7 @@ Since draft-amsuess-core-shopinc-00:
 # Acknowledgments
 {:numbered="false"}
 
-This document was created out of discussion with Esko Dijk and Michael Richardson.
-Carsten Bormann provided useful input on shaping the registry.
+Discussion with Eski Dijk led to the creation of the document,
+he questioned choices until the design was simple enough, and also provided editorial input.
+Carsten Bormann provided {{update7252}}, as well as useful input on shaping the registry.
 Jon Shallow provided much input, in particular around gaps in the fallback process.
