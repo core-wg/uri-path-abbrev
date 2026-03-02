@@ -294,8 +294,9 @@ Table of Contents
 2.4.  Interaction with other options
 
    The option is mutually exclusive with the Uri-Path option.  Receiving
-   both options in a single request, the Uri-Path-Abbrev option MUST be
-   treated as a critical request option that could not be processed.
+   both options in a single request, a server MUST treat the Uri-Path-
+   Abbrev option as a critical request option that could not be
+   processed.
 
    The Uri-Path-Abbrev option MUST NOT be used in combination with the
    Proxy-Uri option (or the similar Proxy-CRI option (of

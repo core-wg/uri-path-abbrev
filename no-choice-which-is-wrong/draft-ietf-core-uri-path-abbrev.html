@@ -1438,7 +1438,7 @@ the proxy needs to expand the path always.<a href="#section-2.3-4" class="pilcro
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-interaction-with-other-opti" class="section-name selfRef">Interaction with other options</a>
         </h3>
 <p id="section-2.4-1">The option is mutually exclusive with the Uri-Path option.
-Receiving both options in a single request, the Uri-Path-Abbrev option <span class="bcp14">MUST</span> be treated as a critical request option that could not be processed.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+Receiving both options in a single request, a server <span class="bcp14">MUST</span> treat the Uri-Path-Abbrev option as a critical request option that could not be processed.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <p id="section-2.4-2">The Uri-Path-Abbrev option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
 Proxies that understand Uri-Path-Abbrev and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Uri-Path-Abbrev option if they know the value.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
 <p id="section-2.4-3">By the (de)composition rules around Proxy-Uri, and because Uri-Path-Abbrev is safe-to-forward,
