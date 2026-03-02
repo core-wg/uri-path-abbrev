@@ -4,9 +4,9 @@
 
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
-Intended status: Standards Track                           M. Richardson
-Expires: 3 September 2026                       Sandelman Software Works
-                                                            2 March 2026
+Updates: 7252 (if approved)                                M. Richardson
+Intended status: Standards Track                Sandelman Software Works
+Expires: 3 September 2026                                   2 March 2026
 
 
                      URI-Path abbreviation in CoAP
@@ -19,6 +19,10 @@ Abstract
    following BCP190 and thus using (relatively verbose) well-known URI
    paths.  This document introduces a CoAP option that allows expressing
    well-known URI paths in as little as two bytes.
+
+   Negotiating the use of this option between client and server revealed
+   a subtle flaw in RFC7252.  This document updates RFC7252 to rectify
+   it, thus making the extension point of critical options more useful.
 
 About This Document
 
@@ -70,7 +74,8 @@ Table of Contents
 
    1.  Introduction
      1.1.  Motivating example
-     1.2.  Conventions and Definitions
+     1.2.  Update to RFC7252
+     1.3.  Conventions and Definitions
    2.  The Uri-Path-Abbrev option
      2.1.  Server processing
      2.2.  Client processing
@@ -86,9 +91,11 @@ Table of Contents
    7.  References
      7.1.  Normative References
      7.2.  Informative References
-   Appendix A.  Further development
-   Appendix B.  Change log
+   Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
+   Appendix B.  Further development
+   Appendix C.  Change log
    Acknowledgments
+   Contributors
    Authors' Addresses
 
 1.  Introduction
@@ -126,7 +133,24 @@ Table of Contents
    CoAP message size over either limit, whereas an equivalent Uri-Path-
    Abbrev option lets the message stay well below these limits.
 
-1.2.  Conventions and Definitions
+1.2.  Update to RFC7252
+
+   The use of a critical CoAP option that is not understood by the
+   server has a CoAP response error code (4.02 Bad Option) assigned,
+   which generally enables clients to retry without using the critical
+   option.  This mechanism is useful for the abbreviation mechanism of
+   this document.
+
+   That mechanism got conflated into the mechanism of _rejecting_ a
+   request established in Section 1.2 of [RFC7252] for handling
+   unprocessable non-confirmable messages, which makes detection of
+   missing option support less reliable.
+
+   Appendix A of this document updates Section 5.4.1 of [RFC7252] to
+   alter the behavior of servers when they receive an unsupported
+   critical option in a non-confirmable message.
+
+1.3.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -200,12 +224,8 @@ Table of Contents
 
    A server receiving the option with an unknown value MUST treat it as
    an unprocessable critical option, returning a 4.02 Bad Option
-   response (or reject the message
-   // This option may go away if https://github.com/core-wg/corrclar/
-   // issues/52 (https://github.com/core-wg/corrclar/issues/52) is
-   // resolved before this document is published.) and MUST NOT return a
-   4.04 Not Found response, because the equivalent path may be present
-   on the server.
+   response, and MUST NOT return a 4.04 Not Found response, because the
+   equivalent path may be present on the server.
 
    Since CoAP clients that use the option are usually aware of the
    possibility of failure, there is no need to provide a diagnostic
@@ -237,8 +257,10 @@ Table of Contents
    with the Uri-Path spelled out (using Uri-Path options), to operate
    reliably.
 
-   There are four possible indications of the Uri-Path-Abbrev option not
-   being supported:
+   The client can expect that a server which does not support the Uri-
+   Path-Abbrev option responds with 4.02 Bad Option.  Diverging behavior
+   has been allowed until the changes in Appendix A have been made.  To
+   account for older servers, the full set of reactions to expect is:
 
    1.  A 4.02 Bad Option response.
 
@@ -250,17 +272,11 @@ Table of Contents
 
    4.  Not receiving a response to a Non-confirmable request message.
 
-
-   // There is ongoing discussion about whether that behavior is
-   // desirable at https://github.com/core-wg/corrclar/issues/52
-   // (https://github.com/core-wg/corrclar/issues/52).  In the unlikely
-   // case that discussion concludes before this document, the 4.02
-   // outcome might be shown as preferred in here and in server
-   // processing.
-
    Some of the complexity of detecting lack of server-side support
    (items 3 and 4) can be avoided by not using the option with Non-
-   confirmable requests in tentative use.
+   confirmable requests in tentative use.  Clients that know that the
+   server supports _any_ Uri-Path-Abbrev value can trust the server to
+   reliably produce 4.02 Bad Option for other cases.
 
    As CoAP multicast requests generally do not result in errors being
    returned, tentative use is not available for multicast requests.
@@ -294,10 +310,9 @@ Table of Contents
 2.4.  Interaction with other options
 
    The option is mutually exclusive with the Uri-Path option.  Receiving
-   both options in a single request MUST be treated like the presence of
-   a critical request option that could not be processed (that option
-   being either the Uri-Path-Abbrev option or the conflicting Uri-Path
-   option).
+   both options in a single request, a server MUST treat the Uri-Path-
+   Abbrev option as a critical request option that could not be
+   processed.
 
    The Uri-Path-Abbrev option MUST NOT be used in combination with the
    Proxy-Uri option (or the similar Proxy-CRI option (of
@@ -305,18 +320,17 @@ Table of Contents
    Abbrev and convert Uri-* options into Proxy-Uri MUST expand any Uri-
    Path-Abbrev option if they know the value.
 
-   By the (de)composition rules around Proxy-Uri, and because Uri-Path-
-   Abbrev is safe-to-forward, a proxy (being generally unaware of this
-   specification) is allowed to combine the option with Proxy-Uri (or
-   Proxy-CRI) in a single CoAP request when it combines the Uri-*
-   options.  In such a combined message, the Uri-Path segments to which
-   the Uri-Path-Abbrev corresponds are appended to the path as if all
-   segments were present as individual options in the request without
-   conflicting.  Servers that support both Uri-Path-Abbrev and Proxy-
-   URI/-CRI SHOULD process requests accordingly.  (This is not a strict
-   requirement, as there are no known implementations of proxies that
-   actually compose a Proxy-URI/-CRI from individual options, nor is
-   there a reason known why they should).
+   In theory, when there is a chain of proxies, an proxy that is unaware
+   of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme
+   and the Uri-* options (but, being unaware of its existence, not Uri-
+   Path-Abbrev) into a single Proxy-URI/-CRI option.  Servers that
+   support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD decompose the
+   Proxy-* option into Uri-* options before further processing, which
+   entails an error response if both Uri-Path and Uri-Path-Abbrev are
+   present.  (This is not a strict requirement, as there are no known
+   implementations of proxies that actually compose a Proxy-URI/-CRI
+   from individual options, nor is there a reason known why they
+   should).
 
 2.5.  Choice of the option number
 
@@ -595,6 +609,13 @@ Table of Contents
               February 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-anima-constrained-voucher-30>.
 
+   [I-D.ietf-core-corr-clar-03]
+              Bormann, C., "Constrained Application Protocol (CoAP):
+              Corrections and Clarifications", Work in Progress,
+              Internet-Draft, draft-ietf-core-corr-clar-03, 22 December
+              2025, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              core-corr-clar-03>.
+
    [I-D.ietf-core-href]
               Bormann, C. and H. Birkholz, "Constrained Resource
               Identifiers", Work in Progress, Internet-Draft, draft-
@@ -664,12 +685,116 @@ Table of Contents
               DOI 10.17487/RFC9290, October 2022,
               <https://www.rfc-editor.org/rfc/rfc9290>.
 
+   [RFC9457]  Nottingham, M., Wilde, E., and S. Dalal, "Problem Details
+              for HTTP APIs", RFC 9457, DOI 10.17487/RFC9457, July 2023,
+              <https://www.rfc-editor.org/rfc/rfc9457>.
+
    [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
               "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
               DOI 10.17487/RFC9528, March 2024,
               <https://www.rfc-editor.org/rfc/rfc9528>.
 
-Appendix A.  Further development
+Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
+
+   Section 1.2 of [RFC7252] introduces the concept of _rejecting_ a
+   message, by sending back a RST (Reset) message or by silently
+   ignoring the rejected message.  This can deal with messages for which
+   a node does not have (e.g., no longer has) the necessary context to
+   process it, such as a response to a message that was sent immediately
+   before a node rebooted.
+
+   The concept of rejecting a message is a quite powerful way to limit
+   the complexity of dealing with a variety of error conditions.
+   However, it seems Section 5.4.1 of [RFC7252] overuses this instrument
+   for the case of non-confirmable messages.
+
+   Section 5.4.1 of [RFC7252] describes Critical Options, which, if not
+   implemented/understood by a node, may require the return of server
+   errors.  For Confirmable messages containing requests, unrecognized
+   critical options in requests are handled by a 4.02 (Bad Option)
+   response, while those in Confirmable messages with responses and
+   Acknowledgements are rejected.
+
+   |  *  Unrecognized options of class "critical" that occur in a
+   |     Confirmable request MUST cause the return of a 4.02 (Bad
+   |     Option) response.  This response SHOULD include a diagnostic
+   |     payload describing the unrecognized option(s) (see
+   |     Section 5.5.2).
+   |  
+   |  *  Unrecognized options of class "critical" that occur in a
+   |     Confirmable response, or piggybacked in an Acknowledgement,
+   |     MUST cause the response to be rejected (Section 4.2).
+
+   The 4.02 error response enables clients to perform discovery of
+   whether a critical option is recognized by a server, but surprisingly
+   only for Confirmable messages.
+
+   For unknown reasons, Section 5.4.1 of [RFC7252] then goes on to
+   handle all Non-confirmable messages with unrecognized critical
+   options by rejecting them:
+
+   |  *  Unrecognized options of class "critical" that occur in a Non-
+   |     confirmable message MUST cause the message to be rejected
+   |     (Section 4.3).
+
+   This deprives the sender of a Non-confirmable request of the
+   information what caused the rejection.  However, using Non-
+   confirmable messages does not automatically mean that the recipient
+   does not have the context needed to process the message.
+
+   This unexplained inconsistency has been present in [RFC7252] since
+   its initial publication, apparently without causing much trouble.
+   Recently, this document has been describing a situation where
+   discovery of Option support is more central to at least one use case;
+   not being able to properly perform this discovery for Non-confirmable
+   messages now emerges as an actual defect.
+
+   This defect can be remedied by applying this change:
+
+   INCORRECT:
+      |  *  Unrecognized options of class "critical" that occur in a
+      |     Non- confirmable message MUST cause the message to be
+      |     rejected (Section 4.3).
+
+   CORRECTED:
+      |  *  Unrecognized options of class "critical" that occur in a
+      |     Non-confirmable request SHOULD cause the return of a 4.02
+      |     (Bad Option) response.  This response SHOULD include a
+      |     diagnostic payload describing the unrecognized option(s)
+      |     (see Section 5.5.2).
+      |  
+      |  *  Unrecognized options of class "critical" that occur in a
+      |     Non-confirmable response, or piggybacked in an
+      |     Acknowledgement, MUST cause the response to be rejected
+      |     (Section 4.3).
+
+   (This replacement text could be integrated in a less redundant way;
+   the present proposal primarily aims at clarity.)
+
+   Of course, existing implementations will not immediately change their
+   behavior, so an implementation of a discovery process in this
+   document will still need to deal with uncertainty for the foreseeable
+   future, but the likelihood will reduce over time.  Client
+   implementations that are not updated and actually rely on not
+   receiving an error response in this case will simply reject the
+   message, causing little downside.
+
+   Note that the SHOULD about diagnostic payloads is repeated here; such
+   a mandate usually needs to provide more information about when this
+   interoperability requirement does not need to be met.  [RFC9457] now
+   in many cases provides a better way to respond than a diagnostic
+   payload; for conciseness, this observation is not included in the
+   normative replacement text proposed above.
+
+   [ The following section to be removed by the RFC editor. ]
+
+   This technical change was originally developed as Section 2.2 of
+   [I-D.ietf-core-corr-clar-03], and moved into this document for
+   publication, so that it can be used for simplifications in describing
+   tentative use, where the text would otherwise have had to reaffirm
+   the original behavior.
+
+Appendix B.  Further development
 
    Several possible further directions are anticipated in this document,
    but not specified at this point in time; they are left for further
@@ -725,7 +850,25 @@ Appendix A.  Further development
       options in a more concise or easier to process way are advised to
       avail themselves of the FETCH method introduced in [RFC8790].
 
-Appendix B.  Change log
+Appendix C.  Change log
+
+   Since ietf-core-uri-path-abbrev-02:
+
+   *  Added normative appendix fixing an oversight in RFC7252 (moving in
+      from corr-clar).  This allows limiting the handling of exotic
+      cases in tentative use.
+
+   *  Named Uri-Path-Abbrev as the unprocessed option when it occurs
+      together with Uri-Path.
+
+   *  Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if
+      a path component is present in the former.  Text was changed to
+      indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev
+      together is an exotic case even when there is no conflict.
+
+   *  Formal definitions of abbreviate/expand.
+
+   *  Editorial enhancements.
 
    Since ietf-core-uri-path-abbrev-01: Processing WGA review input and
    cleanup.
@@ -814,10 +957,22 @@ Appendix B.  Change log
 
 Acknowledgments
 
-   This document was created out of discussion with Esko Dijk and
-   Michael Richardson.  Carsten Bormann provided useful input on shaping
-   the registry.  Jon Shallow provided much input, in particular around
-   gaps in the fallback process.
+   Discussion with Eski Dijk led to the creation of the document, he
+   questioned choices until the design was simple enough, and also
+   provided editorial input.  Carsten Bormann provided Appendix A, as
+   well as useful input on shaping the registry.  Jon Shallow provided
+   much input, in particular around gaps in the fallback process.
+
+Contributors
+
+   Carsten Bormann
+   Universität Bremen TZI
+   Postfach 330440
+   D-28359 Bremen
+   Germany
+   Phone: +49-421-218-63921
+   Email: cabo@tzi.org
+
 
 Authors' Addresses
 
