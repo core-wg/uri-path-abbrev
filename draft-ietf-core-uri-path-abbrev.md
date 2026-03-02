@@ -56,7 +56,7 @@ and thus using (relatively verbose) well-known URI paths.
 This document introduces a CoAP option that allows expressing well-known URI paths in as little as two bytes.
 
 Negotiating the use of this option between client and server revealed a subtle flaw in RFC7252.
-This document updates RFC725 to rectify it, thus making the extension point of critical options more useful.
+This document updates RFC7252 to rectify it, thus making the extension point of critical options more useful.
 
 --- middle
 
