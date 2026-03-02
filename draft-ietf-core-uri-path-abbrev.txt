@@ -5,8 +5,8 @@
 CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Intended status: Standards Track                           M. Richardson
-Expires: 2 September 2026                       Sandelman Software Works
-                                                            1 March 2026
+Expires: 3 September 2026                       Sandelman Software Works
+                                                            2 March 2026
 
 
                      URI-Path abbreviation in CoAP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 September 2026.
+   This Internet-Draft will expire on 3 September 2026.
 
 Copyright Notice
 
@@ -420,10 +420,13 @@ Table of Contents
       application to perform the fallback.
 
       It implements version ietf-core-uri-path-abbrev-01.
-      Implementation experience: generally straightforward unless one
-      tries to preserve the information whether Uri-Path-Abbrev was used
-      for the server application (but that was probably just a bad idea
-      in the first place).
+      Implementation experience: generally straightforward.
+
+      The biggest trouble during implementation was that originally, it
+      was attempted to give the server application access to information
+      on whether or not Uri-Path-Abbrev was uses.  This was resolved by
+      just not exposing the information -- after all, that is probably
+      good layering practice anyway.
 
       Contact information: Christian Amsüss (author), updated 2025-09-26
 
