@@ -290,9 +290,12 @@ Note that the `core` and `rd` paths are commonly used together with Uri-Query op
 
   It implements version ietf-core-uri-path-abbrev-01.
   Implementation experience:
-  generally straightforward
-  unless one tries to preserve the information whether Uri-Path-Abbrev was used for the server application
-  (but that was probably just a bad idea in the first place).
+  generally straightforward.
+
+  The biggest trouble during implementation was that originally,
+  it was attempted to give the server application access to information on whether or not Uri-Path-Abbrev was uses.
+  This was resolved by just not exposing the information --
+  after all, that is probably good layering practice anyway.
 
   Contact information: Christian Amsüss (author), updated 2025-09-26
 
