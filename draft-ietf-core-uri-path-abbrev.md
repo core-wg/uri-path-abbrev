@@ -173,7 +173,7 @@ A machine-readable (and, albeit beyond the scope of this document, actionable) r
 the server can set Content-Format 257 in the response and send the payload `a1270d`,
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
 
-## Client processing
+## Client processing {#clientprocessing}
 
 A CoAP client can use the option instead of one or more Uri-Path option(s) if there is a suitable Uri-Path-Abbrev value
 that can express the requested URI path.
@@ -461,8 +461,8 @@ message.
 
 This unexplained inconsistency has been present in {{RFC7252}} since its
 initial publication, apparently without causing much trouble.
-Recently, this document has been describing a situation where discovery of
-Option support is more central to at least one use case; not being
+Section {{clientprocessing}} of this document describes a situation where discovery of
+option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
 
