@@ -196,8 +196,8 @@ To account for older servers, the full set of reactions to expect is:
 
 1. A 4.02 Bad Option response.
 2. A 5.02 Bad Gateway response caused by a proxy that received a RST message or lack of response.
-3. A RST message caused by handling of a Non-confirmable request message.
-4. Not receiving a response to a Non-confirmable request message.
+3. Having sent a Non-confirmable request message: A RST message.
+4. Having sent a Non-confirmable request message: Not receiving a response.
 
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
@@ -316,7 +316,7 @@ Note that the `core` and `rd` paths are commonly used together with Uri-Query op
   generally straightforward.
 
   The biggest trouble during implementation was that originally,
-  it was attempted to give the server application access to information on whether or not Uri-Path-Abbrev was uses.
+  it was attempted to give the server application access to information on whether or not Uri-Path-Abbrev was used.
   This was resolved by just not exposing the information --
   after all, that is probably good layering practice anyway.
 
@@ -408,12 +408,14 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 # RFC7252-5.4.1: Critical Options and Error Messages {#update7252}
 
+This appendix is normative.
+
 {{Section 1.2 of RFC7252}} introduces the concept of *rejecting* a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
 longer has) the necessary context to process it, such as a response to
-a message that was sent immediately before a node rebooted.
+a message that a node sent immediately before it rebooted.
 
 The concept of rejecting a message is a quite powerful way to limit
 the complexity of dealing with a variety of error conditions.
@@ -502,7 +504,7 @@ message, causing little downside.
 Note that the SHOULD about diagnostic payloads is repeated here; such
 a mandate usually needs to provide more information about when this
 interoperability requirement does not need to be met.
-{{?RFC9457}} now in many cases provides a better way to respond than a
+{{?RFC9290}} now in many cases provides a better way to respond than a
 diagnostic payload; for conciseness, this observation is not included
 in the normative replacement text proposed above.
 
@@ -515,6 +517,8 @@ where the text would otherwise have had to reaffirm the original behavior.
 
 
 # Further development
+
+This appendix is for information only.
 
 Several possible further directions are anticipated in this document,
 but not specified at this point in time;
@@ -540,9 +544,9 @@ support the transition to such an extension.
 
 * The registry for Uri-Path-Abbrev values is set up such that first values can not have the most significant bit of the first byte set.
 
-  This allows future documents to reuse the option for any CBOR expressions,
+  This allows future documents to reuse the option for CBOR data items,
   e.g. the path component of a CRI {{?I-D.ietf-core-href}}.
-  Note that those CBOR structures can only use the major types 4 to 7 for the top-level item,
+  Note that those CBOR data items can only use the major types 4 to 7 for the top-level item,
   but that includes all containers (arrays, maps and tags).
 
   Senders and recipients of this option do not need to concern themselves with that extension mechanism
@@ -563,9 +567,10 @@ support the transition to such an extension.
 
   In particular,
   application authors who seek to express Uri-Query options in a more concise or easier to process way
-  are advised to avail themselves of the FETCH method introduced in {{?RFC8790}}.
+  are advised to avail themselves of the FETCH method introduced in {{?RFC8132}}.
 
 # Change log
+{: removeinrfc}
 
 Since ietf-core-uri-path-abbrev-02:
 
@@ -578,7 +583,7 @@ Since ietf-core-uri-path-abbrev-02:
 Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.
 
 * Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.
-* The "SHOULD" to support fallback mode was lifted to "SHOULD only be [used when the server is known to support it]",
+* The "SHOULD" to support fallback mode was lifted to "SHOULD only be \[used when the server is known to support it]",
   with the recovery being a factual necessity for reliability in tentative use.
 * The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).
 * Use with multicast was limited to non-tentative use.
