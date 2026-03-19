@@ -53,15 +53,15 @@
   
   \bigskip
 
-  ``Unrecognized critical options cause 4.02 \textit{even for NON requests}''.
+  ``Unrecognized critical options cause 4.02 Bad Option \textit{even for NON}''.
   
   \vspace{1cm}
 
-  Only affects tentative use.\bigskip
-
-  Still expect RST/silence: deployed behavior.\bigskip
-
-  Practical simplification: when only UPA support is known and just value is tentative.
+  \begin{itemize}
+    \item Only affects tentative use.
+    \item Still expect RST/silence: deployed behavior.
+    \item Practical simplification: when only UPA support is known and just value is tentative.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Open items after IETF124}\Large
@@ -70,77 +70,52 @@
   PRs \href{https://github.com/core-wg/uri-path-abbrev/issues/33}{\#33} and \href{https://github.com/core-wg/uri-path-abbrev/issues/38}{\textit{\#38}}\footnote{\label{yester}My apologies for the short-notice changes -- but presenting them in a single change is still better than giving you half of it here and half of it in the next interim.}
   
   \begin{itemize}
-    \item Combinations of Uri-Path and Uri-Path-Abbrev are disallowed even when proxies introduce them through otherwise legal\footnote{Ongoing corr-clar issue \href{https://github.com/core-wg/corrclar/issues/51}{\#51}.} operations.
+    \item Mixed Uri-Path + Uri-Path-Abbrev: consistently disallowed.
 
-      Servers can just not support UPA when their reverse proxy meddles with the path.
+      % now consistently "just unusable when meddling with paths": that does simply break general applications (not just this one).
+
+      If proxies would introduce path segments,
+      service can't support UPA.
       % no use cases, needless complication.
-    \item \textit{As the last hop is not to a forward-proxy, servers will never see this.}
-    \item \textit{Thus there is no general SHOULD for this case, and just a MUST for server-proxy hybrids}
+    \item \textit{As the last hop is not to a forward-proxy, servers will never see Proxy-Uri effects.\footnote{Ongoing corr-clar issue \href{https://github.com/core-wg/corrclar/issues/51}{\#51}.}}
+      \bigskip
+
+      \textit{$\Rightarrow$ replaced general ``SHOULD understand'' for mixed case with ``MUST'' for server-proxy hybrids.}
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Open items after IETF124}\Large
-  \framesubtitle{Part III: bits}
-
-  % not read through all
-
+  \framesubtitle{Part III: Addressing reviews}
   \begin{itemize}
-    \item @@@
-    \item Esko provided editorial enhancements, esp. defining ``expand''/``abbreviate''.
     \item Clarify that Uri-Path and UPA conflict means UPA is the Bad Option.
+    \item Editorial changes after reviews from Carsten and Esko.
   \end{itemize}
 \end{frame}
 
-% \begin{frame}{Applications}\large
-%   \begin{description}[\texttt{-responses}]
-%     \item[EDHOC] first 3 message total: -30 byte down to 122\footnote{CoAP data: 3 \times 5 (CoAP structure) + 2 \times 2 Uri-Path-Abbrev + 2 \times 1 \texttt{C\_I / true} + 101 from \rfc{9528}} (-20\%).
-% 
-%       \bigskip
-% 
-%       Negligible over lifetime. Significant during mass onboarding (\ietfdraft{ietf-lake-reqs}, straddles AKE-for-6TiSCH fragmentation boundary).
-% 
-%       \bigskip
-% 
-%     \item[EST/cBRSKI] Eases management of .well-known coordination with HTTP.
-% 
-%     \item[\texttt{-responses}] ``If you queried me for /.well-known/core?a=b, you'd get \$\{payload\}''
-%   \end{description}
-% 
-%   \vspace{1.5cm}
-% 
-%   Ideally: Server MUST implement (in \ietfdraft{ietf-ace-edhoc-oscore-profile}, incoming in cBRSKI)
-% \end{frame}
-% 
-% \begin{frame}{Status}\Huge
-%   Implemented.
-% 
-%   \vspace{1.5cm}
-% 
-%   Ready.
-% \end{frame}
-% 
-% \begin{frame}{Open issues}\Large
-%     \begin{itemize}
-%         \item Explain use cases -- open for more examples \href{https://github.com/core-wg/uri-path-abbrev/issues/15}{\#15}
-%           \bigskip
-%         \item Proliferation of well-known vs. discovery? \href{https://github.com/core-wg/uri-path-abbrev/issues/29}{\#29}
-%           \bigskip
-%         \item Reap benefits from corr-clar if possible in time \href{https://github.com/core-wg/uri-path-abbrev/issues/28}{\#28}
-%           \begin{itemize}\large
-%             \item If one proxy does an odd thing, another must fix it. \href{https://github.com/core-wg/corrclar/issues/51}{cc\#51}
-%             \item Failover: handle 5.02 Bad GW due to 4.02 Bad Option NON-issues. \href{https://github.com/core-wg/corrclar/issues/52}{cc\#52}
-%           \end{itemize}
-%           \bigskip
-%         \item Does anyone need what was removed since -00? \href{https://github.com/core-wg/uri-path-abbrev/issues/23}{\#23}
-%     \end{itemize}
-% \end{frame}
-% 
-% \begin{frame}{Next steps}\Huge
-%   Dependents are approaching WGLC.
-% 
-%   \vspace{1.5cm}
-% 
-%   Can we keep the pace?
-% \end{frame}
+\begin{frame}{Next steps}\Huge
+  Done.
+\end{frame}
+
+\begin{frame}{\color{gray}Backup: Applications}\large
+  \begin{description}[\texttt{-responses}]
+    \item[\color{gray}EDHOC] \color{gray}first 3 message total: -30 byte down to 122\footnote{CoAP data: 3 \times 5 (CoAP structure) + 2 \times 2 Uri-Path-Abbrev + 2 \times 1 \texttt{C\_I / true} + 101 from \rfc{9528}} (-20\%).
+
+      \bigskip
+
+      Negligible over lifetime. Significant during mass onboarding (\ietfdraft{ietf-lake-reqs}, straddles AKE-for-6TiSCH fragmentation boundary).
+
+      \bigskip
+
+    \item[\color{gray}EST/cBRSKI] \color{gray}Eases management of .well-known coordination with HTTP.
+
+      \bigskip
+
+    \item[\color{gray}\texttt{-responses}] \color{gray}``If you queried me for /.well-known/core?a=b, you'd get \$\{payload\}''
+  \end{description}
+
+  \vspace{1.5cm}
+
+  \color{gray}Ideally: Server MUST implement (in \ietfdraft{ietf-ace-edhoc-oscore-profile}, incoming in cBRSKI)
+\end{frame}
 
 \end{document}
