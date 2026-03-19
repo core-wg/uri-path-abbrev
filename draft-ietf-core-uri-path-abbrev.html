@@ -1289,9 +1289,9 @@ whereas an equivalent Uri-Path-Abbrev option lets the message stay well below th
 <p id="section-1.2-1">The use of a critical CoAP option that is not understood by the server has a CoAP response error code (4.02 Bad Option) assigned,
 which generally enables clients to retry without using the critical option.
 This mechanism is useful for the abbreviation mechanism of this document.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.2-2">That mechanism got conflated into the mechanism of <em>rejecting</em> a request established in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-1.2" class="relref">Section 1.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> for handling unprocessable non-confirmable messages,
+<p id="section-1.2-2">That mechanism got conflated into the mechanism of <em>rejecting</em> a request established in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> for handling unprocessable non-confirmable messages,
 which makes detection of missing option support less reliable.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
-<p id="section-1.2-3"><a href="#update7252" class="auto internal xref">Appendix A</a> of this document updates <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to alter the behavior of servers when they receive an unsupported critical option in a non-confirmable message.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
+<p id="section-1.2-3"><a href="#update7252" class="auto internal xref">Appendix A</a> of this document updates <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to repair the behavior of servers when they receive an unsupported critical option in a non-confirmable message.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1397,7 +1397,7 @@ the server can set Content-Format 257 in the response and send the payload <code
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.<a href="#section-2.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="client-processing">
+<div id="clientprocessing">
 <section id="section-2.2">
         <h3 id="name-client-processing">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-client-processing" class="section-name selfRef">Client processing</a>
@@ -1432,7 +1432,7 @@ To account for older servers, the full set of reactions to expect is:<a href="#s
         </ol>
 <p id="section-2.2-7">Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
-Clients that know that the server supports <em>any</em> Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other cases.<a href="#section-2.2-7" class="pilcrow">¶</a></p>
+Clients that know that the server supports <em>any</em> Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other Uri-Path-Abbrev values.<a href="#section-2.2-7" class="pilcrow">¶</a></p>
 <p id="section-2.2-8">As CoAP multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.<a href="#section-2.2-8" class="pilcrow">¶</a></p>
 <p id="section-2.2-9">A generic client implementation <span class="bcp14">SHOULD NOT</span> use this option
@@ -1698,7 +1698,7 @@ A document that requested the allocation.<a href="#section-6.2-4.3.2" class="pil
 <p id="section-6.2-5">Reviewer instructions:<a href="#section-6.2-5" class="pilcrow">¶</a></p>
 <p id="section-6.2-6">The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte option value,
 focusing on applications that are expected to be useful in different constrained ecosystems.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
-<p id="section-6.2-7">The expanded path is expected to be a well-known path (<span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>) at the time of writing,
+<p id="section-6.2-7">The expanded path is expected to be a well-known path (<span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>),
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.<a href="#section-6.2-7" class="pilcrow">¶</a></p>
 <span id="name-initial-values-for-the-uri-"></span><div id="initial-table">
 <table class="center" id="table-2">
@@ -1923,7 +1923,7 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-rfc7252-541-critical-option" class="section-name selfRef">RFC7252-5.4.1: Critical Options and Error Messages</a>
       </h2>
 <p id="appendix-A-1">This appendix is normative.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-1.2" class="relref">Section 1.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> introduces the concept of <em>rejecting</em> a
+<p id="appendix-A-2"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> introduces the concept of <em>rejecting</em> a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
@@ -1977,8 +1977,8 @@ that the recipient does not have the context needed to process the
 message.<a href="#appendix-A-9" class="pilcrow">¶</a></p>
 <p id="appendix-A-10">This unexplained inconsistency has been present in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> since its
 initial publication, apparently without causing much trouble.
-Recently, this document has been describing a situation where discovery of
-Option support is more central to at least one use case; not being
+Section <a href="#clientprocessing" class="auto internal xref">Section 2.2</a> of this document describes a situation where discovery of
+option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.<a href="#appendix-A-10" class="pilcrow">¶</a></p>
 <p id="appendix-A-11">This defect can be remedied by applying this change:<a href="#appendix-A-11" class="pilcrow">¶</a></p>
