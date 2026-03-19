@@ -99,7 +99,7 @@ This mechanism is useful for the abbreviation mechanism of this document.
 That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable non-confirmable messages,
 which makes detection of missing option support less reliable.
 
-{{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to alter the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
+{{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to repair the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
 
 ## Conventions and Definitions
 
