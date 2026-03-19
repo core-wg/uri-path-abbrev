@@ -201,7 +201,7 @@ To account for older servers, the full set of reactions to expect is:
 
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
-Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other cases.
+Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other Uri-Path-Abbrev values.
 
 As CoAP multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.
