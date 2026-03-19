@@ -15,22 +15,22 @@ This document introduces a CoAP option that allows expressing well-known URI pat
        Negotiating the use of this option between client and server revealed a subtle flaw in RFC7252.
 This document updates RFC7252 to rectify it, thus making the extension point of critical options more useful. 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.32.0" name="generator">
 <meta content="coap" name="keyword">
 <meta content="draft-ietf-core-uri-path-abbrev-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
+  xml2rfc 3.32.0
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
-    platformdirs 4.5.1
+    platformdirs 4.9.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.3.0
+    wcwidth 0.6.0
 -->
 <link href="draft-ietf-core-uri-path-abbrev.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1053,7 +1053,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Amsüss &amp; Richardson</td>
-<td class="center">Expires 3 September 2026</td>
+<td class="center">Expires 20 September 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="https://www.rfc-editor.org/rfc/rfc7252" class="eref">7252</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-03-02" class="published">2 March 2026</time>
+<time datetime="2026-03-19" class="published">19 March 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-03">3 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-09-20">20 September 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ This document updates RFC7252 to rectify it, thus making the extension point of 
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 20 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1375,7 +1375,7 @@ from the registry established in <a href="#iana-reg" class="auto internal xref">
 <p id="section-2-7">Apart from the format and repeatability,
 the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
-This has consequences for its interactions with the Proxy-URI option,
+This has consequences for its interactions with the Proxy-Uri option,
 but these consequences are generally desirable:
 It allows the option to be used with CoAP proxies that do not implement the option.<a href="#section-2-7" class="pilcrow">¶</a></p>
 <div id="server-processing">
@@ -1471,10 +1471,10 @@ Receiving both options in a single request, a server <span class="bcp14">MUST</s
 Proxies that understand Uri-Path-Abbrev and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Uri-Path-Abbrev option if they know the value.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
 <p id="section-2.4-3">In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-* options
 (but, being unaware of its existence, not Uri-Path-Abbrev)
-into a single Proxy-URI/-CRI option.
-Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI <span class="bcp14">SHOULD</span> decompose the Proxy-* option into Uri-* options before further processing,
+into a single Proxy-Uri/-CRI option.
+Servers that support both Uri-Path-Abbrev and Proxy-Uri/-CRI <span class="bcp14">SHOULD</span> decompose the Proxy-* option into Uri-* options before further processing,
 which entails an error response if both Uri-Path and Uri-Path-Abbrev are present.
-(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
+(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-Uri/-CRI from individual options,
 nor is there a reason known why they should).<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
