@@ -1424,10 +1424,10 @@ To account for older servers, the full set of reactions to expect is:<a href="#s
             <p id="section-2.2-6.2.1">A 5.02 Bad Gateway response caused by a proxy that received a RST message or lack of response.<a href="#section-2.2-6.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-2.2-6.3">
-            <p id="section-2.2-6.3.1">A RST message caused by handling of a Non-confirmable request message.<a href="#section-2.2-6.3.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-6.3.1">Having sent a Non-confirmable request message: A RST message.<a href="#section-2.2-6.3.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-2.2-6.4">
-            <p id="section-2.2-6.4.1">Not receiving a response to a Non-confirmable request message.<a href="#section-2.2-6.4.1" class="pilcrow">¶</a></p>
+            <p id="section-2.2-6.4.1">Having sent a Non-confirmable request message: Not receiving a response.<a href="#section-2.2-6.4.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 <p id="section-2.2-7">Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
@@ -1469,7 +1469,7 @@ the proxy needs to expand the path always.<a href="#section-2.3-4" class="pilcro
 Receiving both options in a single request, a server <span class="bcp14">MUST</span> treat the Uri-Path-Abbrev option as a critical request option that could not be processed.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <p id="section-2.4-2">The Uri-Path-Abbrev option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.
 Proxies that understand Uri-Path-Abbrev and convert Uri-* options into Proxy-Uri <span class="bcp14">MUST</span> expand any Uri-Path-Abbrev option if they know the value.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.4-3">In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-* options
+<p id="section-2.4-3">In theory, when there is a chain of proxies, a proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-* options
 (but, being unaware of its existence, not Uri-Path-Abbrev)
 into a single Proxy-Uri/-CRI option.
 Servers that support both Uri-Path-Abbrev and Proxy-Uri/-CRI <span class="bcp14">SHOULD</span> decompose the Proxy-* option into Uri-* options before further processing,
@@ -1605,7 +1605,7 @@ Implementation experience:
 generally straightforward.<a href="#section-4-3.1.4" class="pilcrow">¶</a></p>
 <p id="section-4-3.1.5">
 The biggest trouble during implementation was that originally,
-it was attempted to give the server application access to information on whether or not Uri-Path-Abbrev was uses.
+it was attempted to give the server application access to information on whether or not Uri-Path-Abbrev was used.
 This was resolved by just not exposing the information --
 after all, that is probably good layering practice anyway.<a href="#section-4-3.1.5" class="pilcrow">¶</a></p>
 <p id="section-4-3.1.6">
@@ -1879,6 +1879,10 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
         <dd>
 <span class="refAuthor">Cotton, M.</span>, <span class="refAuthor">Leiba, B.</span>, and <span class="refAuthor">T. Narten</span>, <span class="refTitle">"Guidelines for Writing an IANA Considerations Section in RFCs"</span>, <span class="seriesInfo">BCP 26</span>, <span class="seriesInfo">RFC 8126</span>, <span class="seriesInfo">DOI 10.17487/RFC8126</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8126">https://www.rfc-editor.org/rfc/rfc8126</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8132">[RFC8132]</dt>
+        <dd>
+<span class="refAuthor">van der Stok, P.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">A. Sehgal</span>, <span class="refTitle">"PATCH and FETCH Methods for the Constrained Application Protocol (CoAP)"</span>, <span class="seriesInfo">RFC 8132</span>, <span class="seriesInfo">DOI 10.17487/RFC8132</span>, <time datetime="2017-04" class="refDate">April 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8132">https://www.rfc-editor.org/rfc/rfc8132</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8613">[RFC8613]</dt>
         <dd>
 <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Mattsson, J.</span>, <span class="refAuthor">Palombini, F.</span>, and <span class="refAuthor">L. Seitz</span>, <span class="refTitle">"Object Security for Constrained RESTful Environments (OSCORE)"</span>, <span class="seriesInfo">RFC 8613</span>, <span class="seriesInfo">DOI 10.17487/RFC8613</span>, <time datetime="2019-07" class="refDate">July 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8613">https://www.rfc-editor.org/rfc/rfc8613</a>&gt;</span>. </dd>
@@ -1886,10 +1890,6 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 <dt id="RFC8615">[RFC8615]</dt>
         <dd>
 <span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 8615</span>, <span class="seriesInfo">DOI 10.17487/RFC8615</span>, <time datetime="2019-05" class="refDate">May 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8615">https://www.rfc-editor.org/rfc/rfc8615</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8790">[RFC8790]</dt>
-        <dd>
-<span class="refAuthor">Keränen, A.</span> and <span class="refAuthor">M. Mohajer</span>, <span class="refTitle">"FETCH and PATCH with Sensor Measurement Lists (SenML)"</span>, <span class="seriesInfo">RFC 8790</span>, <span class="seriesInfo">DOI 10.17487/RFC8790</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8790">https://www.rfc-editor.org/rfc/rfc8790</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9148">[RFC9148]</dt>
         <dd>
@@ -1907,10 +1907,6 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
         <dd>
 <span class="refAuthor">Fossati, T.</span> and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Concise Problem Details for Constrained Application Protocol (CoAP) APIs"</span>, <span class="seriesInfo">RFC 9290</span>, <span class="seriesInfo">DOI 10.17487/RFC9290</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9290">https://www.rfc-editor.org/rfc/rfc9290</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC9457">[RFC9457]</dt>
-        <dd>
-<span class="refAuthor">Nottingham, M.</span>, <span class="refAuthor">Wilde, E.</span>, and <span class="refAuthor">S. Dalal</span>, <span class="refTitle">"Problem Details for HTTP APIs"</span>, <span class="seriesInfo">RFC 9457</span>, <span class="seriesInfo">DOI 10.17487/RFC9457</span>, <time datetime="2023-07" class="refDate">July 2023</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9457">https://www.rfc-editor.org/rfc/rfc9457</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9528">[RFC9528]</dt>
       <dd>
 <span class="refAuthor">Selander, G.</span>, <span class="refAuthor">Preuß Mattsson, J.</span>, and <span class="refAuthor">F. Palombini</span>, <span class="refTitle">"Ephemeral Diffie-Hellman Over COSE (EDHOC)"</span>, <span class="seriesInfo">RFC 9528</span>, <span class="seriesInfo">DOI 10.17487/RFC9528</span>, <time datetime="2024-03" class="refDate">March 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9528">https://www.rfc-editor.org/rfc/rfc9528</a>&gt;</span>. </dd>
@@ -1925,119 +1921,120 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
       <h2 id="name-rfc7252-541-critical-option">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-rfc7252-541-critical-option" class="section-name selfRef">RFC7252-5.4.1: Critical Options and Error Messages</a>
       </h2>
-<p id="appendix-A-1"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-1.2" class="relref">Section 1.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> introduces the concept of <em>rejecting</em> a
+<p id="appendix-A-1">This appendix is normative.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-1.2" class="relref">Section 1.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> introduces the concept of <em>rejecting</em> a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
 longer has) the necessary context to process it, such as a response to
-a message that was sent immediately before a node rebooted.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">The concept of rejecting a message is a quite powerful way to limit
+a message that a node sent immediately before it rebooted.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-3">The concept of rejecting a message is a quite powerful way to limit
 the complexity of dealing with a variety of error conditions.
 However, it seems <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> overuses this instrument
-for the case of non-confirmable messages.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
-<p id="appendix-A-3"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> describes Critical Options, which, if not
+for the case of non-confirmable messages.<a href="#appendix-A-3" class="pilcrow">¶</a></p>
+<p id="appendix-A-4"><span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> describes Critical Options, which, if not
 implemented/understood by a node, may require the return of server
 errors.
 For Confirmable messages containing requests, unrecognized critical
 options in requests are handled by a 4.02 (Bad Option) response, while
 those in Confirmable messages with responses and Acknowledgements are
-rejected.<a href="#appendix-A-3" class="pilcrow">¶</a></p>
-<blockquote id="appendix-A-4">
+rejected.<a href="#appendix-A-4" class="pilcrow">¶</a></p>
+<blockquote id="appendix-A-5">
         <ul class="normal">
-<li class="normal" id="appendix-A-4.1.1">
-            <p id="appendix-A-4.1.1.1">Unrecognized options of class "critical" that occur in a
+<li class="normal" id="appendix-A-5.1.1">
+            <p id="appendix-A-5.1.1.1">Unrecognized options of class "critical" that occur in a
 Confirmable request <span class="bcp14">MUST</span> cause the return of a 4.02 (Bad Option)
 response.  This response <span class="bcp14">SHOULD</span> include a diagnostic payload
-describing the unrecognized option(s) (see Section 5.5.2).<a href="#appendix-A-4.1.1.1" class="pilcrow">¶</a></p>
+describing the unrecognized option(s) (see Section 5.5.2).<a href="#appendix-A-5.1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-A-4.1.2">
-            <p id="appendix-A-4.1.2.1">Unrecognized options of class "critical" that occur in a
+          <li class="normal" id="appendix-A-5.1.2">
+            <p id="appendix-A-5.1.2.1">Unrecognized options of class "critical" that occur in a
 Confirmable response, or piggybacked in an Acknowledgement, <span class="bcp14">MUST</span>
-cause the response to be rejected (Section 4.2).<a href="#appendix-A-4.1.2.1" class="pilcrow">¶</a></p>
+cause the response to be rejected (Section 4.2).<a href="#appendix-A-5.1.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </blockquote>
-<p id="appendix-A-5">The 4.02 error response enables clients to perform discovery of
+<p id="appendix-A-6">The 4.02 error response enables clients to perform discovery of
 whether a critical option is recognized by a server, but surprisingly
-only for Confirmable messages.<a href="#appendix-A-5" class="pilcrow">¶</a></p>
-<p id="appendix-A-6">For unknown reasons, <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> then goes on to handle
+only for Confirmable messages.<a href="#appendix-A-6" class="pilcrow">¶</a></p>
+<p id="appendix-A-7">For unknown reasons, <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> then goes on to handle
 all Non-confirmable messages with unrecognized critical options by
-rejecting them:<a href="#appendix-A-6" class="pilcrow">¶</a></p>
-<blockquote id="appendix-A-7">
+rejecting them:<a href="#appendix-A-7" class="pilcrow">¶</a></p>
+<blockquote id="appendix-A-8">
         <ul class="normal">
-<li class="normal" id="appendix-A-7.1.1">
-            <p id="appendix-A-7.1.1.1">Unrecognized options of class "critical" that occur in a
+<li class="normal" id="appendix-A-8.1.1">
+            <p id="appendix-A-8.1.1.1">Unrecognized options of class "critical" that occur in a
 Non-confirmable message <span class="bcp14">MUST</span> cause the message to be rejected
-(Section 4.3).<a href="#appendix-A-7.1.1.1" class="pilcrow">¶</a></p>
+(Section 4.3).<a href="#appendix-A-8.1.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </blockquote>
-<p id="appendix-A-8">This deprives the sender of a Non-confirmable request of the
+<p id="appendix-A-9">This deprives the sender of a Non-confirmable request of the
 information what caused the rejection.
 However, using Non-confirmable messages does not automatically mean
 that the recipient does not have the context needed to process the
-message.<a href="#appendix-A-8" class="pilcrow">¶</a></p>
-<p id="appendix-A-9">This unexplained inconsistency has been present in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> since its
+message.<a href="#appendix-A-9" class="pilcrow">¶</a></p>
+<p id="appendix-A-10">This unexplained inconsistency has been present in <span>[<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> since its
 initial publication, apparently without causing much trouble.
 Recently, this document has been describing a situation where discovery of
 Option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
-emerges as an actual defect.<a href="#appendix-A-9" class="pilcrow">¶</a></p>
-<p id="appendix-A-10">This defect can be remedied by applying this change:<a href="#appendix-A-10" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="appendix-A-11">
-        <dt id="appendix-A-11.1">INCORRECT:</dt>
-        <dd style="margin-left: 1.5em" id="appendix-A-11.2">
-          <blockquote id="appendix-A-11.2.1">
+emerges as an actual defect.<a href="#appendix-A-10" class="pilcrow">¶</a></p>
+<p id="appendix-A-11">This defect can be remedied by applying this change:<a href="#appendix-A-11" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="appendix-A-12">
+        <dt id="appendix-A-12.1">INCORRECT:</dt>
+        <dd style="margin-left: 1.5em" id="appendix-A-12.2">
+          <blockquote id="appendix-A-12.2.1">
             <ul class="normal">
-<li class="normal" id="appendix-A-11.2.1.1.1">
-                <p id="appendix-A-11.2.1.1.1.1">Unrecognized options of class "critical" that occur in a Non-
+<li class="normal" id="appendix-A-12.2.1.1.1">
+                <p id="appendix-A-12.2.1.1.1.1">Unrecognized options of class "critical" that occur in a Non-
 confirmable message <span class="bcp14">MUST</span> cause the message to be rejected
-(Section 4.3).<a href="#appendix-A-11.2.1.1.1.1" class="pilcrow">¶</a></p>
+(Section 4.3).<a href="#appendix-A-12.2.1.1.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </blockquote>
 </dd>
         <dd class="break"></dd>
-<dt id="appendix-A-11.3">CORRECTED:</dt>
-        <dd style="margin-left: 1.5em" id="appendix-A-11.4">
-          <blockquote id="appendix-A-11.4.1">
+<dt id="appendix-A-12.3">CORRECTED:</dt>
+        <dd style="margin-left: 1.5em" id="appendix-A-12.4">
+          <blockquote id="appendix-A-12.4.1">
             <ul class="normal">
-<li class="normal" id="appendix-A-11.4.1.1.1">
-                <p id="appendix-A-11.4.1.1.1.1">Unrecognized options of class "critical" that occur in a
+<li class="normal" id="appendix-A-12.4.1.1.1">
+                <p id="appendix-A-12.4.1.1.1.1">Unrecognized options of class "critical" that occur in a
 Non-confirmable request <span class="bcp14">SHOULD</span> cause the return of a 4.02 (Bad Option)
 response.  This response <span class="bcp14">SHOULD</span> include a diagnostic payload
-describing the unrecognized option(s) (see Section 5.5.2).<a href="#appendix-A-11.4.1.1.1.1" class="pilcrow">¶</a></p>
+describing the unrecognized option(s) (see Section 5.5.2).<a href="#appendix-A-12.4.1.1.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="appendix-A-11.4.1.1.2">
-                <p id="appendix-A-11.4.1.1.2.1">Unrecognized options of class "critical" that occur in a
+              <li class="normal" id="appendix-A-12.4.1.1.2">
+                <p id="appendix-A-12.4.1.1.2.1">Unrecognized options of class "critical" that occur in a
 Non-confirmable response, or piggybacked in an Acknowledgement, <span class="bcp14">MUST</span>
-cause the response to be rejected (Section 4.3).<a href="#appendix-A-11.4.1.1.2.1" class="pilcrow">¶</a></p>
+cause the response to be rejected (Section 4.3).<a href="#appendix-A-12.4.1.1.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </blockquote>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="appendix-A-12">(This replacement text could be integrated in a less redundant way;
-the present proposal primarily aims at clarity.)<a href="#appendix-A-12" class="pilcrow">¶</a></p>
-<p id="appendix-A-13">Of course, existing implementations will not immediately change their
+<p id="appendix-A-13">(This replacement text could be integrated in a less redundant way;
+the present proposal primarily aims at clarity.)<a href="#appendix-A-13" class="pilcrow">¶</a></p>
+<p id="appendix-A-14">Of course, existing implementations will not immediately change their
 behavior, so an implementation of a discovery process in this document
 will still need to deal with uncertainty for the foreseeable future,
 but the likelihood will reduce over time.
 Client implementations that are not updated and actually rely on not
 receiving an error response in this case will simply reject the
-message, causing little downside.<a href="#appendix-A-13" class="pilcrow">¶</a></p>
-<p id="appendix-A-14">Note that the <span class="bcp14">SHOULD</span> about diagnostic payloads is repeated here; such
+message, causing little downside.<a href="#appendix-A-14" class="pilcrow">¶</a></p>
+<p id="appendix-A-15">Note that the <span class="bcp14">SHOULD</span> about diagnostic payloads is repeated here; such
 a mandate usually needs to provide more information about when this
 interoperability requirement does not need to be met.
-<span>[<a href="#RFC9457" class="cite xref">RFC9457</a>]</span> now in many cases provides a better way to respond than a
+<span>[<a href="#RFC9290" class="cite xref">RFC9290</a>]</span> now in many cases provides a better way to respond than a
 diagnostic payload; for conciseness, this observation is not included
-in the normative replacement text proposed above.<a href="#appendix-A-14" class="pilcrow">¶</a></p>
-<p id="appendix-A-15">[ The following section to be removed by the RFC editor. ]<a href="#appendix-A-15" class="pilcrow">¶</a></p>
-<p id="appendix-A-16">This technical change was originally developed as <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-03#section-2.2" class="relref">Section 2.2</a> of [<a href="#I-D.ietf-core-corr-clar-03" class="cite xref">I-D.ietf-core-corr-clar-03</a>]</span>,
+in the normative replacement text proposed above.<a href="#appendix-A-15" class="pilcrow">¶</a></p>
+<p id="appendix-A-16">[ The following section to be removed by the RFC editor. ]<a href="#appendix-A-16" class="pilcrow">¶</a></p>
+<p id="appendix-A-17">This technical change was originally developed as <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-corr-clar-03#section-2.2" class="relref">Section 2.2</a> of [<a href="#I-D.ietf-core-corr-clar-03" class="cite xref">I-D.ietf-core-corr-clar-03</a>]</span>,
 and moved into this document for publication,
 so that it can be used for simplifications in describing tentative use,
-where the text would otherwise have had to reaffirm the original behavior.<a href="#appendix-A-16" class="pilcrow">¶</a></p>
+where the text would otherwise have had to reaffirm the original behavior.<a href="#appendix-A-17" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="further-development">
@@ -2045,57 +2042,58 @@ where the text would otherwise have had to reaffirm the original behavior.<a hre
       <h2 id="name-further-development">
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-further-development" class="section-name selfRef">Further development</a>
       </h2>
-<p id="appendix-B-1">Several possible further directions are anticipated in this document,
+<p id="appendix-B-1">This appendix is for information only.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">Several possible further directions are anticipated in this document,
 but not specified at this point in time;
-they are left for further documents that update and thus compatibly extend this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">In any case, server implementations that treat unknown option values or repeated Uri-Path-Abbrev options
+they are left for further documents that update and thus compatibly extend this document.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<p id="appendix-B-3">In any case, server implementations that treat unknown option values or repeated Uri-Path-Abbrev options
 like any other critical unprocessable option (i.e., by responding with 4.02 Bad Option)
-support the transition to such an extension.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+support the transition to such an extension.<a href="#appendix-B-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B-3.1">
-          <p id="appendix-B-3.1.1">Some values of the option might admit repetition of the option.
+<li class="normal" id="appendix-B-4.1">
+          <p id="appendix-B-4.1.1">Some values of the option might admit repetition of the option.
 A document that updates this document and the Uri-Path-Abbrev registry will need to specify
 how later occurrences of the option
 extend the series of equivalent Uri-Path options from the first value,
-or defer some of that decision to that first value's entry.<a href="#appendix-B-3.1.1" class="pilcrow">¶</a></p>
+or defer some of that decision to that first value's entry.<a href="#appendix-B-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-3.2">
-          <p id="appendix-B-3.2.1">The mechanism of expanding one option into another option
-might be expressed using the terminology of SCHC.<a href="#appendix-B-3.2.1" class="pilcrow">¶</a></p>
-<p id="appendix-B-3.2.2">
+        <li class="normal" id="appendix-B-4.2">
+          <p id="appendix-B-4.2.1">The mechanism of expanding one option into another option
+might be expressed using the terminology of SCHC.<a href="#appendix-B-4.2.1" class="pilcrow">¶</a></p>
+<p id="appendix-B-4.2.2">
 Such a generalization is not aimed for in this document;
 authors of any future document providing such a framework
-are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.<a href="#appendix-B-3.2.2" class="pilcrow">¶</a></p>
+are encouraged to provide an equivalent but machine-readable explanation of the mechanism specified here.<a href="#appendix-B-4.2.2" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-3.3">
-          <p id="appendix-B-3.3.1">The registry for Uri-Path-Abbrev values is set up such that first values can not have the most significant bit of the first byte set.<a href="#appendix-B-3.3.1" class="pilcrow">¶</a></p>
-<p id="appendix-B-3.3.2">
-This allows future documents to reuse the option for any CBOR expressions,
+        <li class="normal" id="appendix-B-4.3">
+          <p id="appendix-B-4.3.1">The registry for Uri-Path-Abbrev values is set up such that first values can not have the most significant bit of the first byte set.<a href="#appendix-B-4.3.1" class="pilcrow">¶</a></p>
+<p id="appendix-B-4.3.2">
+This allows future documents to reuse the option for CBOR data items,
 e.g. the path component of a CRI <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>.
-Note that those CBOR structures can only use the major types 4 to 7 for the top-level item,
-but that includes all containers (arrays, maps and tags).<a href="#appendix-B-3.3.2" class="pilcrow">¶</a></p>
-<p id="appendix-B-3.3.3">
+Note that those CBOR data items can only use the major types 4 to 7 for the top-level item,
+but that includes all containers (arrays, maps and tags).<a href="#appendix-B-4.3.2" class="pilcrow">¶</a></p>
+<p id="appendix-B-4.3.3">
 Senders and recipients of this option do not need to concern themselves with that extension mechanism
 unless they implement it:
 As the first value is compared to known registry entries,
 any CBOR item contained in it will simply not match any known value.
 Should the working group decide not to use that extension point,
-the registry's policy can be relaxed to also allow values with that leading bit set.<a href="#appendix-B-3.3.3" class="pilcrow">¶</a></p>
+the registry's policy can be relaxed to also allow values with that leading bit set.<a href="#appendix-B-4.3.3" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-3.4">
-          <p id="appendix-B-3.4.1">A future document may update this document
+        <li class="normal" id="appendix-B-4.4">
+          <p id="appendix-B-4.4.1">A future document may update this document
 to allow registering values that are allowed to use together with Uri-Path values
 (but at the time of writing, no examples are known by which such a design could be properly vetted).
-In particular, that update weakens the "<span class="bcp14">MUST</span>" in <a href="#interactions" class="auto internal xref">Section 2.4</a>.<a href="#appendix-B-3.4.1" class="pilcrow">¶</a></p>
+In particular, that update weakens the "<span class="bcp14">MUST</span>" in <a href="#interactions" class="auto internal xref">Section 2.4</a>.<a href="#appendix-B-4.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-B-3.5">
-          <p id="appendix-B-3.5.1">This option is designed to stand in for the Uri-Path option alone,
+        <li class="normal" id="appendix-B-4.5">
+          <p id="appendix-B-4.5.1">This option is designed to stand in for the Uri-Path option alone,
 not for any other option;
-this simplifies its interaction rules.<a href="#appendix-B-3.5.1" class="pilcrow">¶</a></p>
-<p id="appendix-B-3.5.2">
+this simplifies its interaction rules.<a href="#appendix-B-4.5.1" class="pilcrow">¶</a></p>
+<p id="appendix-B-4.5.2">
 In particular,
 application authors who seek to express Uri-Query options in a more concise or easier to process way
-are advised to avail themselves of the FETCH method introduced in <span>[<a href="#RFC8790" class="cite xref">RFC8790</a>]</span>.<a href="#appendix-B-3.5.2" class="pilcrow">¶</a></p>
+are advised to avail themselves of the FETCH method introduced in <span>[<a href="#RFC8132" class="cite xref">RFC8132</a>]</span>.<a href="#appendix-B-4.5.2" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -2105,127 +2103,128 @@ are advised to avail themselves of the FETCH method introduced in <span>[<a href
       <h2 id="name-change-log">
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-change-log" class="section-name selfRef">Change log</a>
       </h2>
-<p id="appendix-C-1">Since ietf-core-uri-path-abbrev-02:<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">This section is to be removed before publishing as an RFC.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">Since ietf-core-uri-path-abbrev-02:<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-2.1">
-          <p id="appendix-C-2.1.1">Added normative appendix fixing an oversight in RFC7252 (moving in from corr-clar). This allows limiting the handling of exotic cases in tentative use.<a href="#appendix-C-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-3.1">
+          <p id="appendix-C-3.1.1">Added normative appendix fixing an oversight in RFC7252 (moving in from corr-clar). This allows limiting the handling of exotic cases in tentative use.<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.2">
-          <p id="appendix-C-2.2.1">Named Uri-Path-Abbrev as the unprocessed option when it occurs together with Uri-Path.<a href="#appendix-C-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-3.2">
+          <p id="appendix-C-3.2.1">Named Uri-Path-Abbrev as the unprocessed option when it occurs together with Uri-Path.<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.3">
-          <p id="appendix-C-2.3.1">Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if a path component is present in the former. Text was changed to indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev together is an exotic case even when there is no conflict.<a href="#appendix-C-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-3.3">
+          <p id="appendix-C-3.3.1">Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if a path component is present in the former. Text was changed to indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev together is an exotic case even when there is no conflict.<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.4">
-          <p id="appendix-C-2.4.1">Formal definitions of abbreviate/expand.<a href="#appendix-C-2.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-3.4">
+          <p id="appendix-C-3.4.1">Formal definitions of abbreviate/expand.<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-2.5">
-          <p id="appendix-C-2.5.1">Editorial enhancements.<a href="#appendix-C-2.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-3.5">
+          <p id="appendix-C-3.5.1">Editorial enhancements.<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-3">Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.<a href="#appendix-C-3" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-4.1">
-          <p id="appendix-C-4.1.1">Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.<a href="#appendix-C-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-5.1">
+          <p id="appendix-C-5.1.1">Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.2">
-          <p id="appendix-C-4.2.1">The "<span class="bcp14">SHOULD</span>" to support fallback mode was lifted to "<span class="bcp14">SHOULD</span> only be [used when the server is known to support it]",
-with the recovery being a factual necessity for reliability in tentative use.<a href="#appendix-C-4.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.2">
+          <p id="appendix-C-5.2.1">The "<span class="bcp14">SHOULD</span>" to support fallback mode was lifted to "<span class="bcp14">SHOULD</span> only be [used when the server is known to support it]",
+with the recovery being a factual necessity for reliability in tentative use.<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.3">
-          <p id="appendix-C-4.3.1">The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).<a href="#appendix-C-4.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.3">
+          <p id="appendix-C-5.3.1">The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.4">
-          <p id="appendix-C-4.4.1">Use with multicast was limited to non-tentative use.<a href="#appendix-C-4.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.4">
+          <p id="appendix-C-5.4.1">Use with multicast was limited to non-tentative use.<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.5">
-          <p id="appendix-C-4.5.1">Added reference to libcoap work.<a href="#appendix-C-4.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.5">
+          <p id="appendix-C-5.5.1">Added reference to libcoap work.<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.6">
-          <p id="appendix-C-4.6.1">Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.<a href="#appendix-C-4.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.6">
+          <p id="appendix-C-5.6.1">Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.<a href="#appendix-C-5.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.7">
-          <p id="appendix-C-4.7.1">Sections on future work were unified in the appendix.<a href="#appendix-C-4.7.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.7">
+          <p id="appendix-C-5.7.1">Sections on future work were unified in the appendix.<a href="#appendix-C-5.7.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.8">
-          <p id="appendix-C-4.8.1">Appendix on open questions was moved into the issue tracker at <a href="https://github.com/core-wg/uri-path-abbrev/issues/">https://github.com/core-wg/uri-path-abbrev/issues/</a>.<a href="#appendix-C-4.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.8">
+          <p id="appendix-C-5.8.1">Appendix on open questions was moved into the issue tracker at <a href="https://github.com/core-wg/uri-path-abbrev/issues/">https://github.com/core-wg/uri-path-abbrev/issues/</a>.<a href="#appendix-C-5.8.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.9">
-          <p id="appendix-C-4.9.1">Cleanup of IANA considerations where -01 previous changes were not accounted for.<a href="#appendix-C-4.9.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.9">
+          <p id="appendix-C-5.9.1">Cleanup of IANA considerations where -01 previous changes were not accounted for.<a href="#appendix-C-5.9.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.10">
-          <p id="appendix-C-4.10.1">"Choice of option number" spelled out and set up for removal before publication.<a href="#appendix-C-4.10.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.10">
+          <p id="appendix-C-5.10.1">"Choice of option number" spelled out and set up for removal before publication.<a href="#appendix-C-5.10.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-4.11">
-          <p id="appendix-C-4.11.1">Editorial changes.<a href="#appendix-C-4.11.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-5.11">
+          <p id="appendix-C-5.11.1">Editorial changes.<a href="#appendix-C-5.11.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-5">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-C-5" class="pilcrow">¶</a></p>
+<p id="appendix-C-6">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-C-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-6.1">
-          <p id="appendix-C-6.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-C-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-7.1">
+          <p id="appendix-C-7.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.2">
-          <p id="appendix-C-6.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-C-6.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.2">
+          <p id="appendix-C-7.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.3">
-          <p id="appendix-C-6.3.1">Allocate code for EDHOC.<a href="#appendix-C-6.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.3">
+          <p id="appendix-C-7.3.1">Allocate code for EDHOC.<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.4">
-          <p id="appendix-C-6.4.1">Defer repeated use to future extensions.<a href="#appendix-C-6.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.4">
+          <p id="appendix-C-7.4.1">Defer repeated use to future extensions.<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.5">
-          <p id="appendix-C-6.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-6.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.5">
+          <p id="appendix-C-7.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.6">
-          <p id="appendix-C-6.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-6.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.6">
+          <p id="appendix-C-7.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-7.6.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.7">
-          <p id="appendix-C-6.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-C-6.7.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.7">
+          <p id="appendix-C-7.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-C-7.7.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.8">
-          <p id="appendix-C-6.8.1">Add introduction and motivating example.<a href="#appendix-C-6.8.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.8">
+          <p id="appendix-C-7.8.1">Add introduction and motivating example.<a href="#appendix-C-7.8.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-6.9">
-          <p id="appendix-C-6.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-C-6.9.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-7.9">
+          <p id="appendix-C-7.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-C-7.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-7">Since draft-amsuess-core-shopinc-02:<a href="#appendix-C-7" class="pilcrow">¶</a></p>
-<p id="appendix-C-8">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-C-8" class="pilcrow">¶</a></p>
-<p id="appendix-C-9">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<p id="appendix-C-8">Since draft-amsuess-core-shopinc-02:<a href="#appendix-C-8" class="pilcrow">¶</a></p>
+<p id="appendix-C-9">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-C-9" class="pilcrow">¶</a></p>
+<p id="appendix-C-10">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-C-10" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-10.1">
-          <p id="appendix-C-10.1.1">Document is standards track.<a href="#appendix-C-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-11.1">
+          <p id="appendix-C-11.1.1">Document is standards track.<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-10.2">
-          <p id="appendix-C-10.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-C-10.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-11.2">
+          <p id="appendix-C-11.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-C-11.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-10.3">
-          <p id="appendix-C-10.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-C-10.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-11.3">
+          <p id="appendix-C-11.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-C-11.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-10.4">
-          <p id="appendix-C-10.4.1">Minor editorials.<a href="#appendix-C-10.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-11.4">
+          <p id="appendix-C-11.4.1">Minor editorials.<a href="#appendix-C-11.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-11">Since draft-amsuess-core-shopinc-00:<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<p id="appendix-C-12">Since draft-amsuess-core-shopinc-00:<a href="#appendix-C-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-12.1">
-          <p id="appendix-C-12.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-C-12.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-13.1">
+          <p id="appendix-C-13.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-12.2">
-          <p id="appendix-C-12.2.1">MCR joined as author.<a href="#appendix-C-12.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-13.2">
+          <p id="appendix-C-13.2.1">MCR joined as author.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-12.3">
-          <p id="appendix-C-12.3.1">Added initial values for BRSKI and EST.<a href="#appendix-C-12.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-13.3">
+          <p id="appendix-C-13.3.1">Added initial values for BRSKI and EST.<a href="#appendix-C-13.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-12.4">
-          <p id="appendix-C-12.4.1">Allow 4.04 responses.<a href="#appendix-C-12.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-13.4">
+          <p id="appendix-C-13.4.1">Allow 4.04 responses.<a href="#appendix-C-13.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-12.5">
-          <p id="appendix-C-12.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-C-12.5.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-13.5">
+          <p id="appendix-C-13.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-C-13.5.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-12.6">
-          <p id="appendix-C-12.6.1">Large editorial changes.<a href="#appendix-C-12.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-13.6">
+          <p id="appendix-C-13.6.1">Large editorial changes.<a href="#appendix-C-13.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
