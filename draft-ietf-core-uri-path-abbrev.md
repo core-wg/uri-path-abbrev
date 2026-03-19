@@ -96,10 +96,10 @@ The use of a critical CoAP option that is not understood by the server has a CoA
 which generally enables clients to retry without using the critical option.
 This mechanism is useful for the abbreviation mechanism of this document.
 
-That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 1.2 of RFC7252}} for handling unprocessable non-confirmable messages,
+That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable non-confirmable messages,
 which makes detection of missing option support less reliable.
 
-{{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to alter the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
+{{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to repair the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
 
 ## Conventions and Definitions
 
@@ -173,7 +173,7 @@ A machine-readable (and, albeit beyond the scope of this document, actionable) r
 the server can set Content-Format 257 in the response and send the payload `a1270d`,
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the value CPA13.
 
-## Client processing
+## Client processing {#clientprocessing}
 
 A CoAP client can use the option instead of one or more Uri-Path option(s) if there is a suitable Uri-Path-Abbrev value
 that can express the requested URI path.
@@ -201,7 +201,7 @@ To account for older servers, the full set of reactions to expect is:
 
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
-Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other cases.
+Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce 4.02 Bad Option for other Uri-Path-Abbrev values.
 
 As CoAP multicast requests generally do not result in errors being returned,
 tentative use is not available for multicast requests.
@@ -383,7 +383,7 @@ Reviewer instructions:
 The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte option value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
-The expanded path is expected to be a well-known path ({{?RFC8615}}) at the time of writing,
+The expanded path is expected to be a well-known path ({{?RFC8615}}),
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
 | Option value       | Expanded path        | Reference |
@@ -410,7 +410,7 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 This appendix is normative.
 
-{{Section 1.2 of RFC7252}} introduces the concept of *rejecting* a
+{{Section 4.2 of RFC7252}} introduces the concept of *rejecting* a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
@@ -463,8 +463,8 @@ message.
 
 This unexplained inconsistency has been present in {{RFC7252}} since its
 initial publication, apparently without causing much trouble.
-Recently, this document has been describing a situation where discovery of
-Option support is more central to at least one use case; not being
+Section {{clientprocessing}} of this document describes a situation where discovery of
+option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
 
