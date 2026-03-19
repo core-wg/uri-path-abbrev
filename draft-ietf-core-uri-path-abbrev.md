@@ -236,7 +236,6 @@ The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request, a server MUST treat the Uri-Path-Abbrev option as a critical request option that could not be processed.
 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
-Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev option if they know the value.
 
 In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
 (but, being unaware of its existence, not Uri-Path-Abbrev)
