@@ -240,10 +240,12 @@ The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri op
 In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
 (but, being unaware of its existence, not Uri-Path-Abbrev)
 into a single Proxy-Uri/-CRI option.
-Servers that support both Uri-Path-Abbrev and Proxy-Uri/-CRI SHOULD decompose the Proxy-\* option into Uri-\* options before further processing,
-which entails an error response if both Uri-Path and Uri-Path-Abbrev are present.
-(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-Uri/-CRI from individual options,
-nor is there a reason known why they should).
+Later in the proxy chain, those options are split before reaching the server.
+
+Endpoints that process both the Proxy-Uri/-CRI and the Uri-Path-Abbrev option
+(which is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
+MUST logically decompose the Proxy-\* options before processing the Uri-Path-Abbrev option,
+which entails an error response if both a path segment in the Proxy-\* option and Uri-Path-Abbrev are present.
 
 ## Choice of the option number
 
