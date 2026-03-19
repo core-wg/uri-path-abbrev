@@ -236,15 +236,17 @@ The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request, a server MUST treat the Uri-Path-Abbrev option as a critical request option that could not be processed.
 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
-Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Uri MUST expand any Uri-Path-Abbrev option if they know the value.
 
-In theory, when there is a chain of proxies, a proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
-(but, being unaware of its existence, not Uri-Path-Abbrev)
-into a single Proxy-Uri/-CRI option.
-Servers that support both Uri-Path-Abbrev and Proxy-Uri/-CRI SHOULD decompose the Proxy-\* option into Uri-\* options before further processing,
-which entails an error response if both Uri-Path and Uri-Path-Abbrev are present.
-(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-Uri/-CRI from individual options,
-nor is there a reason known why they should).
+When a request gets forwarded through multiple proxies,
+any of them might convert the Uri-\* options (but, when unaware of its significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-CRI option.
+This Proxy-Uri/-CRI conversion will get reverted to Uri-\* options
+before or at the final hop where the final hop is not proxy forwarding.
+It is thus generally inconsequential to client and server that Proxy-Uri/-CRI and Uri-Path-Abbrev occur in the same message in such a case.
+
+Endpoints that process both the Proxy-Uri/-CRI and the Uri-Path-Abbrev option
+(which is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
+MUST logically decompose the Proxy-\* options before processing the Uri-Path-Abbrev option,
+which entails an error response if both a path segment in the Proxy-\* option and Uri-Path-Abbrev are present.
 
 ## Choice of the option number
 
