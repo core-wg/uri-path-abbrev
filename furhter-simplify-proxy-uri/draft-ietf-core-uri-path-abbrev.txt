@@ -267,10 +267,10 @@ Table of Contents
    2.  A 5.02 Bad Gateway response caused by a proxy that received a RST
        message or lack of response.
 
-   3.  A RST message caused by handling of a Non-confirmable request
-       message.
+   3.  Having sent a Non-confirmable request message: A RST message.
 
-   4.  Not receiving a response to a Non-confirmable request message.
+   4.  Having sent a Non-confirmable request message: Not receiving a
+       response.
 
    Some of the complexity of detecting lack of server-side support
    (items 3 and 4) can be avoided by not using the option with Non-
@@ -440,7 +440,7 @@ Table of Contents
 
       The biggest trouble during implementation was that originally, it
       was attempted to give the server application access to information
-      on whether or not Uri-Path-Abbrev was uses.  This was resolved by
+      on whether or not Uri-Path-Abbrev was used.  This was resolved by
       just not exposing the information -- after all, that is probably
       good layering practice anyway.
 
@@ -651,6 +651,11 @@ Table of Contents
               RFC 8126, DOI 10.17487/RFC8126, June 2017,
               <https://www.rfc-editor.org/rfc/rfc8126>.
 
+   [RFC8132]  van der Stok, P., Bormann, C., and A. Sehgal, "PATCH and
+              FETCH Methods for the Constrained Application Protocol
+              (CoAP)", RFC 8132, DOI 10.17487/RFC8132, April 2017,
+              <https://www.rfc-editor.org/rfc/rfc8132>.
+
    [RFC8613]  Selander, G., Mattsson, J., Palombini, F., and L. Seitz,
               "Object Security for Constrained RESTful Environments
               (OSCORE)", RFC 8613, DOI 10.17487/RFC8613, July 2019,
@@ -659,11 +664,6 @@ Table of Contents
    [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
               (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
               <https://www.rfc-editor.org/rfc/rfc8615>.
-
-   [RFC8790]  Keränen, A. and M. Mohajer, "FETCH and PATCH with Sensor
-              Measurement Lists (SenML)", RFC 8790,
-              DOI 10.17487/RFC8790, June 2020,
-              <https://www.rfc-editor.org/rfc/rfc8790>.
 
    [RFC9148]  van der Stok, P., Kampanakis, P., Richardson, M., and S.
               Raza, "EST-coaps: Enrollment over Secure Transport with
@@ -687,10 +687,6 @@ Table of Contents
               DOI 10.17487/RFC9290, October 2022,
               <https://www.rfc-editor.org/rfc/rfc9290>.
 
-   [RFC9457]  Nottingham, M., Wilde, E., and S. Dalal, "Problem Details
-              for HTTP APIs", RFC 9457, DOI 10.17487/RFC9457, July 2023,
-              <https://www.rfc-editor.org/rfc/rfc9457>.
-
    [RFC9528]  Selander, G., Preuß Mattsson, J., and F. Palombini,
               "Ephemeral Diffie-Hellman Over COSE (EDHOC)", RFC 9528,
               DOI 10.17487/RFC9528, March 2024,
@@ -698,12 +694,14 @@ Table of Contents
 
 Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
 
+   This appendix is normative.
+
    Section 1.2 of [RFC7252] introduces the concept of _rejecting_ a
    message, by sending back a RST (Reset) message or by silently
    ignoring the rejected message.  This can deal with messages for which
    a node does not have (e.g., no longer has) the necessary context to
-   process it, such as a response to a message that was sent immediately
-   before a node rebooted.
+   process it, such as a response to a message that a node sent
+   immediately before it rebooted.
 
    The concept of rejecting a message is a quite powerful way to limit
    the complexity of dealing with a variety of error conditions.
@@ -783,7 +781,7 @@ Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
 
    Note that the SHOULD about diagnostic payloads is repeated here; such
    a mandate usually needs to provide more information about when this
-   interoperability requirement does not need to be met.  [RFC9457] now
+   interoperability requirement does not need to be met.  [RFC9290] now
    in many cases provides a better way to respond than a diagnostic
    payload; for conciseness, this observation is not included in the
    normative replacement text proposed above.
@@ -797,6 +795,8 @@ Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
    the original behavior.
 
 Appendix B.  Further development
+
+   This appendix is for information only.
 
    Several possible further directions are anticipated in this document,
    but not specified at this point in time; they are left for further
@@ -825,11 +825,11 @@ Appendix B.  Further development
       values can not have the most significant bit of the first byte
       set.
 
-      This allows future documents to reuse the option for any CBOR
-      expressions, e.g. the path component of a CRI
-      [I-D.ietf-core-href].  Note that those CBOR structures can only
-      use the major types 4 to 7 for the top-level item, but that
-      includes all containers (arrays, maps and tags).
+      This allows future documents to reuse the option for CBOR data
+      items, e.g. the path component of a CRI [I-D.ietf-core-href].
+      Note that those CBOR data items can only use the major types 4 to
+      7 for the top-level item, but that includes all containers
+      (arrays, maps and tags).
 
       Senders and recipients of this option do not need to concern
       themselves with that extension mechanism unless they implement it:
@@ -850,9 +850,11 @@ Appendix B.  Further development
 
       In particular, application authors who seek to express Uri-Query
       options in a more concise or easier to process way are advised to
-      avail themselves of the FETCH method introduced in [RFC8790].
+      avail themselves of the FETCH method introduced in [RFC8132].
 
 Appendix C.  Change log
+
+   This section is to be removed before publishing as an RFC.
 
    Since ietf-core-uri-path-abbrev-02:
 
