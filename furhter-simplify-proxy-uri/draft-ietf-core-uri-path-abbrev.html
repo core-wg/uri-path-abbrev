@@ -1468,10 +1468,11 @@ the proxy needs to expand the path always.<a href="#section-2.3-4" class="pilcro
 <p id="section-2.4-1">The option is mutually exclusive with the Uri-Path option.
 Receiving both options in a single request, a server <span class="bcp14">MUST</span> treat the Uri-Path-Abbrev option as a critical request option that could not be processed.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 <p id="section-2.4-2">The Uri-Path-Abbrev option <span class="bcp14">MUST NOT</span> be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of <span>[<a href="#I-D.ietf-core-href" class="cite xref">I-D.ietf-core-href</a>]</span>)) by clients.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.4-3">In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-* options
-(but, being unaware of its existence, not Uri-Path-Abbrev)
-into a single Proxy-Uri/-CRI option.
-Later in the proxy chain, those options are split before reaching the server.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
+<p id="section-2.4-3">When a request gets forwarded through multiple proxies,
+any of them might convert the Uri-* options (but, when unaware of its significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-CRI option.
+This Proxy-Uri/-CRI conversion will get reverted to Uri-* options
+before or at the final hop where the final hop is not proxy forwarding.
+It is thus generally inconsequential to client and server that Proxy-Uri/-CRI and Uri-Path-Abbrev occur in the same message in such a case.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 <p id="section-2.4-4">Endpoints that process both the Proxy-Uri/-CRI and the Uri-Path-Abbrev option
 (which is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
 <span class="bcp14">MUST</span> logically decompose the Proxy-* options before processing the Uri-Path-Abbrev option,
