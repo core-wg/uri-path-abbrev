@@ -2105,127 +2105,148 @@ are advised to avail themselves of the FETCH method introduced in <span>[<a href
 <a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-change-log" class="section-name selfRef">Change log</a>
       </h2>
 <p id="appendix-C-1">This section is to be removed before publishing as an RFC.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
-<p id="appendix-C-2">Since ietf-core-uri-path-abbrev-02:<a href="#appendix-C-2" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">Since ietf-core-uri-path-abbrev-03:<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-3.1">
-          <p id="appendix-C-3.1.1">Added normative appendix fixing an oversight in RFC7252 (moving in from corr-clar). This allows limiting the handling of exotic cases in tentative use.<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-3.1.1">Applied simplifications in handling of Proxy-Uri in combination of -03 more consistently:<a href="#appendix-C-3.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-3.1.2.1">
+              <p id="appendix-C-3.1.2.1.1">Removed mandate that proxies that recognize Uri-Path-Abbrev perform conversion to Proxy-Uri expand it if known
+(they may still do that per more generic rules, but given that a later proxy would undo the Proxy-Uri packing, there's no strong reason to, and it might hinder performance at a constrained server).<a href="#appendix-C-3.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="appendix-C-3.1.2.2">
+              <p id="appendix-C-3.1.2.2.1">Limited requirements of processing a Proxy-Uri together with Uri-Path-Abbrev to those endpoints that are actually in a position where they need to do it:
+those that process both options.
+That requirement was previously a <span class="bcp14">SHOULD</span> (made sense in -02 when it'd have been done by any server just to cater for the odd proxy)
+and became a <span class="bcp14">MUST</span> (now that it's only actionable for implementations that actually it).<a href="#appendix-C-3.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
 </li>
         <li class="normal" id="appendix-C-3.2">
-          <p id="appendix-C-3.2.1">Named Uri-Path-Abbrev as the unprocessed option when it occurs together with Uri-Path.<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-3.3">
-          <p id="appendix-C-3.3.1">Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if a path component is present in the former. Text was changed to indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev together is an exotic case even when there is no conflict.<a href="#appendix-C-3.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-3.4">
-          <p id="appendix-C-3.4.1">Formal definitions of abbreviate/expand.<a href="#appendix-C-3.4.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-3.5">
-          <p id="appendix-C-3.5.1">Editorial enhancements.<a href="#appendix-C-3.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-3.2.1">Editorial fixes<a href="#appendix-C-3.2.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-4">Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.<a href="#appendix-C-4" class="pilcrow">¶</a></p>
+<p id="appendix-C-4">Since ietf-core-uri-path-abbrev-02:<a href="#appendix-C-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-5.1">
-          <p id="appendix-C-5.1.1">Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-5.1.1">Added normative appendix fixing an oversight in RFC7252 (moving in from corr-clar). This allows limiting the handling of exotic cases in tentative use.<a href="#appendix-C-5.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.2">
-          <p id="appendix-C-5.2.1">The "<span class="bcp14">SHOULD</span>" to support fallback mode was lifted to "<span class="bcp14">SHOULD</span> only be [used when the server is known to support it]",
-with the recovery being a factual necessity for reliability in tentative use.<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-5.2.1">Named Uri-Path-Abbrev as the unprocessed option when it occurs together with Uri-Path.<a href="#appendix-C-5.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.3">
-          <p id="appendix-C-5.3.1">The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-5.3.1">Processing a mixed Proxy-Uri / Uri-Path-Abbrev is now an error if a path component is present in the former. Text was changed to indicate more strongly that seeing a Proxy-Uri and Uri-Path-Abbrev together is an exotic case even when there is no conflict.<a href="#appendix-C-5.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.4">
-          <p id="appendix-C-5.4.1">Use with multicast was limited to non-tentative use.<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-5.4.1">Formal definitions of abbreviate/expand.<a href="#appendix-C-5.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-5.5">
-          <p id="appendix-C-5.5.1">Added reference to libcoap work.<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.6">
-          <p id="appendix-C-5.6.1">Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.<a href="#appendix-C-5.6.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.7">
-          <p id="appendix-C-5.7.1">Sections on future work were unified in the appendix.<a href="#appendix-C-5.7.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.8">
-          <p id="appendix-C-5.8.1">Appendix on open questions was moved into the issue tracker at <a href="https://github.com/core-wg/uri-path-abbrev/issues/">https://github.com/core-wg/uri-path-abbrev/issues/</a>.<a href="#appendix-C-5.8.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.9">
-          <p id="appendix-C-5.9.1">Cleanup of IANA considerations where -01 previous changes were not accounted for.<a href="#appendix-C-5.9.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.10">
-          <p id="appendix-C-5.10.1">"Choice of option number" spelled out and set up for removal before publication.<a href="#appendix-C-5.10.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-C-5.11">
-          <p id="appendix-C-5.11.1">Editorial changes.<a href="#appendix-C-5.11.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-5.5.1">Editorial enhancements.<a href="#appendix-C-5.5.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-6">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-C-6" class="pilcrow">¶</a></p>
+<p id="appendix-C-6">Since ietf-core-uri-path-abbrev-01: Processing WGA review input and cleanup.<a href="#appendix-C-6" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-7.1">
-          <p id="appendix-C-7.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.1.1">Using Uri-Path-Abbrev without knowing it will be supported now has a term ("tentative use") and was reworded.<a href="#appendix-C-7.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.2">
-          <p id="appendix-C-7.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.2.1">The "<span class="bcp14">SHOULD</span>" to support fallback mode was lifted to "<span class="bcp14">SHOULD</span> only be [used when the server is known to support it]",
+with the recovery being a factual necessity for reliability in tentative use.<a href="#appendix-C-7.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.3">
-          <p id="appendix-C-7.3.1">Allocate code for EDHOC.<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.3.1">The fallback detection was extended to account for possible reactions to NONs (namely, RST, not replying at all, and 5.02).<a href="#appendix-C-7.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.4">
-          <p id="appendix-C-7.4.1">Defer repeated use to future extensions.<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.4.1">Use with multicast was limited to non-tentative use.<a href="#appendix-C-7.4.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.5">
-          <p id="appendix-C-7.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.5.1">Added reference to libcoap work.<a href="#appendix-C-7.5.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.6">
-          <p id="appendix-C-7.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-7.6.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.6.1">Added pointer to RFC9290 (Problem Details) error messages, discouraging diagnostic payloads.<a href="#appendix-C-7.6.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.7">
-          <p id="appendix-C-7.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-C-7.7.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.7.1">Sections on future work were unified in the appendix.<a href="#appendix-C-7.7.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.8">
-          <p id="appendix-C-7.8.1">Add introduction and motivating example.<a href="#appendix-C-7.8.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.8.1">Appendix on open questions was moved into the issue tracker at <a href="https://github.com/core-wg/uri-path-abbrev/issues/">https://github.com/core-wg/uri-path-abbrev/issues/</a>.<a href="#appendix-C-7.8.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-7.9">
-          <p id="appendix-C-7.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-C-7.9.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-7.9.1">Cleanup of IANA considerations where -01 previous changes were not accounted for.<a href="#appendix-C-7.9.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.10">
+          <p id="appendix-C-7.10.1">"Choice of option number" spelled out and set up for removal before publication.<a href="#appendix-C-7.10.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-7.11">
+          <p id="appendix-C-7.11.1">Editorial changes.<a href="#appendix-C-7.11.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-8">Since draft-amsuess-core-shopinc-02:<a href="#appendix-C-8" class="pilcrow">¶</a></p>
-<p id="appendix-C-9">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-C-9" class="pilcrow">¶</a></p>
-<p id="appendix-C-10">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-C-10" class="pilcrow">¶</a></p>
+<p id="appendix-C-8">Since ietf-core-uri-path-abbrev-00: Processing previous two interims.<a href="#appendix-C-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-C-11.1">
-          <p id="appendix-C-11.1.1">Document is standards track.<a href="#appendix-C-11.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C-9.1">
+          <p id="appendix-C-9.1.1">Rename option to Uri-Path-Abbrev.<a href="#appendix-C-9.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-11.2">
-          <p id="appendix-C-11.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-C-11.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-9.2">
+          <p id="appendix-C-9.2.1">Allocate per-resource codes for EST and cBRSKI.<a href="#appendix-C-9.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-11.3">
-          <p id="appendix-C-11.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-C-11.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-9.3">
+          <p id="appendix-C-9.3.1">Allocate code for EDHOC.<a href="#appendix-C-9.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-11.4">
-          <p id="appendix-C-11.4.1">Minor editorials.<a href="#appendix-C-11.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-9.4">
+          <p id="appendix-C-9.4.1">Defer repeated use to future extensions.<a href="#appendix-C-9.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.5">
+          <p id="appendix-C-9.5.1">Rearrange content to have dedicated server, client and proxy subsections for option processing.<a href="#appendix-C-9.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.6">
+          <p id="appendix-C-9.6.1">Establish that generic clients <span class="bcp14">SHOULD NOT</span> use this without reason.<a href="#appendix-C-9.6.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.7">
+          <p id="appendix-C-9.7.1">More explicit language for proxies, including cross-proxies.<a href="#appendix-C-9.7.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.8">
+          <p id="appendix-C-9.8.1">Add introduction and motivating example.<a href="#appendix-C-9.8.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-9.9">
+          <p id="appendix-C-9.9.1">Add RFC7942 Implementation Status section.<a href="#appendix-C-9.9.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="appendix-C-12">Since draft-amsuess-core-shopinc-00:<a href="#appendix-C-12" class="pilcrow">¶</a></p>
+<p id="appendix-C-10">Since draft-amsuess-core-shopinc-02:<a href="#appendix-C-10" class="pilcrow">¶</a></p>
+<p id="appendix-C-11">Adopted into WG unmodified as I-D.ietf-core-uri-path-abbrev<a href="#appendix-C-11" class="pilcrow">¶</a></p>
+<p id="appendix-C-12">Since draft-amsuess-core-shopinc-01: Processing 2025-08-27 interim.<a href="#appendix-C-12" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-C-13.1">
-          <p id="appendix-C-13.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-13.1.1">Document is standards track.<a href="#appendix-C-13.1.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-13.2">
-          <p id="appendix-C-13.2.1">MCR joined as author.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-13.2.1">Change name of the option from Short-Uri-Path to Uri-Path-Abbr.<a href="#appendix-C-13.2.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-13.3">
-          <p id="appendix-C-13.3.1">Added initial values for BRSKI and EST.<a href="#appendix-C-13.3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-13.3.1">Close question of whether use of option 13 is justified (it is).<a href="#appendix-C-13.3.1" class="pilcrow">¶</a></p>
 </li>
         <li class="normal" id="appendix-C-13.4">
-          <p id="appendix-C-13.4.1">Allow 4.04 responses.<a href="#appendix-C-13.4.1" class="pilcrow">¶</a></p>
+          <p id="appendix-C-13.4.1">Minor editorials.<a href="#appendix-C-13.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-13.5">
-          <p id="appendix-C-13.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-C-13.5.1" class="pilcrow">¶</a></p>
+      </ul>
+<p id="appendix-C-14">Since draft-amsuess-core-shopinc-00:<a href="#appendix-C-14" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-C-15.1">
+          <p id="appendix-C-15.1.1">Switched option type from opaque to uint (retaining the lockout for values that look like CBOR arrays/maps).<a href="#appendix-C-15.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="appendix-C-13.6">
-          <p id="appendix-C-13.6.1">Large editorial changes.<a href="#appendix-C-13.6.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="appendix-C-15.2">
+          <p id="appendix-C-15.2.1">MCR joined as author.<a href="#appendix-C-15.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.3">
+          <p id="appendix-C-15.3.1">Added initial values for BRSKI and EST.<a href="#appendix-C-15.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.4">
+          <p id="appendix-C-15.4.1">Allow 4.04 responses.<a href="#appendix-C-15.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.5">
+          <p id="appendix-C-15.5.1">Add guidance for choosing prefixes and rules.<a href="#appendix-C-15.5.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="appendix-C-15.6">
+          <p id="appendix-C-15.6.1">Large editorial changes.<a href="#appendix-C-15.6.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>

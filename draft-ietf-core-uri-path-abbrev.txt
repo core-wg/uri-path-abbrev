@@ -856,6 +856,28 @@ Appendix C.  Change log
 
    This section is to be removed before publishing as an RFC.
 
+   Since ietf-core-uri-path-abbrev-03:
+
+   *  Applied simplifications in handling of Proxy-Uri in combination of
+      -03 more consistently:
+
+      -  Removed mandate that proxies that recognize Uri-Path-Abbrev
+         perform conversion to Proxy-Uri expand it if known (they may
+         still do that per more generic rules, but given that a later
+         proxy would undo the Proxy-Uri packing, there's no strong
+         reason to, and it might hinder performance at a constrained
+         server).
+
+      -  Limited requirements of processing a Proxy-Uri together with
+         Uri-Path-Abbrev to those endpoints that are actually in a
+         position where they need to do it: those that process both
+         options.  That requirement was previously a SHOULD (made sense
+         in -02 when it'd have been done by any server just to cater for
+         the odd proxy) and became a MUST (now that it's only actionable
+         for implementations that actually it).
+
+   *  Editorial fixes
+
    Since ietf-core-uri-path-abbrev-02:
 
    *  Added normative appendix fixing an oversight in RFC7252 (moving in
