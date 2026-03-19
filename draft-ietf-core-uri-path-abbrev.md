@@ -237,10 +237,11 @@ Receiving both options in a single request, a server MUST treat the Uri-Path-Abb
 
 The Uri-Path-Abbrev option MUST NOT be used in combination with the Proxy-Uri option (or the similar Proxy-CRI option (of {{?I-D.ietf-core-href}})) by clients.
 
-In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
-(but, being unaware of its existence, not Uri-Path-Abbrev)
-into a single Proxy-Uri/-CRI option.
-Later in the proxy chain, those options are split before reaching the server.
+When a request gets forwarded through multiple proxies,
+any of them might convert the Uri-\* options (but, when unaware of its significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-CRI option.
+This Proxy-Uri/-CRI conversion will get reverted to Uri-\* options
+before or at the final hop where the final hop is not proxy forwarding.
+It is thus generally inconsequential to client and server that Proxy-Uri/-CRI and Uri-Path-Abbrev occur in the same message in such a case.
 
 Endpoints that process both the Proxy-Uri/-CRI and the Uri-Path-Abbrev option
 (which is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
