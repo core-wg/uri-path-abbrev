@@ -151,7 +151,7 @@ from the registry established in {{iana-reg}}.
 Apart from the format and repeatability,
 the option's properties only deviate from the Uri-Path (for which it stands in)
 in that this option is safe to forward.
-This has consequences for its interactions with the Proxy-URI option,
+This has consequences for its interactions with the Proxy-Uri option,
 but these consequences are generally desirable:
 It allows the option to be used with CoAP proxies that do not implement the option.
 
@@ -240,10 +240,10 @@ Proxies that understand Uri-Path-Abbrev and convert Uri-\* options into Proxy-Ur
 
 In theory, when there is a chain of proxies, an proxy that is unaware of the safe-to-forward Uri-Path-Abbrev could combine the Proxy-Scheme and the Uri-\* options
 (but, being unaware of its existence, not Uri-Path-Abbrev)
-into a single Proxy-URI/-CRI option.
-Servers that support both Uri-Path-Abbrev and Proxy-URI/-CRI SHOULD decompose the Proxy-\* option into Uri-\* options before further processing,
+into a single Proxy-Uri/-CRI option.
+Servers that support both Uri-Path-Abbrev and Proxy-Uri/-CRI SHOULD decompose the Proxy-\* option into Uri-\* options before further processing,
 which entails an error response if both Uri-Path and Uri-Path-Abbrev are present.
-(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-URI/-CRI from individual options,
+(This is not a strict requirement, as there are no known implementations of proxies that actually compose a Proxy-Uri/-CRI from individual options,
 nor is there a reason known why they should).
 
 ## Choice of the option number
