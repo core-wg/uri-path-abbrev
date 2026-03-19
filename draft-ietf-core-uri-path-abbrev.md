@@ -96,7 +96,7 @@ The use of a critical CoAP option that is not understood by the server has a CoA
 which generally enables clients to retry without using the critical option.
 This mechanism is useful for the abbreviation mechanism of this document.
 
-That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 1.2 of RFC7252}} for handling unprocessable non-confirmable messages,
+That mechanism got conflated into the mechanism of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable non-confirmable messages,
 which makes detection of missing option support less reliable.
 
 {{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to alter the behavior of servers when they receive an unsupported critical option in a non-confirmable message.
@@ -408,7 +408,7 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 This appendix is normative.
 
-{{Section 1.2 of RFC7252}} introduces the concept of *rejecting* a
+{{Section 4.2 of RFC7252}} introduces the concept of *rejecting* a
 message, by sending back a RST (Reset) message or by silently
 ignoring the rejected message.
 This can deal with messages for which a node does not have (e.g., no
