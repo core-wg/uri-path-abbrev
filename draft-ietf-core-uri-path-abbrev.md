@@ -381,7 +381,7 @@ Reviewer instructions:
 The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte option value,
 focusing on applications that are expected to be useful in different constrained ecosystems.
 
-The expanded path is expected to be a well-known path ({{?RFC8615}}) at the time of writing,
+The expanded path is expected to be a well-known path ({{?RFC8615}}),
 but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
 | Option value       | Expanded path        | Reference |
