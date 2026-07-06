@@ -246,7 +246,7 @@ It is thus generally inconsequential to the client and the server that Proxy-Uri
 
 Endpoints that process both the Proxy-Uri/-CRI and the Uri-Path-Abbrev option
 (which is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
-MUST logically decompose the Proxy-\* options into Uri-* options before processing the Uri-Path-Abbrev option,
+MUST logically decompose the Proxy-\* options into Proxy-Scheme (or Proxy-Scheme-Number) and  Uri-* options before processing the Uri-Path-Abbrev option,
 which entails an error response if both a path segment in the Proxy-\* option and Uri-Path-Abbrev option are present.
 
 ## Choice of the option number
