@@ -1477,8 +1477,8 @@ before or at the final hop where the final hop is not proxy forwarding.
 It is thus generally inconsequential to the client and the server that Proxy-Uri/-Cri and Uri-Path-Abbrev occur in the same message in such a case.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 <p id="section-2.4-4">Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-Abbrev option
 (that is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
-<span class="bcp14">MUST</span> logically decompose the Proxy-* options into Proxy-Scheme (or Proxy-Scheme-Number) and  Uri-* options before processing the Uri-Path-Abbrev option,
-which entails an error response if both a path segment in the Proxy-* option and Uri-Path-Abbrev option are present.<a href="#section-2.4-4" class="pilcrow">¶</a></p>
+<span class="bcp14">MUST</span> logically decompose the Proxy-Uri/-Cri options into Proxy-Scheme (or Proxy-Scheme-Number) and  Uri-* options before processing the Uri-Path-Abbrev option,
+which entails an error response if both a path segment in a Proxy-Uri/-Cri option and Uri-Path-Abbrev option are present.<a href="#section-2.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="choice-of-the-option-number">

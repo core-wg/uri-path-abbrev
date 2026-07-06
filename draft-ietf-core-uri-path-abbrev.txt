@@ -337,10 +337,10 @@ Table of Contents
    Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-
    Abbrev option (that is, servers that are not forwarding like proxies,
    but are regarded as proxies by other proxies), MUST logically
-   decompose the Proxy-* options into Proxy-Scheme (or Proxy-Scheme-
-   Number) and Uri-* options before processing the Uri-Path-Abbrev
-   option, which entails an error response if both a path segment in the
-   Proxy-* option and Uri-Path-Abbrev option are present.
+   decompose the Proxy-Uri/-Cri options into Proxy-Scheme (or Proxy-
+   Scheme-Number) and Uri-* options before processing the Uri-Path-
+   Abbrev option, which entails an error response if both a path segment
+   in a Proxy-Uri/-Cri option and Uri-Path-Abbrev option are present.
 
 2.5.  Choice of the option number
 
