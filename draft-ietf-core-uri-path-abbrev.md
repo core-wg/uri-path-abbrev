@@ -191,7 +191,7 @@ to operate reliably.
 
 The client can expect that a server which does not support the Uri-Path-Abbrev option
 responds with 4.02 Bad Option.
-Diverging behavior of servers is allowed until the changes specified in {{update7252}} have been made across all CoAP implementations.
+Diverging behavior of servers is allowed until the changes specified in {{update7252}} have been made.
 To account for legacy servers, the full set of reactions a client can expect is:
 
 1. A 4.02 Bad Option response.
