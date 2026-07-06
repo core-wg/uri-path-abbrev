@@ -189,8 +189,8 @@ In that case, the client needs to reliably detect failure of the option processi
 and needs to fall back to repeating the request with the URI path spelled out (using Uri-Path options),
 to operate reliably.
 
-The client can expect that a server which does not support the Uri-Path-Abbrev option
-responds with 4.02 Bad Option.
+The client can expect that a server which does not support the Uri-Path-Abbrev option or does not know the option value
+responds with a 4.02 Bad Option response.
 Diverging behavior of servers is allowed until the changes specified in {{update7252}} have been made.
 To account for legacy servers, the full set of reactions a client can expect is:
 
