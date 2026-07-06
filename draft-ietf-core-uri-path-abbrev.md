@@ -64,7 +64,7 @@ This document updates RFC7252 to rectify that.
 
 When building application components on CoAP ({{!RFC7252}}),
 sending small messages is a general goal in the ecosystem
-(i.e., constrained environments, where data rates are limited and large packets can lead to packet loss, see {{?RFC7228}}).
+(i.e., constrained environments, where data rates are limited and large packets can lead to packet loss, see {{?I-D.ietf-iotops-7228bis}}).
 While CoAP can operate with a wide range of URIs,
 short path names are therefore favored.
 
@@ -536,7 +536,7 @@ support the transition to such an extension.
   or defer some of that decision to that first value's entry.
 
 * The mechanism of expanding one option into another option
-  might be expressed using the terminology of SCHC.
+  might be expressed using the terminology of SCHC {{?RFC8724}}.
 
   Such a generalization is not aimed for in this document;
   authors of any future document providing such a framework
