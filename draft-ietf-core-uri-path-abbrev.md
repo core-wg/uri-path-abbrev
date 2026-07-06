@@ -55,7 +55,7 @@ and the interoperability requirement of following BCP190
 and thus using (relatively verbose) well-known URI paths.
 This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes.
 
-Using this option revealed a subtle flaw in RFC7252 that severly limited the extension point of critical options.
+Using this option revealed a subtle flaw in RFC7252 that severely limited the extension point of critical options.
 This document updates RFC7252 to rectify that.
 
 --- middle
@@ -305,7 +305,7 @@ Note that the well-known '`core`' and '`rd`' paths are commonly used together wi
 
 * aiocoap <https://christian.amsuess.com/tools/aiocoap/>
 
-  A general-purpose implementation of CoAP for unconstrained sytems,
+  A general-purpose implementation of CoAP for unconstrained systems,
   published under MIT License.
 
   In its current main branch,
