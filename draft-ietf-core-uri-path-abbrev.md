@@ -1,5 +1,5 @@
 ---
-title: "URI-Path abbreviation in CoAP"
+title: "URI Path abbreviation in CoAP"
 abbrev: "Uri-Path-Abbrev"
 category: std
 updates: 7252
@@ -75,9 +75,9 @@ can not rely on discovered short paths,
 and need to use well-known paths.
 The best practice established in {{?BCP190}}
 requires applications to use the prefix ".well-known" for their paths,
-making the combined size of the URI path options easily longer than the rest of the CoAP message.
+making the combined size of the CoAP Uri-Path options easily longer than the rest of the CoAP message.
 
-This document establishes a CoAP option that allows abbreviating the path component of the request URI by encoding
+This document establishes the CoAP Uri-Path-Abbrev option, which allows abbreviating the path component of the request URI by encoding
 the path component as a single number.
 A registry is established to maintain the mapping between numbers and URI paths.
 
@@ -160,7 +160,7 @@ It allows the option to be used with CoAP proxies that do not implement the opti
 A CoAP server receiving this option processes it like the equivalent sequence of Uri-Path options.
 
 A server that supports a specific Uri-Path-Abbrev value
-MUST also support the equivalent request where the URI path is composed of Uri-Path options.
+MUST also support the sequence of Uri-Path options specifying the equivalent URI path.
 
 A server receiving the option with an unknown value MUST treat it as an unprocessable critical option,
 returning a 4.02 Bad Option response,
@@ -171,7 +171,7 @@ Since CoAP clients that use the option are usually aware of the possibility of f
 there is no need to provide a diagnostic payload in the error response (as is generally recommended in {{Section 5.4.1 of RFC7252}} and its updated version in {{update7252}}).
 A machine-readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
 the server can set Content-Format 257 in the response and send the three-byte payload `a1270d`,
-which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the option value CPA13.
+which is the Concise Binary Object Representation (CBOR) encoding for the CoAP problem detail "Unprocessed CoAP option" with the option value CPA13.
 
 ## Client processing {#clientprocessing}
 
