@@ -168,7 +168,7 @@ and MUST NOT return a 4.04 Not Found response,
 because the equivalent path may be present on the server.
 
 Since CoAP clients that use the option are usually aware of the possibility of failure,
-there is no need to provide a diagnostic payload in the error response (as is generally recommended in {{Section 5.4.1 of RFC7252}}).
+there is no need to provide a diagnostic payload in the error response (as is generally recommended in {{Section 5.4.1 of RFC7252}} and its updated version in {{update7252}}).
 A machine-readable (and, albeit beyond the scope of this document, actionable) response is described in {{Section 3.1.1 of ?RFC9290}}:
 the server can set Content-Format 257 in the response and send the three-byte payload `a1270d`,
 which is the CBOR encoding for the CoAP problem detail "Unprocessed CoAP option" with the option value CPA13.
