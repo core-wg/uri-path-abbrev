@@ -299,6 +299,8 @@ Note that the well-known '`core`' and '`rd`' paths are commonly used together wi
 
 # Implementation Status
 
+\[ This section is to be removed by the RFC editor, which entails removing the reference to RFC7942. \]
+
 {::boilerplate rfc7942}
 
 * aiocoap <https://christian.amsuess.com/tools/aiocoap/>
