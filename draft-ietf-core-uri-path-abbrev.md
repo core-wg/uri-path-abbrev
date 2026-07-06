@@ -493,9 +493,6 @@ CORRECTED:
         cause the response to be rejected (Section 4.3).
   </blockquote>
 
-(This replacement text could be integrated in a less redundant way;
-the present proposal primarily aims at clarity.)
-
 Of course, existing implementations will not immediately change their
 behavior, so an implementation of a discovery process per this document
 will still need to deal with uncertainty for the foreseeable future,
