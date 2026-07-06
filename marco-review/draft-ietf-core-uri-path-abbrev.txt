@@ -20,7 +20,7 @@ Abstract
    paths.  This document introduces the Uri-Path-Abbrev CoAP option that
    allows expressing well-known URI paths in as little as two bytes.
 
-   Using this option revealed a subtle flaw in RFC7252 that severly
+   Using this option revealed a subtle flaw in RFC7252 that severely
    limited the extension point of critical options.  This document
    updates RFC7252 to rectify that.
 
@@ -436,8 +436,8 @@ Table of Contents
    *  aiocoap https://christian.amsuess.com/tools/aiocoap/
       (https://christian.amsuess.com/tools/aiocoap/)
 
-      A general-purpose implementation of CoAP for unconstrained sytems,
-      published under MIT License.
+      A general-purpose implementation of CoAP for unconstrained
+      systems, published under MIT License.
 
       In its current main branch, the implementation covers the server
       side of this specification, applying expansion automatically
