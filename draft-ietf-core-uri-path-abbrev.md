@@ -572,6 +572,13 @@ support the transition to such an extension.
 # Change log
 {: removeinrfc}
 
+Since ietf-core-uri-path-abbrev-04: Addressing WGLC comments.
+
+* Updated references.
+* Use "refuse" rather than "reject" around policy rules, as "reject" has defined CoAP terminology, which even gets used in this document.
+* Editorial changes, including in abstract.
+  * Implementation Status section now to be removed by RFC editor.
+
 Since ietf-core-uri-path-abbrev-03:
 
 * Applied simplifications in handling of Proxy-Uri in combination of -03 more consistently:
@@ -645,3 +652,4 @@ Discussion with Esko Dijk led to the creation of the document,
 he questioned choices until the design was simple enough, and also provided editorial input.
 Carsten Bormann provided {{update7252}}, as well as useful input on shaping the registry.
 Jon Shallow provided much input, in particular around gaps in the fallback process.
+Marco Tiloca helped bring the document into a consistent shape.
