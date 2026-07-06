@@ -471,7 +471,7 @@ option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
 
-This defect can be remedied by applying this change:
+This defect is remedied by applying this change:
 
 INCORRECT:
 : <blockquote markdown="1">
