@@ -223,7 +223,7 @@ and if it does, it MUST be able to fall back to the expanded form upon failure, 
 A proxy that knows the Uri-Path-Abbrev option but not the concrete value at hand
 SHOULD forward a request unmodified,
 which is the behavior it would apply if it did not know the option.
-A valid exception where the proxy can reject the request instead is when the proxy is tasked with enforcing access control
+A valid exception where the proxy can refuse the request instead is when the proxy is tasked with enforcing access control
 (see {{seccons}}).
 
 When cross-proxying to protocols that cannot transport this option
@@ -336,7 +336,7 @@ Having alternative expressions for information that is input to policy decisions
 can be problematic when the mechanism performing the check has a different interpretation of the presented data than the mechanism at time of use.
 That concern is not new to this document:
 Both the Proxy-Uri {{RFC7252}} and the Proxy-Cri option {{I-D.ietf-core-href}} have the same properties in that regard.
-The appropriate behavior is for policy enforcement points to reject any request that contains critical options that are not understood;
+The appropriate behavior is for policy enforcement points to refuse any request that contains critical options that are not understood;
 the application protected by the checker may provide the checker with an allow-list of options that it will treat as unchecked input.
 
 # IANA Considerations
