@@ -55,8 +55,8 @@ and the interoperability requirement of following BCP190
 and thus using (relatively verbose) well-known URI paths.
 This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes.
 
-Negotiating the use of this option between client and server revealed a subtle flaw in RFC7252.
-This document updates RFC7252 to rectify it, thus making the extension point of critical options more useful.
+Using this option revealed a subtle flaw in RFC7252 that severly limited the extension point of critical options.
+This document updates RFC7252 to rectify that.
 
 --- middle
 
