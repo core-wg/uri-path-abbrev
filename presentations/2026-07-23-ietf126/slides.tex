@@ -1,0 +1,67 @@
+\input{shared/ietf-slides.tex}
+
+\title{URI-Path abbreviation in CoAP}
+\subtitle{\ietfdraft{ietf-core-uri-path-abbrev-05}}
+\author{\textit{Christian~Amsüss}, Michael~Richardson}
+\date{CoRE at IETF126 / Vienna, 2026-07-23}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{\color{gray}Why?}\Large\color{gray}
+  GET /.well-known/core has 17 bytes of Uri-Path.
+
+  \bigskip
+
+  EDHOC was unhappy.
+
+  \bigskip
+
+  cBRSKI is unhappy.
+
+  \bigskip
+
+  IETFers are jealous of other SDOs\footnote{LwM2M's \texttt{/rd} is a BCP190 no-go}
+\end{frame}
+
+\begin{frame}{\color{gray}Solution}\Large\color{gray}
+  Numeric Uri-Path-Abbrev option.
+
+  \bigskip
+
+  \begin{tabular}{l|l}
+    Abbreviated & Expanded \\ \hline
+    Uri-Path: 0 \hspace{1cm} & Uri-Path: ``.well-known'', ``core'' \\
+    \texttt{d0 00} & \texttt{bb . w e l l - k n o w n 04 c o r e} \\
+    2 & 17 \\
+  \end{tabular}
+
+  \bigskip
+
+  Critical. Safe-to-forward\footnote{even though Uri-Path is not}.
+
+  \bigskip
+
+  Uri-Host (3), Uri-Port (7), \textbf{Uri-Path-Abbrev (13)}, Uri-Query (15).
+\end{frame}
+
+\begin{frame}{Post-WGLC: -05 published}\Large
+  \framesubtitle{Addressing WGLC comments}
+
+  Thanks Marco for a thorough review.
+
+  \begin{itemize}
+    \item ``reject'' was ambiguous, now ``refuse'' a request at access control.
+    \item Editorial changes, including in abstract.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Status}\Large
+  \begin{itemize}
+    \item IANA comments on ``name of registry'' and ``IETF review vs. expert instructions: Hold for shepherd comments?
+    \item Off to Carsten (shepherd)?
+  \end{itemize}
+\end{frame}
+
+\end{document}
