@@ -6,7 +6,7 @@ CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Updates: 7252 (if approved)                                M. Richardson
 Intended status: Standards Track                Sandelman Software Works
-Expires: 7 January 2027                                      6 July 2026
+Expires: 23 January 2027                                    22 July 2026
 
 
                      URI Path abbreviation in CoAP
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2027.
+   This Internet-Draft will expire on 23 January 2027.
 
 Copyright Notice
 
