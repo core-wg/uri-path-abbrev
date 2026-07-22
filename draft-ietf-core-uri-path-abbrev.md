@@ -291,6 +291,7 @@ This document registers values for the following well-known URIs:
   EST does allow using other paths, such as different root resources or arbitrary labels;
   for those, no abbreviations are supported in this document.
 * For cBRSKI {{?I-D.ietf-anima-constrained-voucher}}:
+  <!-- Just to be sure, let's run a final check whether those are still the paths used in cBRSKI when this document is in RFC editor stage -->
   * `/.well-known/brski/es`
   * `/.well-known/brski/rv`
   * `/.well-known/brski/vs`
