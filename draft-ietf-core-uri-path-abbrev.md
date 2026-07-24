@@ -257,6 +257,8 @@ starts with a zero bit:
 This provides one value of a option of zero bytes length (the value 0, allocated in this document to `/.well-known/core`),
 127 values of one byte length,
 and more of lengths up two to four bytes.
+Until (early) allocation is done,
+authors are encouraged to describe a range from which IANA will then select a free value.
 
 Allocations should be frugal with the one-byte option values,
 focusing on applications that are expected to be useful in different constrained ecosystems.
