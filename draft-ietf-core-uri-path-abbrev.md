@@ -353,7 +353,7 @@ IANA is requested to enter one option into the CoAP Option Numbers registry in t
 ## Uri-Path-Abbrev registry {#iana-reg}
 
 IANA is requested to establish a new registry in the CoRE Parameters registry group.
-The value of the first Uri-Path-Abbrev option in a CoAP request corresponds to a URI path entry in this registry.
+The value of the Uri-Path-Abbrev option in a CoAP request corresponds to a URI path entry in this registry.
 
 The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
 Change control for the registry follows this document's publication stream.
