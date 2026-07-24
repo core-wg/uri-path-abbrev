@@ -249,6 +249,21 @@ Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-Abbrev option
 MUST logically decompose the Proxy-Uri/-Cri options into Proxy-Scheme (or Proxy-Scheme-Number) and  Uri-* options before processing the Uri-Path-Abbrev option,
 which entails an error response if both a path segment in a Proxy-Uri/-Cri option and Uri-Path-Abbrev option are present.
 
+## Choice of registered option values {#howtopick}
+
+As detailed in {{iana-reg}},
+the numeric values are limited to those whose encoding in CoAP option bytes (as a uint without leading zero bytes)
+starts with a zero bit:
+This provides one value of a option of zero bytes length (the value 0, allocated in this document to `/.well-known/core`),
+127 values of one byte length,
+and more of lengths up two to four bytes.
+
+Allocations should be frugal with the one-byte option values,
+focusing on applications that are expected to be useful in different constrained ecosystems.
+
+The expanded path is expected to be a well-known path ({{?RFC8615}}),
+but it is up to the IETF processes to also admit paths that are not well-known.
+
 ## Choice of the option number
 
 [^removeme]
@@ -359,6 +374,8 @@ The policy for adding any value is IETF Review (as described in {{?RFC8126}}).
 Change control for the registry follows this document's publication stream.
 Initial values for the registry are given in {{initial-table}}.
 
+Reviewers of specifications that register are encouraged to read {{howtopick}} in particular.
+
 The required fields for each registration are:
 
 * Option value.
@@ -381,14 +398,6 @@ The required fields for each registration are:
 * Reference.
 
   A document that requested the allocation.
-
-Reviewer instructions:
-
-The reviewer is instructed to be frugal with the 128 values that correspond to a single-byte option value,
-focusing on applications that are expected to be useful in different constrained ecosystems.
-
-The expanded path is expected to be a well-known path ({{?RFC8615}}),
-but it is up to the reviewers to exceptionally also admit paths that are not well-known.
 
 | Option value       | Expanded path        | Reference |
 |--------------------+----------------------+-----------|
