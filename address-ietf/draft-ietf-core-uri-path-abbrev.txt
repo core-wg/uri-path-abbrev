@@ -6,7 +6,7 @@ CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Updates: 7252 (if approved)                                M. Richardson
 Intended status: Standards Track                Sandelman Software Works
-Expires: 24 January 2027                                    23 July 2026
+Expires: 25 February 2027                                 24 August 2026
 
 
                      URI Path abbreviation in CoAP
@@ -54,7 +54,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 January 2027.
+   This Internet-Draft will expire on 25 February 2027.
 
 Copyright Notice
 
@@ -81,7 +81,8 @@ Table of Contents
      2.2.  Client processing
      2.3.  Proxy processing
      2.4.  Interaction with other options
-     2.5.  Choice of the option number
+     2.5.  Choice of registered option values
+     2.6.  Choice of the option number
    3.  Initial Uri-Path-Abbrev values
    4.  Implementation Status
    5.  Security Considerations
@@ -342,7 +343,26 @@ Table of Contents
    Abbrev option, which entails an error response if both a path segment
    in a Proxy-Uri/-Cri option and Uri-Path-Abbrev option are present.
 
-2.5.  Choice of the option number
+2.5.  Choice of registered option values
+
+   As detailed in Section 6.2, the numeric values are limited to those
+   whose encoding in CoAP option bytes (as a uint without leading zero
+   bytes) starts with a zero bit: This provides one value of a option of
+   zero bytes length (the value 0, allocated in this document to /.well-
+   known/core), 127 values of one byte length, and more of lengths up
+   two to four bytes.  Until (early) allocation is done, authors are
+   encouraged to describe a range from which IANA will then select a
+   free value.
+
+   Allocations should be frugal with the one-byte option values,
+   focusing on applications that are expected to be useful in different
+   constrained ecosystems.
+
+   The expanded path is expected to be a well-known path ([RFC8615]),
+   but it is up to the IETF processes to also admit paths that are not
+   well-known.
+
+2.6.  Choice of the option number
 
 
    // RFC-Editor: Please remove this section during publication.  It is
@@ -494,13 +514,16 @@ Table of Contents
 6.2.  Uri-Path-Abbrev registry
 
    IANA is requested to establish a new registry in the CoRE Parameters
-   registry group.  The value of the first Uri-Path-Abbrev option in a
-   CoAP request corresponds to a URI path entry in this registry.
+   registry group.  The value of the Uri-Path-Abbrev option in a CoAP
+   request corresponds to a URI path entry in this registry.
 
    The policy for adding any value is IETF Review (as described in
    [RFC8126]).  Change control for the registry follows this document's
    publication stream.  Initial values for the registry are given in
    Table 2.
+
+   Reviewers of specifications that register are encouraged to read
+   Section 2.5 in particular.
 
    The required fields for each registration are:
 
@@ -525,16 +548,6 @@ Table of Contents
    *  Reference.
 
       A document that requested the allocation.
-
-   Reviewer instructions:
-
-   The reviewer is instructed to be frugal with the 128 values that
-   correspond to a single-byte option value, focusing on applications
-   that are expected to be useful in different constrained ecosystems.
-
-   The expanded path is expected to be a well-known path ([RFC8615]),
-   but it is up to the reviewers to exceptionally also admit paths that
-   are not well-known.
 
     +========+================+======================================+
     | Option | Expanded path  | Reference                            |
