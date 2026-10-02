@@ -214,6 +214,7 @@ because conditions for tentative use are generally not met in this case.
 ## Proxy processing
 
 A proxy receiving a request MAY expand into Uri-Path options, or abbreviate to a Uri-Path-Abbrev option, before consulting its cache.
+Analogous considerations apply to a client cache.
 
 It MAY expand a Uri-Path-Abbrev option before forwarding,
 in particular if it has reason to assume that the option is not understood by the receiver.
