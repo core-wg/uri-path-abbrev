@@ -467,7 +467,7 @@ message.
 
 This unexplained inconsistency has been present in {{RFC7252}} since its
 initial publication, apparently without causing much trouble.
-Section {{clientprocessing}} of this document describes a situation where discovery of
+{{clientprocessing}} of this document describes a situation where discovery of
 option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
