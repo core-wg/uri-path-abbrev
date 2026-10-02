@@ -53,7 +53,7 @@ informative:
 Applications built on CoAP face a conflict between the technical need for short message sizes
 and the interoperability requirement of following BCP190
 and thus using (relatively verbose) well-known URI paths.
-This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes.
+This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes in many cases.
 
 Using this option revealed a subtle flaw in RFC7252 that severely limited the extension point of critical options.
 This document updates RFC7252 to rectify that.
