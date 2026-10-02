@@ -6,7 +6,7 @@ CoRE                                                           C. Amsüss
 Internet-Draft                                                          
 Updates: 7252 (if approved)                                M. Richardson
 Intended status: Standards Track                Sandelman Software Works
-Expires: 25 February 2027                                 24 August 2026
+Expires: 5 April 2027                                     2 October 2026
 
 
                      URI Path abbreviation in CoAP
@@ -18,7 +18,8 @@ Abstract
    for short message sizes and the interoperability requirement of
    following BCP190 and thus using (relatively verbose) well-known URI
    paths.  This document introduces the Uri-Path-Abbrev CoAP option that
-   allows expressing well-known URI paths in as little as two bytes.
+   allows expressing well-known URI paths in as little as two bytes in
+   many cases.
 
    Using this option revealed a subtle flaw in RFC7252 that severely
    limited the extension point of critical options.  This document
@@ -54,7 +55,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 February 2027.
+   This Internet-Draft will expire on 5 April 2027.
 
 Copyright Notice
 
@@ -81,14 +82,14 @@ Table of Contents
      2.2.  Client processing
      2.3.  Proxy processing
      2.4.  Interaction with other options
-     2.5.  Choice of registered option values
-     2.6.  Choice of the option number
+     2.5.  Choice of the option number
    3.  Initial Uri-Path-Abbrev values
    4.  Implementation Status
    5.  Security Considerations
    6.  IANA Considerations
      6.1.  CoAP option: Uri-Path-Abbrev
      6.2.  Uri-Path-Abbrev registry
+       6.2.1.  Registry content from documents in draft status
    7.  References
      7.1.  Normative References
      7.2.  Informative References
@@ -203,7 +204,7 @@ Table of Contents
 
    The option is critical, safe-to-forward, part of the Cache-Key, non-
    repeatable and used in CoAP requests.  Table 1 summarizes these
-   properties, extending Table 4 of [RFC7252]).  Its OSCORE treatment is
+   properties, extending Table 4 of [RFC7252].  Its OSCORE treatment is
    as Class E ([RFC8613]).
 
    The option has an unsigned integer value taken from the registry
@@ -247,20 +248,19 @@ Table of Contents
    option(s) if there is a suitable Uri-Path-Abbrev value that can
    express the requested URI path.
 
-   The option SHOULD only be sent when it is known that the CoAP server
-   has support for the concrete value.  This knowledge is typically not
-   learned/discovered, but follows from other specifications mandating
-   support for it.
+   To be efficient, the option should only be sent when it is known that
+   the CoAP server has support for the concrete value.  This knowledge
+   is typically not learned/discovered, but follows from other
+   specifications mandating support for it.
 
    A client can also send a value if it is merely likely that the server
    supports it.  (The decision threshold varies by application, but
    generally it's closer to 95% than a mere more-likely-than-not.)  This
    is called "tentative use" of the option.
 
-   In that case, the client needs to reliably detect failure of the
-   option processing, and needs to fall back to repeating the request
-   with the URI path spelled out (using Uri-Path options), to operate
-   reliably.
+   In that case, the client MUST reliably detect failure of the option
+   processing, and needs to fall back to repeating the request with the
+   URI path spelled out (using Uri-Path options), to operate reliably.
 
    The client can expect that a server that does not support the Uri-
    Path-Abbrev option or does not know the option value replies with a
@@ -281,9 +281,9 @@ Table of Contents
    Some of the complexity of detecting lack of server-side support
    (items 3 and 4) can be avoided by not using the option with Non-
    confirmable requests in tentative use.  Clients that know that the
-   server supports _any_ Uri-Path-Abbrev value can trust the server to
-   reliably produce a 4.02 Bad Option response for unsupported Uri-Path-
-   Abbrev values.
+   server supports _any specific_ Uri-Path-Abbrev value can trust the
+   server to reliably produce a 4.02 Bad Option response for unsupported
+   Uri-Path-Abbrev values.
 
    As CoAP multicast requests generally do not result in error responses
    being returned (but rather, suppressed), tentative use is not
@@ -298,6 +298,7 @@ Table of Contents
 
    A proxy receiving a request MAY expand into Uri-Path options, or
    abbreviate to a Uri-Path-Abbrev option, before consulting its cache.
+   Analogous considerations apply to a client cache.
 
    It MAY expand a Uri-Path-Abbrev option before forwarding, in
    particular if it has reason to assume that the option is not
@@ -331,9 +332,9 @@ Table of Contents
    significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-Cri
    option.  This Proxy-Uri/-Cri conversion will get reverted to Uri-*
    options before or at the final hop where the final hop is not proxy
-   forwarding.  It is thus generally inconsequential to the client and
-   the server that Proxy-Uri/-Cri and Uri-Path-Abbrev occur in the same
-   message in such a case.
+   forwarding.  The split into conflicting options is thus generally
+   inconsequential to the client and the server in such a case, because
+   a split is never processed in either.
 
    Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-
    Abbrev option (that is, servers that are not forwarding like proxies,
@@ -343,26 +344,7 @@ Table of Contents
    Abbrev option, which entails an error response if both a path segment
    in a Proxy-Uri/-Cri option and Uri-Path-Abbrev option are present.
 
-2.5.  Choice of registered option values
-
-   As detailed in Section 6.2, the numeric values are limited to those
-   whose encoding in CoAP option bytes (as a uint without leading zero
-   bytes) starts with a zero bit: This provides one value of a option of
-   zero bytes length (the value 0, allocated in this document to /.well-
-   known/core), 127 values of one byte length, and more of lengths up
-   two to four bytes.  Until (early) allocation is done, authors are
-   encouraged to describe a range from which IANA will then select a
-   free value.
-
-   Allocations should be frugal with the one-byte option values,
-   focusing on applications that are expected to be useful in different
-   constrained ecosystems.
-
-   The expanded path is expected to be a well-known path ([RFC8615]),
-   but it is up to the IETF processes to also admit paths that are not
-   well-known.
-
-2.6.  Choice of the option number
+2.5.  Choice of the option number
 
 
    // RFC-Editor: Please remove this section during publication.  It is
@@ -514,16 +496,13 @@ Table of Contents
 6.2.  Uri-Path-Abbrev registry
 
    IANA is requested to establish a new registry in the CoRE Parameters
-   registry group.  The value of the Uri-Path-Abbrev option in a CoAP
-   request corresponds to a URI path entry in this registry.
+   registry group.  The value of the first Uri-Path-Abbrev option in a
+   CoAP request corresponds to a URI path entry in this registry.
 
    The policy for adding any value is IETF Review (as described in
    [RFC8126]).  Change control for the registry follows this document's
    publication stream.  Initial values for the registry are given in
    Table 2.
-
-   Reviewers of specifications that register are encouraged to read
-   Section 2.5 in particular.
 
    The required fields for each registration are:
 
@@ -548,6 +527,16 @@ Table of Contents
    *  Reference.
 
       A document that requested the allocation.
+
+   Reviewer instructions:
+
+   The reviewer is instructed to be frugal with the 128 values that
+   correspond to a single-byte option value, focusing on applications
+   that are expected to be useful in different constrained ecosystems.
+
+   The expanded path is expected to be a well-known path ([RFC8615]),
+   but it is up to the reviewers to exceptionally also admit paths that
+   are not well-known.
 
     +========+================+======================================+
     | Option | Expanded path  | Reference                            |
@@ -591,6 +580,15 @@ Table of Contents
     +--------+----------------+--------------------------------------+
 
          Table 2: Initial values for the Uri-Path-Abbrev registry
+
+6.2.1.  Registry content from documents in draft status
+
+   This section is to be removed before publishing as an RFC.
+
+   If [I-D.ietf-anima-constrained-voucher] is not in publication by the
+   time this document is published, or has not filed some equivalent of
+   an early allocation, then entries 401-403 are to be removed from
+   Table 2 and from Section 3, and placed in that document instead.
 
 7.  References
 
@@ -776,10 +774,10 @@ Appendix A.  RFC7252-5.4.1: Critical Options and Error Messages
 
    This unexplained inconsistency has been present in [RFC7252] since
    its initial publication, apparently without causing much trouble.
-   Section Section 2.2 of this document describes a situation where
-   discovery of option support is more central to at least one use case;
-   not being able to properly perform this discovery for Non-confirmable
-   messages now emerges as an actual defect.
+   Section 2.2 of this document describes a situation where discovery of
+   option support is more central to at least one use case; not being
+   able to properly perform this discovery for Non-confirmable messages
+   now emerges as an actual defect.
 
    This defect is remedied by applying this change:
 
