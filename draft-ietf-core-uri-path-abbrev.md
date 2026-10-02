@@ -178,14 +178,14 @@ which is the Concise Binary Object Representation (CBOR) encoding for the CoAP p
 A CoAP client can use the option instead of one or more Uri-Path option(s) if there is a suitable Uri-Path-Abbrev value
 that can express the requested URI path.
 
-The option SHOULD only be sent when it is known that the CoAP server has support for the concrete value.
+To be efficient, the option should only be sent when it is known that the CoAP server has support for the concrete value.
 This knowledge is typically not learned/discovered, but follows from other specifications mandating support for it.
 
 A client can also send a value if it is merely likely that the server supports it.
 (The decision threshold varies by application, but generally it's closer to 95% than a mere more-likely-than-not.)
 This is called "tentative use" of the option.
 
-In that case, the client needs to reliably detect failure of the option processing,
+In that case, the client MUST reliably detect failure of the option processing,
 and needs to fall back to repeating the request with the URI path spelled out (using Uri-Path options),
 to operate reliably.
 
