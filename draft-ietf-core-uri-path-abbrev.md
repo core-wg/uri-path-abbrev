@@ -201,7 +201,7 @@ To account for legacy servers, the full set of reactions a client can expect is:
 
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
-Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce a
+Clients that know that the server supports *any specific* Uri-Path-Abbrev value can trust the server to reliably produce a
 4.02 Bad Option response for unsupported Uri-Path-Abbrev values.
 
 As CoAP multicast requests generally do not result in error responses being returned (but rather, suppressed),
