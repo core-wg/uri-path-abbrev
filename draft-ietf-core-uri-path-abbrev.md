@@ -243,7 +243,7 @@ When a request gets forwarded through multiple proxies,
 any of them might convert the Uri-\* options (but, when unaware of its significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-Cri option.
 This Proxy-Uri/-Cri conversion will get reverted to Uri-\* options
 before or at the final hop where the final hop is not proxy forwarding.
-It is thus generally inconsequential to the client and the server that Proxy-Uri/-Cri and Uri-Path-Abbrev occur in the same message in such a case.
+The split into conflicting options is thus generally inconsequential to the client and the server in such a case, because a split is never processed in either.
 
 Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-Abbrev option
 (that is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
