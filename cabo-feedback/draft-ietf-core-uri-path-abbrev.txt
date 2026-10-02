@@ -142,13 +142,14 @@ Table of Contents
    The use of a critical CoAP option that is not understood by the
    server has a CoAP response error code (4.02 Bad Option) assigned,
    which generally enables clients to retry without using the critical
-   option.  This mechanism is useful for the abbreviation mechanism of
-   this document.
+   option.  This mechanism is helpful for using the Uri-Path-Abbrev
+   option introduced in this document.
 
-   That mechanism got conflated with the mechanism of _rejecting_ a
-   request established in Section 4.2 of [RFC7252] for handling
-   unprocessable Non-confirmable messages, which makes detection of
-   missing support for a critical option less reliable.
+   The mechanism of handling critical options got conflated with the
+   concept of _rejecting_ a request established in Section 4.2 of
+   [RFC7252] for handling unprocessable Non-confirmable messages, which
+   makes detection of missing support for a critical option less
+   reliable.
 
    Appendix A of this document updates Section 5.4.1 of [RFC7252] to
    repair the behavior of servers when they receive an unsupported

@@ -1294,8 +1294,8 @@ whereas an equivalent Uri-Path-Abbrev option lets the message stay well below th
         </h3>
 <p id="section-1.2-1">The use of a critical CoAP option that is not understood by the server has a CoAP response error code (4.02 Bad Option) assigned,
 which generally enables clients to retry without using the critical option.
-This mechanism is useful for the abbreviation mechanism of this document.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.2-2">That mechanism got conflated with the mechanism of <em>rejecting</em> a request established in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> for handling unprocessable Non-confirmable messages,
+This mechanism is helpful for using the Uri-Path-Abbrev option introduced in this document.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2-2">The mechanism of handling critical options got conflated with the concept of <em>rejecting</em> a request established in <span><a href="https://rfc-editor.org/rfc/rfc7252#section-4.2" class="relref">Section 4.2</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> for handling unprocessable Non-confirmable messages,
 which makes detection of missing support for a critical option less reliable.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
 <p id="section-1.2-3"><a href="#update7252" class="auto internal xref">Appendix A</a> of this document updates <span><a href="https://rfc-editor.org/rfc/rfc7252#section-5.4.1" class="relref">Section 5.4.1</a> of [<a href="#RFC7252" class="cite xref">RFC7252</a>]</span> to repair the behavior of servers when they receive an unsupported critical option in a Non-confirmable message.<a href="#section-1.2-3" class="pilcrow">¶</a></p>
 </section>
