@@ -408,6 +408,14 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
+### Registry content from documents in draft status
+{: removeinrfc}
+
+If {{?I-D.ietf-anima-constrained-voucher}} is not in publication by the time this document is published,
+or has not filed some equivalent of an early allocation,
+then entries 401-403 are to be removed from {{initial-table}} and from {{initial}},
+and placed in that document instead.
+
 --- back
 
 # RFC7252-5.4.1: Critical Options and Error Messages {#update7252}
