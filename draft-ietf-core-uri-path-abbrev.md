@@ -94,9 +94,9 @@ whereas an equivalent Uri-Path-Abbrev option lets the message stay well below th
 
 The use of a critical CoAP option that is not understood by the server has a CoAP response error code (4.02 Bad Option) assigned,
 which generally enables clients to retry without using the critical option.
-This mechanism is useful for the abbreviation mechanism of this document.
+This mechanism is helpful for using the Uri-Path-Abbrev option introduced in this document.
 
-That mechanism got conflated with the mechanism of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable Non-confirmable messages,
+The mechanism of handling critical options got conflated with the concept of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable Non-confirmable messages,
 which makes detection of missing support for a critical option less reliable.
 
 {{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to repair the behavior of servers when they receive an unsupported critical option in a Non-confirmable message.
