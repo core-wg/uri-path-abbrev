@@ -53,7 +53,7 @@ informative:
 Applications built on CoAP face a conflict between the technical need for short message sizes
 and the interoperability requirement of following BCP190
 and thus using (relatively verbose) well-known URI paths.
-This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes.
+This document introduces the Uri-Path-Abbrev CoAP option that allows expressing well-known URI paths in as little as two bytes in many cases.
 
 Using this option revealed a subtle flaw in RFC7252 that severely limited the extension point of critical options.
 This document updates RFC7252 to rectify that.
@@ -94,9 +94,9 @@ whereas an equivalent Uri-Path-Abbrev option lets the message stay well below th
 
 The use of a critical CoAP option that is not understood by the server has a CoAP response error code (4.02 Bad Option) assigned,
 which generally enables clients to retry without using the critical option.
-This mechanism is useful for the abbreviation mechanism of this document.
+This mechanism is helpful for using the Uri-Path-Abbrev option introduced in this document.
 
-That mechanism got conflated with the mechanism of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable Non-confirmable messages,
+The mechanism of handling critical options got conflated with the concept of *rejecting* a request established in {{Section 4.2 of RFC7252}} for handling unprocessable Non-confirmable messages,
 which makes detection of missing support for a critical option less reliable.
 
 {{update7252}} of this document updates {{Section 5.4.1 of RFC7252}} to repair the behavior of servers when they receive an unsupported critical option in a Non-confirmable message.
@@ -142,7 +142,7 @@ The numeric values are coordinated by IANA in the Uri-Path-Abbrev registry estab
 
 The option is critical, safe-to-forward, part of the Cache-Key, non-repeatable
 and used in CoAP requests.
-{{option-table}} summarizes these properties, extending Table 4 of {{RFC7252}}).
+{{option-table}} summarizes these properties, extending Table 4 of {{RFC7252}}.
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
 The option has an unsigned integer value taken
@@ -178,14 +178,14 @@ which is the Concise Binary Object Representation (CBOR) encoding for the CoAP p
 A CoAP client can use the option instead of one or more Uri-Path option(s) if there is a suitable Uri-Path-Abbrev value
 that can express the requested URI path.
 
-The option SHOULD only be sent when it is known that the CoAP server has support for the concrete value.
+To be efficient, the option should only be sent when it is known that the CoAP server has support for the concrete value.
 This knowledge is typically not learned/discovered, but follows from other specifications mandating support for it.
 
 A client can also send a value if it is merely likely that the server supports it.
 (The decision threshold varies by application, but generally it's closer to 95% than a mere more-likely-than-not.)
 This is called "tentative use" of the option.
 
-In that case, the client needs to reliably detect failure of the option processing,
+In that case, the client MUST reliably detect failure of the option processing,
 and needs to fall back to repeating the request with the URI path spelled out (using Uri-Path options),
 to operate reliably.
 
@@ -201,7 +201,7 @@ To account for legacy servers, the full set of reactions a client can expect is:
 
 Some of the complexity of detecting lack of server-side support (items 3 and 4) can be avoided
 by not using the option with Non-confirmable requests in tentative use.
-Clients that know that the server supports *any* Uri-Path-Abbrev value can trust the server to reliably produce a
+Clients that know that the server supports *any specific* Uri-Path-Abbrev value can trust the server to reliably produce a
 4.02 Bad Option response for unsupported Uri-Path-Abbrev values.
 
 As CoAP multicast requests generally do not result in error responses being returned (but rather, suppressed),
@@ -214,6 +214,7 @@ because conditions for tentative use are generally not met in this case.
 ## Proxy processing
 
 A proxy receiving a request MAY expand into Uri-Path options, or abbreviate to a Uri-Path-Abbrev option, before consulting its cache.
+Analogous considerations apply to a client cache.
 
 It MAY expand a Uri-Path-Abbrev option before forwarding,
 in particular if it has reason to assume that the option is not understood by the receiver.
@@ -242,7 +243,7 @@ When a request gets forwarded through multiple proxies,
 any of them might convert the Uri-\* options (but, when unaware of its significance, not Uri-Path-Abbrev) into a single Proxy-Uri/-Cri option.
 This Proxy-Uri/-Cri conversion will get reverted to Uri-\* options
 before or at the final hop where the final hop is not proxy forwarding.
-It is thus generally inconsequential to the client and the server that Proxy-Uri/-Cri and Uri-Path-Abbrev occur in the same message in such a case.
+The split into conflicting options is thus generally inconsequential to the client and the server in such a case, because a split is never processed in either.
 
 Endpoints that process both the Proxy-Uri/-Cri and the Uri-Path-Abbrev option
 (that is, servers that are not forwarding like proxies, but are regarded as proxies by other proxies),
@@ -407,6 +408,14 @@ but it is up to the reviewers to exceptionally also admit paths that are not wel
 
 <!-- We could also say in prose to take them from there and list the numbers there, but it is useful for later registrant to have a ready-made template in the document that sets things up. -->
 
+### Registry content from documents in draft status
+{: removeinrfc}
+
+If {{?I-D.ietf-anima-constrained-voucher}} is not in publication by the time this document is published,
+or has not filed some equivalent of an early allocation,
+then entries 401-403 are to be removed from {{initial-table}} and from {{initial}},
+and placed in that document instead.
+
 --- back
 
 # RFC7252-5.4.1: Critical Options and Error Messages {#update7252}
@@ -466,7 +475,7 @@ message.
 
 This unexplained inconsistency has been present in {{RFC7252}} since its
 initial publication, apparently without causing much trouble.
-Section {{clientprocessing}} of this document describes a situation where discovery of
+{{clientprocessing}} of this document describes a situation where discovery of
 option support is more central to at least one use case; not being
 able to properly perform this discovery for Non-confirmable messages now
 emerges as an actual defect.
