@@ -142,7 +142,7 @@ The numeric values are coordinated by IANA in the Uri-Path-Abbrev registry estab
 
 The option is critical, safe-to-forward, part of the Cache-Key, non-repeatable
 and used in CoAP requests.
-{{option-table}} summarizes these properties, extending Table 4 of {{RFC7252}}).
+{{option-table}} summarizes these properties, extending Table 4 of {{RFC7252}}.
 Its OSCORE treatment is as Class E ({{?RFC8613}}).
 
 The option has an unsigned integer value taken
